@@ -119,7 +119,42 @@ body {
     from {opacity: 0; transform: translate(-50%, -45%);}
     to {opacity: 1; transform: translate(-50%, -50%);}
 }
+/* HAMBURGER ICON */
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
 
+/* MOBILE NAVIGATION */
+@media (max-width: 900px) {
+
+    .navbar {
+        padding: 20px 30px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .navbar ul {
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background: #0b1d3a;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 30px 0;
+        display: none;
+    }
+
+    .navbar ul.active {
+        display: flex;
+    }
+}
 </style>
 </head>
 
@@ -128,7 +163,12 @@ body {
 <!-- NAVBAR -->
 <div class="navbar" id="navbar">
     <img src="logo-sda.png" alt="SDA Logo">
-    <ul>
+
+    <div class="menu-toggle" id="menu-toggle">
+        ☰
+    </div>
+
+    <ul id="nav-links">
         <li><a href="#">Home</a></li>
         <li><a href="#">Pengumuman</a></li>
         <li><a href="#">Petugas</a></li>
@@ -138,7 +178,6 @@ body {
         <li><a href="#">Hubungi Kami</a></li>
     </ul>
 </div>
-
 <!-- HERO -->
 <section class="hero">
     <img src="gereja-1.jpg" class="active">
@@ -212,6 +251,7 @@ body {
         </div>
 
     </div>
+    </section>
 <!-- PETUGAS SECTION -->
 <section style="padding:100px 60px; background:#ffffff;">
 
@@ -259,7 +299,6 @@ body {
     </div>
 
 </section>
-</section>
 <!-- MUSIC (Homepage Only) -->
 <audio id="bg-music" autoplay loop>
     <source src="music.mp3" type="audio/mpeg">
@@ -267,6 +306,11 @@ body {
 
 <script>
 
+    // MOBILE MENU TOGGLE
+document.getElementById("menu-toggle").addEventListener("click", function() {
+    document.getElementById("nav-links").classList.toggle("active");
+});
+    
 // NAVBAR SCROLL EFFECT
 window.addEventListener("scroll", function() {
     document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50);
