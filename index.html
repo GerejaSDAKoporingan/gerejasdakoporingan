@@ -9,11 +9,6 @@
 <link rel="preload" as="image" href="gereja-1.jpg">
 
 <style>
-
-    .blur-background {
-    filter: blur(6px);
-    transition: 0.3s ease;
-}
     
 /* FADE ANIMATION */
 .fade {
@@ -487,7 +482,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.55);
     opacity: 0;
     pointer-events: none;
     transition: 0.3s ease;
@@ -727,10 +722,8 @@ toggle.addEventListener("click", function() {
 
     if (navLinks.classList.contains("active")) {
         document.body.style.overflow = "hidden";
-        pageContent.classList.add("blur-background");
     } else {
         document.body.style.overflow = "auto";
-        pageContent.classList.remove("blur-background");
     }
 });
 
@@ -738,7 +731,6 @@ overlay.addEventListener("click", function() {
     navLinks.classList.remove("active");
     overlay.classList.remove("active");
     document.body.style.overflow = "auto";
-    pageContent.classList.remove("blur-background");
 });
     
 // Navbar Scroll
