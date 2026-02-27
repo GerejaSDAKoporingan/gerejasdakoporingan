@@ -9,6 +9,71 @@
 <link rel="preload" as="image" href="gereja-1.jpg">
 
 <style>
+
+    /* PETUGAS SECTION */
+.petugas-section {
+    padding: 120px 0;
+    background: #ffffff;
+}
+
+.petugas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.petugas-card {
+    background: #f8f9fb;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+}
+
+.petugas-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.08);
+}
+
+.petugas-card h3 {
+    margin-bottom: 25px;
+    color: #0b1d3a;
+    font-size: 22px;
+    border-left: 4px solid #0b1d3a;
+    padding-left: 12px;
+}
+
+.petugas-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.petugas-item {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 10px;
+}
+
+.petugas-item span {
+    font-size: 13px;
+    color: #777;
+    letter-spacing: 0.5px;
+}
+
+.petugas-item strong {
+    font-size: 15px;
+    color: #222;
+    margin-top: 3px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .petugas-grid {
+        grid-template-columns: 1fr;
+    }
+}
 html {
     scroll-behavior: smooth;
 }
@@ -405,9 +470,9 @@ body {
             <li><a href="#pengumuman">Pengumuman</a></li>
 <li><a href="#petugas">Petugas</a></li>
             <li><a href="ahli-lembaga.html">Ahli Lembaga</a></li>
-            <li><a href="#">Media</a></li>
-            <li><a href="#">Sejarah</a></li>
-            <li><a href="#">Hubungi Kami</a></li>
+            <li><a href="media.html">Media</a></li>
+<li><a href="sejarah.html">Sejarah</a></li>
+<li><a href="hubungi-kami.html">Hubungi Kami</a></li>
         </ul>
     </div>
 </div>
@@ -489,47 +554,91 @@ body {
 
     </div>
 </section>
-<!-- PETUGAS SABAT -->
-<section id="petugas" class="section fade-section">
+<!-- PETUGAS SECTION -->
+<section id="petugas" class="petugas-section">
     <div class="container">
 
-        <div class="section-title">
+        <div class="section-header">
             <h2>Petugas Sabat</h2>
             <p>Sabat Ke-9 | Kuartel 1 (28 Februari 2026)</p>
         </div>
 
-        <div class="grid grid-2">
+        <div class="petugas-grid">
 
             <!-- SEKOLAH SABAT -->
-            <div class="card">
+            <div class="petugas-card fade">
                 <h3>Sekolah Sabat</h3>
+                <div class="petugas-list">
 
-                <p><strong>Pemimpin Nyanyi:</strong> Cik Efy Barangking</p>
-                <p><strong>Lagu Pembuka:</strong> LPMI 104 - Tempat Kediaman di Syurga</p>
-                <p><strong>Pemimpin Acara & Doa:</strong> En Erlandson Keith Subin</p>
-                <p><strong>Cerita Misi:</strong> Pn. Debbie Justin</p>
-                <p><strong>Bacaan Keluarga:</strong> En. Archer Sonny</p>
-                <p><strong>Pianist:</strong> Shane Jayden Jack</p>
-                <p><strong>Media:</strong> En. Joy Brandon</p>
-                <p><strong>Laporan SS:</strong> Cik Christie Cosmas</p>
-                <p><strong>Jurutulis:</strong> Aurellendra & Axl Neve</p>
+                    <div class="petugas-item">
+                        <span>Pemimpin Nyanyi</span>
+                        <strong>Cik Efy Barangking</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Lagu Pembuka</span>
+                        <strong>LPMI 104 - Tempat Kediaman di Syurga</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Pemimpin Acara & Doa</span>
+                        <strong>En Erlandson Keith Subin</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Cerita Misi</span>
+                        <strong>Pn. Debbie Justin</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Bacaan Keluarga</span>
+                        <strong>En. Archer Sonny</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Pianist</span>
+                        <strong>Shane Jayden Jack</strong>
+                    </div>
+
+                </div>
             </div>
 
-            <!-- ACARA KEBAKTIAN -->
-            <div class="card">
+            <!-- KEBAKTIAN KHOTBAH -->
+            <div class="petugas-card fade">
                 <h3>Acara Kebaktian Khotbah</h3>
+                <div class="petugas-list">
 
-                <p><strong>Pemimpin Acara:</strong> En. Joy Brandon Wong</p>
-                <p><strong>Doa Persembahan:</strong> En. Erlandson Keith Subin</p>
-                <p><strong>Doa Pembuka:</strong> En. Raizal Bin Dunggi</p>
-                <p><strong>Pengkhotbah:</strong> Elder Joseph Molondoi</p>
-                <p><strong>Tajuk:</strong> Tuhan Yesus Peduli Kegelisahan Kita</p>
-                <p><strong>Lagu Pembuka:</strong> LPMI 16 - Yesus Terindah</p>
-                <p><strong>Lagu Penutup:</strong> LPMI 204 - Yesus Gembala</p>
-                <p><strong>Diakon:</strong> Elder Subin & En. Jack</p>
-                <p><strong>Persembahan Istimewa:</strong> Kumpulan 6</p>
-                <p><strong>Pianist:</strong> Pn. Naria Grace Clifton</p>
-                <p><strong>Media:</strong> Aurellendra Sonny Tivon</p>
+                    <div class="petugas-item">
+                        <span>Pemimpin Acara</span>
+                        <strong>En. Joy Brandon Wong</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Doa Persembahan</span>
+                        <strong>En. Erlandson Keith Subin</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Doa Pembuka</span>
+                        <strong>En. Raizal Bin Dunggi</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Pengkhotbah</span>
+                        <strong>Elder Joseph Molondoi</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Tajuk</span>
+                        <strong>Tuhan Yesus Peduli Kegelisahan Kita</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Lagu Penutup</span>
+                        <strong>LPMI 204 - Yesus Gembala</strong>
+                    </div>
+
+                </div>
             </div>
 
         </div>
@@ -574,7 +683,7 @@ document.addEventListener('click', function() {
     document.getElementById('bg-music').play();
 });
 // Scroll Fade-In Animation
-const fadeElements = document.querySelectorAll('.fade-section');
+const fadeElements = document.querySelectorAll('.fade');
 
 function checkFade() {
     const triggerBottom = window.innerHeight * 0.85;
