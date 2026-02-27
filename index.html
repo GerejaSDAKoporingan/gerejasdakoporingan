@@ -14,6 +14,8 @@
     
 <link rel="preload" as="image" href="gereja-1.jpg">
 
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+
 <style>
 /* FADE ANIMATION */
 .fade {
@@ -264,20 +266,35 @@ body {
     animation: fadeIn 2s ease forwards;
 }
 
+/* ✨ THE NEW GLOWING, ALL-CAPS TITLE ✨ */
 .hero-content h1 {
-    font-size: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 55px;
+    font-weight: 800;
     margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.8),
+        0 0 30px rgba(255, 255, 255, 0.6),
+        0 0 45px rgba(255, 255, 255, 0.4);
 }
 
+/* Styled the subtitle to match the cinematic feel */
 .hero-content h2 {
-    font-size: 26px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
     font-weight: 400;
     margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #e6e6e6;
 }
 
 .hero-content p {
     font-size: 18px;
     line-height: 1.6;
+    font-style: italic; /* Makes the bible verse look elegant */
 }
 
 @keyframes fadeIn {
@@ -353,11 +370,12 @@ body {
     }
 
     .hero-content h1 {
-        font-size: 34px;
+        font-size: 38px; /* Adjusted slightly so the long name fits nicely on mobile */
     }
 
     .hero-content h2 {
-        font-size: 20px;
+        font-size: 18px;
+        letter-spacing: 3px;
     }
 
     .hero-content p {
