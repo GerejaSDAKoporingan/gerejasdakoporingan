@@ -708,19 +708,25 @@ body {
 </audio>
 
 <script>
-    
+
 const toggle = document.getElementById("menu-toggle");
 const navLinks = document.getElementById("nav-links");
-const overlay = document.getElementById("menu-overlay");
-
+const overlay = document.getElementById("menu-overlay");    
 toggle.addEventListener("click", function() {
     navLinks.classList.toggle("active");
     overlay.classList.toggle("active");
+
+    if (navLinks.classList.contains("active")) {
+        document.body.style.overflow = "hidden";
+    } else {
+        document.body.style.overflow = "auto";
+    }
 });
 
 overlay.addEventListener("click", function() {
     navLinks.classList.remove("active");
     overlay.classList.remove("active");
+    document.body.style.overflow = "auto";
 });
     
 // Navbar Scroll
