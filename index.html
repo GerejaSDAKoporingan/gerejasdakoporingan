@@ -9,7 +9,17 @@
 <link rel="preload" as="image" href="gereja-1.jpg">
 
 <style>
+/* FADE ANIMATION */
+.fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.8s ease;
+}
 
+.fade.show {
+    opacity: 1;
+    transform: translateY(0);
+}
     /* PETUGAS SECTION */
 .petugas-section {
     padding: 120px 0;
@@ -645,6 +655,16 @@ body {
 
     </div>
 </section>
+    <!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <p>
+            © 2026–2027 Gereja SDA Koporingan<br>
+            Developed and maintained by Jabatan Multimedia & Penerbitan<br>
+            Erlandson Keith Subin
+        </p>
+    </div>
+</footer>
     <!-- WHATSAPP FLOATING BUTTON -->
 <a href="https://wa.me/60146536328?text=Salam%20sejahtera,%20saya%20ingin%20bertanya%20mengenai%20Gereja%20SDA%20Koporingan."
    class="whatsapp-btn"
