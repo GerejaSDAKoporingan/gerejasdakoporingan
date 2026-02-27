@@ -300,22 +300,32 @@ body {
 
     .menu-toggle {
         display: block;
+        z-index: 1100;
     }
 
     .navbar ul {
-        position: absolute;
-        top: 80px;
-        right: 0;
-        background: #0b1d3a;
-        width: 100%;
+        position: fixed;
+        top: 0;
+        right: -280px;
+        width: 260px;
+        height: 100vh;
+        background: rgba(11, 29, 58, 0.85);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
         flex-direction: column;
-        align-items: center;
-        padding: 30px 0;
-        display: none;
+        align-items: flex-start;
+        padding: 120px 30px;
+        gap: 25px;
+        transition: right 0.4s ease;
+    }
+
+    .navbar ul li a {
+        font-size: 16px;
+        width: 100%;
     }
 
     .navbar ul.active {
-        display: flex;
+        right: 0;
     }
 
     .hero-content h1 {
@@ -465,11 +475,32 @@ body {
     font-size: 13px;
     color: #777;
 }
+/* MOBILE MENU OVERLAY */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+    z-index: 1050;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
 </style>
 </head>
 
 <body>
-
+    
+<div class="menu-overlay" id="menu-overlay"></div>
+    
 <!-- NAVBAR -->
 <div class="navbar" id="navbar">
     <div class="nav-inner">
@@ -677,12 +708,21 @@ body {
 </audio>
 
 <script>
+    
+const toggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
+const overlay = document.getElementById("menu-overlay");
 
-// Mobile Menu
-document.getElementById("menu-toggle").addEventListener("click", function() {
-    document.getElementById("nav-links").classList.toggle("active");
+toggle.addEventListener("click", function() {
+    navLinks.classList.toggle("active");
+    overlay.classList.toggle("active");
 });
 
+overlay.addEventListener("click", function() {
+    navLinks.classList.remove("active");
+    overlay.classList.remove("active");
+});
+    
 // Navbar Scroll
 window.addEventListener("scroll", function() {
     document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50);
