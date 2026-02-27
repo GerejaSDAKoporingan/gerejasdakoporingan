@@ -9,7 +9,9 @@
 <link rel="preload" as="image" href="gereja-1.jpg">
 
 <style>
-
+html {
+    scroll-behavior: smooth;
+}
 /* ================= RESET ================= */
 * {
     margin: 0;
@@ -284,6 +286,17 @@ body {
     70% { box-shadow: 0 0 0 15px rgba(37,211,102, 0); }
     100% { box-shadow: 0 0 0 0 rgba(37,211,102, 0); }
 }
+/* ================= SCROLL ANIMATION ================= */
+.fade-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+.fade-section.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 </style>
 </head>
 
@@ -296,8 +309,8 @@ body {
         <div class="menu-toggle" id="menu-toggle">☰</div>
         <ul id="nav-links">
             <li><a href="#">Home</a></li>
-            <li><a href="#">Pengumuman</a></li>
-            <li><a href="#">Petugas</a></li>
+            <li><a href="#pengumuman">Pengumuman</a></li>
+<li><a href="#petugas">Petugas</a></li>
             <li><a href="#">Ahli Lembaga</a></li>
             <li><a href="#">Media</a></li>
             <li><a href="#">Sejarah</a></li>
@@ -325,7 +338,7 @@ body {
 </section>
 
 <!-- PENGUMUMAN -->
-<section class="section section-light">
+<section id="pengumuman" class="section section-light fade-section">
     <div class="container">
 
         <div class="section-title">
@@ -358,7 +371,7 @@ body {
     </div>
 </section>
 <!-- PETUGAS SABAT -->
-<section class="section">
+<section id="petugas" class="section fade-section">
     <div class="container">
 
         <div class="section-title">
@@ -441,7 +454,23 @@ setInterval(() => {
 document.addEventListener('click', function() {
     document.getElementById('bg-music').play();
 });
+// Scroll Fade-In Animation
+const fadeElements = document.querySelectorAll('.fade-section');
 
+function checkFade() {
+    const triggerBottom = window.innerHeight * 0.85;
+
+    fadeElements.forEach(el => {
+        const boxTop = el.getBoundingClientRect().top;
+
+        if (boxTop < triggerBottom) {
+            el.classList.add('show');
+        }
+    });
+}
+
+window.addEventListener('scroll', checkFade);
+window.addEventListener('load', checkFade);
 </script>
 
 </body>
