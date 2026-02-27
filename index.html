@@ -9,6 +9,12 @@
 <link rel="preload" as="image" href="gereja-1.jpg">
 
 <style>
+
+    .blur-background {
+    filter: blur(6px);
+    transition: 0.3s ease;
+}
+    
 /* FADE ANIMATION */
 .fade {
     opacity: 0;
@@ -484,7 +490,6 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
     opacity: 0;
     pointer-events: none;
     transition: 0.3s ease;
@@ -499,11 +504,13 @@ body {
 </head>
 
 <body>
-    
+
 <div class="menu-overlay" id="menu-overlay"></div>
-    
+
+<div id="page-content">
+
 <!-- NAVBAR -->
-<div class="navbar" id="navbar">
+<div class="navbar">
     <div class="nav-inner">
         <img src="logo-sda.png" alt="SDA Logo">
         <div class="menu-toggle" id="menu-toggle">☰</div>
@@ -707,20 +714,25 @@ body {
 <audio id="bg-music" autoplay loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
-
+    
+</div> <!-- end page-content -->
+    
 <script>
 
 const toggle = document.getElementById("menu-toggle");
 const navLinks = document.getElementById("nav-links");
-const overlay = document.getElementById("menu-overlay");    
+const overlay = document.getElementById("menu-overlay");   
+const pageContent = document.getElementById("page-content");
 toggle.addEventListener("click", function() {
     navLinks.classList.toggle("active");
     overlay.classList.toggle("active");
 
     if (navLinks.classList.contains("active")) {
         document.body.style.overflow = "hidden";
+        pageContent.classList.add("blur-background");
     } else {
         document.body.style.overflow = "auto";
+        pageContent.classList.remove("blur-background");
     }
 });
 
@@ -728,6 +740,7 @@ overlay.addEventListener("click", function() {
     navLinks.classList.remove("active");
     overlay.classList.remove("active");
     document.body.style.overflow = "auto";
+    pageContent.classList.remove("blur-background");
 });
     
 // Navbar Scroll
