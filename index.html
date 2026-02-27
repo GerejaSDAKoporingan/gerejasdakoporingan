@@ -5,98 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GEREJA SDA KOPORINGAN</title>
 
-<!-- Preload First Hero Image -->
 <link rel="preload" as="image" href="gereja-1.jpg">
-    
+
 <style>
 
-.section {
-    padding: 100px 0;
+html {
+    scroll-behavior: smooth;
 }
 
 section {
     scroll-margin-top: 120px;
-}    
-    
-/* FADE ANIMATION */
-.fade {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 0.8s ease;
 }
 
-.fade.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-    /* PETUGAS SECTION */
-.petugas-section {
-    padding: 120px 0;
-    background: #ffffff;
-}
-
-.petugas-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-}
-
-.petugas-card {
-    background: #f8f9fb;
-    padding: 40px;
-    border-radius: 18px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.05);
-    transition: 0.3s ease;
-}
-
-.petugas-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 18px 50px rgba(0,0,0,0.08);
-}
-
-.petugas-card h3 {
-    margin-bottom: 25px;
-    color: #0b1d3a;
-    font-size: 22px;
-    border-left: 4px solid #0b1d3a;
-    padding-left: 12px;
-}
-
-.petugas-list {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-.petugas-item {
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid #e6e6e6;
-    padding-bottom: 10px;
-}
-
-.petugas-item span {
-    font-size: 13px;
-    color: #777;
-    letter-spacing: 0.5px;
-}
-
-.petugas-item strong {
-    font-size: 15px;
-    color: #222;
-    margin-top: 3px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-    .petugas-grid {
-        grid-template-columns: 1fr;
-    }
-}
-html {
-    scroll-behavior: smooth;
-}
-/* ================= RESET ================= */
+/* RESET */
 * {
     margin: 0;
     padding: 0;
@@ -110,23 +31,20 @@ body {
     color: #222;
 }
 
-/* ================= CONTAINER ================= */
+/* CONTAINER */
 .container {
     width: 90%;
     max-width: 1200px;
     margin: auto;
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 .navbar {
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     transition: 0.4s ease;
     z-index: 1000;
 }
@@ -146,7 +64,7 @@ body {
 }
 
 .navbar img {
-    height: 50px;
+    height: 55px;
 }
 
 .navbar ul {
@@ -159,14 +77,8 @@ body {
     text-decoration: none;
     color: white;
     font-weight: 500;
-    transition: 0.3s;
 }
 
-.navbar ul li a:hover {
-    color: #d63b3b;
-}
-
-/* HAMBURGER */
 .menu-toggle {
     display: none;
     font-size: 28px;
@@ -174,7 +86,7 @@ body {
     cursor: pointer;
 }
 
-/* ================= HERO ================= */
+/* HERO */
 .hero {
     height: 100vh;
     position: relative;
@@ -210,7 +122,6 @@ body {
     color: white;
     width: 90%;
     max-width: 800px;
-    animation: fadeIn 2s ease forwards;
 }
 
 .hero-content h1 {
@@ -224,273 +135,39 @@ body {
     margin-bottom: 25px;
 }
 
-.hero-content p {
-    font-size: 18px;
-    line-height: 1.6;
-}
-
-@keyframes fadeIn {
-    from {opacity: 0; transform: translate(-50%, -45%);}
-    to {opacity: 1; transform: translate(-50%, -50%);}
-}
-
-/* ================= SECTIONS ================= */
-.section {
-    padding: 100px 0;
-}
-
-.section-light {
-    background: #f8f9fb;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.section-title h2 {
-    font-size: 36px;
-    color: #0b1d3a;
-}
-
-.section-title p {
-    color: #555;
-    margin-top: 10px;
-}
-
-/* ================= CARDS ================= */
-.grid {
-    display: grid;
-    gap: 30px;
-}
-
-.grid-3 {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.grid-2 {
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-}
-
-.card {
-    background: white;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    transition: 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-.card h3 {
-    color: #0b1d3a;
-    margin-bottom: 15px;
-}
-
-/* ================= PROGRESS BAR ================= */
-.progress {
-    background: #eee;
-    border-radius: 20px;
-    overflow: hidden;
-    height: 12px;
-    margin-top: 15px;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 38%;
-    background: #0b1d3a;
-}
-
-/* ================= MOBILE ================= */
+/* MOBILE MENU */
 @media (max-width: 900px) {
 
     .menu-toggle {
         display: block;
-        z-index: 1100;
+        z-index: 1101;
     }
 
     .navbar ul {
         position: fixed;
         top: 0;
         right: -280px;
-        z-index: 1100;
         width: 260px;
         height: 100vh;
         background: #0b1d3a;
         flex-direction: column;
-        align-items: flex-start;
         padding: 120px 30px;
         gap: 25px;
         transition: right 0.4s ease;
-    }
-
-    .navbar ul li a {
-        font-size: 16px;
-        width: 100%;
+        z-index: 1100;
     }
 
     .navbar ul.active {
         right: 0;
     }
-
-    .hero-content h1 {
-        font-size: 34px;
-    }
-
-    .hero-content h2 {
-        font-size: 20px;
-    }
-
-    .hero-content p {
-        font-size: 15px;
-    }
-
-    .section {
-        padding: 70px 0;
-    }
-}
-/* ================= WHATSAPP BUTTON ================= */
-.whatsapp-btn {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: #25D366;
-    color: white;
-    padding: 14px 22px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    transition: 0.3s ease;
-    z-index: 999;
-    animation: pulse 2s infinite;
 }
 
-.whatsapp-btn:hover {
-    background: #1ebe5d;
-    transform: translateY(-3px);
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(37,211,102, 0.6); }
-    70% { box-shadow: 0 0 0 15px rgba(37,211,102, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(37,211,102, 0); }
-}
-/* ================= SCROLL ANIMATION ================= */
-.fade-section {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease;
-}
-
-.fade-section.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-/* SECTION HEADER */
-.section-header {
-    text-align: center;
-    margin-bottom: 70px;
-}
-
-.section-header h2 {
-    font-size: 38px;
-    color: #0b1d3a;
-    margin-bottom: 10px;
-}
-
-.section-header p {
-    color: #666;
-    font-size: 16px;
-}
-
-/* ANNOUNCEMENT SECTION */
-.announcement-section {
-    padding: 120px 0;
-    background: #f8f9fb;
-}
-
-.announcement-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 35px;
-}
-
-.announcement-card {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.05);
-    position: relative;
-    transition: 0.3s ease;
-}
-
-.announcement-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-}
-
-.announcement-card h3 {
-    margin-bottom: 15px;
-    color: #0b1d3a;
-}
-
-.announcement-card p {
-    margin-bottom: 8px;
-    color: #444;
-    font-size: 15px;
-}
-
-/* DATE BADGE */
-.event-date {
-    position: absolute;
-    top: -15px;
-    left: 20px;
-    background: #0b1d3a;
-    color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    letter-spacing: 1px;
-}
-
-.event-date.accent {
-    background: #d63b3b;
-}
-
-/* PROGRESS BAR */
-.progress-bar {
-    width: 100%;
-    height: 10px;
-    background: #eee;
-    border-radius: 20px;
-    margin-top: 15px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: #0b1d3a;
-    border-radius: 20px;
-}
-
-.progress-text {
-    display: block;
-    margin-top: 8px;
-    font-size: 13px;
-    color: #777;
-}
-/* MOBILE MENU OVERLAY */
+/* OVERLAY */
 .menu-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.55);
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
     opacity: 0;
     pointer-events: none;
     transition: 0.3s ease;
@@ -501,13 +178,14 @@ body {
     opacity: 1;
     pointer-events: auto;
 }
+
 </style>
 </head>
 
 <body>
 
-    <div id="top"></div>
-    
+<div id="top"></div>
+
 <div class="menu-overlay" id="menu-overlay"></div>
 
 <div id="page-content">
@@ -520,252 +198,97 @@ body {
         <ul id="nav-links">
             <li><a href="#top">Home</a></li>
             <li><a href="#pengumuman">Pengumuman</a></li>
-<li><a href="#petugas">Petugas</a></li>
+            <li><a href="#petugas">Petugas</a></li>
             <li><a href="ahli-lembaga.html">Ahli Lembaga</a></li>
             <li><a href="media.html">Media</a></li>
-<li><a href="sejarah.html">Sejarah</a></li>
-<li><a href="hubungi-kami.html">Hubungi Kami</a></li>
+            <li><a href="sejarah.html">Sejarah</a></li>
+            <li><a href="hubungi-kami.html">Hubungi Kami</a></li>
         </ul>
     </div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-    <img src="gereja-1.jpg" class="active" loading="eager">
-    <img src="gereja-2.jpg" loading="lazy">
-    <img src="gereja-3.jpg" loading="lazy">
+    <img src="gereja-1.jpg" class="active">
+    <img src="gereja-2.jpg">
+    <img src="gereja-3.jpg">
     <div class="overlay"></div>
 
     <div class="hero-content">
         <h1>Gereja SDA Koporingan</h1>
         <h2>Selamat Datang</h2>
         <p>
-            “Aku bersukacita, ketika dikatakan orang kepadaku:<br>
-            ‘Mari kita pergi ke rumah TUHAN.”<br>
-            — Mazmur 122:1 (ITB)
+            “Aku bersukacita ketika dikatakan orang kepadaku:<br>
+            Mari kita pergi ke rumah TUHAN.”<br>
+            — Mazmur 122:1
         </p>
     </div>
 </section>
 
-<!-- PENGUMUMAN SECTION -->
-<section id="pengumuman" class="announcement-section">
-    <div class="container">
+</div>
 
-        <div class="section-header">
-            <h2>Pengumuman Gereja</h2>
-            <p>Makluman terkini untuk semua anggota gereja</p>
-        </div>
-
-        <div class="announcement-grid">
-
-            <!-- Event Card -->
-            <div class="announcement-card fade">
-                <div class="event-date">28 FEB</div>
-                <h3>Mesyuarat Pelayanan Wanita</h3>
-                <p><strong>Masa:</strong> 2.00 Petang</p>
-                <p><strong>Tempat:</strong> Gereja SDA Koporingan</p>
-                <p><strong>Sasaran:</strong> Semua Pelayanan Wanita</p>
-            </div>
-
-            <div class="announcement-card fade">
-                <div class="event-date">01 MAC</div>
-                <h3>Gotong Royong Gereja</h3>
-                <p><strong>Masa:</strong> 7.30 Pagi</p>
-                <p><strong>Tempat:</strong> Gereja SDA Koporingan</p>
-                <p><strong>Sasaran:</strong> Semua anggota gereja</p>
-            </div>
-
-            <div class="announcement-card fade">
-                <div class="event-date accent">SASARAN</div>
-                <h3>Pungutan Pembaikan Piano</h3>
-                <p><strong>Sasaran:</strong> RM3000</p>
-                <p><strong>Terkumpul:</strong> RM1136.30</p>
-
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width:38%;"></div>
-                </div>
-
-                <span class="progress-text">38% terkumpul</span>
-            </div>
-
-            <div class="announcement-card fade">
-                <div class="event-date">INFO</div>
-                <h3>Bayaran Pembersihan</h3>
-                <p>RM10 setiap keluarga sebulan</p>
-                <p>Bayaran kepada: Pn. Debbie Justin</p>
-            </div>
-
-            <div class="announcement-card fade">
-                <div class="event-date">07 MAC</div>
-                <h3>Aktiviti Jabatan Pendidikan</h3>
-                <p>Kuiz Alkitab</p>
-                <p>Bacaan: Kitab Kejadian</p>
-            </div>
-
-        </div>
-
-    </div>
-</section>
-<!-- PETUGAS SECTION -->
-<section id="petugas" class="petugas-section">
-    <div class="container">
-
-        <div class="section-header">
-            <h2>Petugas Sabat</h2>
-            <p>Sabat Ke-9 | Kuartel 1 (28 Februari 2026)</p>
-        </div>
-
-        <div class="petugas-grid">
-
-            <!-- SEKOLAH SABAT -->
-            <div class="petugas-card fade">
-                <h3>Sekolah Sabat</h3>
-                <div class="petugas-list">
-
-                    <div class="petugas-item">
-                        <span>Pemimpin Nyanyi</span>
-                        <strong>Cik Efy Barangking</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Lagu Pembuka</span>
-                        <strong>LPMI 104 - Tempat Kediaman di Syurga</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Pemimpin Acara & Doa</span>
-                        <strong>En Erlandson Keith Subin</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Cerita Misi</span>
-                        <strong>Pn. Debbie Justin</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Bacaan Keluarga</span>
-                        <strong>En. Archer Sonny</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Pianist</span>
-                        <strong>Shane Jayden Jack</strong>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- KEBAKTIAN KHOTBAH -->
-            <div class="petugas-card fade">
-                <h3>Acara Kebaktian Khotbah</h3>
-                <div class="petugas-list">
-
-                    <div class="petugas-item">
-                        <span>Pemimpin Acara</span>
-                        <strong>En. Joy Brandon Wong</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Doa Persembahan</span>
-                        <strong>En. Erlandson Keith Subin</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Doa Pembuka</span>
-                        <strong>En. Raizal Bin Dunggi</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Pengkhotbah</span>
-                        <strong>Elder Joseph Molondoi</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Tajuk</span>
-                        <strong>Tuhan Yesus Peduli Kegelisahan Kita</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Lagu Penutup</span>
-                        <strong>LPMI 204 - Yesus Gembala</strong>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</section>
-    <!-- FOOTER -->
-<footer class="footer">
-    <div class="container">
-        <p>
-            © 2026–2027 Gereja SDA Koporingan<br>
-            Developed and maintained by Jabatan Multimedia & Penerbitan<br>
-            Erlandson Keith Subin
-        </p>
-    </div>
-</footer>
-    <!-- WHATSAPP FLOATING BUTTON -->
-<a href="https://wa.me/60146536328?text=Salam%20sejahtera,%20saya%20ingin%20bertanya%20mengenai%20Gereja%20SDA%20Koporingan."
-   class="whatsapp-btn"
-   target="_blank">
-   WhatsApp
-</a>
-<!-- MUSIC -->
-<audio id="bg-music" autoplay loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
-    
-</div> <!-- end page-content -->
-    
 <script>
-  
+
+/* NAVIGATION FIX FOR MOBILE SAFARI */
+
 const toggle = document.getElementById("menu-toggle");
 const navLinks = document.getElementById("nav-links");
 const overlay = document.getElementById("menu-overlay");
 const menuLinks = document.querySelectorAll("#nav-links a");
 
-// Toggle menu
 toggle.addEventListener("click", function() {
     navLinks.classList.toggle("active");
     overlay.classList.toggle("active");
-
-    if (navLinks.classList.contains("active")) {
-        document.body.style.overflow = "hidden";
-    } else {
-        document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = navLinks.classList.contains("active") ? "hidden" : "auto";
 });
 
-// Close menu + smooth scroll
+overlay.addEventListener("click", function() {
+    navLinks.classList.remove("active");
+    overlay.classList.remove("active");
+    document.body.style.overflow = "auto";
+});
+
+/* SAFARI-SAFE SCROLL */
 menuLinks.forEach(link => {
     link.addEventListener("click", function(e) {
+
+        const targetId = this.getAttribute("href");
 
         navLinks.classList.remove("active");
         overlay.classList.remove("active");
         document.body.style.overflow = "auto";
 
-        const targetId = this.getAttribute("href");
-
         if (targetId.startsWith("#")) {
-            e.preventDefault(); // stop default jump
+            e.preventDefault();
+
             const targetSection = document.querySelector(targetId);
             if (targetSection) {
-                targetSection.scrollIntoView({ behavior: "smooth" });
+
+                const navbarHeight = document.getElementById("navbar").offsetHeight;
+
+                const targetPosition =
+                    targetSection.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    navbarHeight;
+
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: "smooth"
+                    });
+                }, 300);
             }
         }
     });
 });
 
-// Navbar scroll background
+/* NAVBAR SCROLL EFFECT */
 window.addEventListener("scroll", function() {
     document.getElementById("navbar")
         .classList.toggle("scrolled", window.scrollY > 50);
 });
 
-// Hero Slider
+/* HERO SLIDER */
 let slides = document.querySelectorAll(".hero img");
 let current = 0;
 
@@ -775,27 +298,6 @@ setInterval(() => {
     slides[current].classList.add("active");
 }, 9000);
 
-// Music Fallback
-document.addEventListener('click', function() {
-    document.getElementById('bg-music').play();
-});
-// Scroll Fade-In Animation
-const fadeElements = document.querySelectorAll('.fade');
-
-function checkFade() {
-    const triggerBottom = window.innerHeight * 0.85;
-
-    fadeElements.forEach(el => {
-        const boxTop = el.getBoundingClientRect().top;
-
-        if (boxTop < triggerBottom) {
-            el.classList.add('show');
-        }
-    });
-}
-
-window.addEventListener('scroll', checkFade);
-window.addEventListener('load', checkFade);
 </script>
 
 </body>
