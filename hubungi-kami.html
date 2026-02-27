@@ -18,6 +18,7 @@
 body {
     background: #ffffff;
     color: #222;
+    line-height: 1.8;
 }
 
 /* CONTAINER */
@@ -94,40 +95,39 @@ body {
     color: #555;
 }
 
-/* SECTION */
+/* CONTACT SECTION */
 .section {
     padding: 80px 0;
 }
 
-/* GRID */
-.grid {
+.contact-grid {
     display: grid;
-    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
 }
 
-.grid-2 {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-/* CARD */
-.card {
+.contact-box {
     background: #ffffff;
-    padding: 35px;
-    border-radius: 14px;
+    padding: 40px;
+    border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-.card h3 {
-    color: #0b1d3a;
+.contact-box h3 {
     margin-bottom: 20px;
+    color: #0b1d3a;
 }
 
-/* MAP */
-.map iframe {
+.contact-box p {
+    margin-bottom: 10px;
+}
+
+/* MAP RESPONSIVE */
+.map-container {
     width: 100%;
     height: 350px;
-    border-radius: 14px;
-    border: none;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 /* FADE */
@@ -140,6 +140,17 @@ body {
 .fade.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* FOOTER */
+.footer {
+    background: #0b1d3a;
+    color: #ffffff;
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 /* MOBILE */
@@ -165,10 +176,21 @@ body {
         display: flex;
     }
 
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
     .banner h1 {
         font-size: 28px;
     }
 
+    .contact-box {
+        padding: 25px;
+    }
+
+    .map-container {
+        height: 300px;
+    }
 }
 
 </style>
@@ -197,54 +219,61 @@ body {
 <section class="banner">
     <div class="container">
         <h1>Hubungi Kami</h1>
-        <p>Kami sedia membantu dan mengalu-alukan kedatangan anda</p>
+        <p>Maklumat dan waktu kebaktian Gereja SDA Koporingan</p>
     </div>
 </section>
 
-<!-- CONTENT -->
+<!-- CONTACT CONTENT -->
 <section class="section">
     <div class="container">
-        <div class="grid grid-2">
+        <div class="contact-grid">
 
-            <!-- CONTACT INFO -->
-            <div class="card fade">
+            <!-- INFO -->
+            <div class="contact-box fade">
                 <h3>Maklumat Gereja</h3>
                 <p><strong>Alamat:</strong><br>
                 Kampung Koporingan,<br>
                 89257 Tamparuli, Sabah</p>
 
-                <p style="margin-top:15px;">
-                <strong>Email:</strong><br>
-                gerejasdakoporingan@gmail.com
-                </p>
+                <p><strong>Email:</strong><br>
+                gerejasdakoporingan@gmail.com</p>
 
-                <p style="margin-top:25px;">
-                <strong>Waktu Ibadah:</strong><br><br>
+                <br>
 
-                Kebaktian Sabat:<br>
-                Sabtu | 9.00 am – 12.30 pm<br><br>
-
-                Sekolah Sabat:<br>
-                Sabtu | 9.45 am – 11.45 am<br><br>
-
-                AY:<br>
-                Sabtu | 3.00 pm – 4.00 pm<br><br>
-
-                Minggu Sembahyang:<br>
-                Rabu | 7.00 pm – 8.00 pm
-                </p>
+                <h3>Waktu Kebaktian</h3>
+                <p>Sabtu | 9.00 am – 12.30 pm</p>
+                <p>Sekolah Sabat | 9.45 am – 11.45 am</p>
+                <p>AY | 3.00 pm – 4.00 pm</p>
+                <p>Rabu | 7.00 pm – 8.00 pm</p>
             </div>
 
             <!-- MAP -->
-            <div class="map fade">
-                <iframe
-                    src="https://www.google.com/maps?q=Kampung+Koporingan,+Tamparuli,+Sabah&output=embed">
+            <div class="map-container fade">
+                <!-- Replace the src with your real embed link -->
+                <iframe 
+                    src="https://www.google.com/maps?q=Kampung%20Koporingan%20Tamparuli&output=embed"
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
                 </iframe>
             </div>
 
         </div>
     </div>
 </section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <p>
+            © 2026–2027 Gereja SDA Koporingan<br>
+            Developed and maintained by Jabatan Multimedia & Penerbitan<br>
+            Erlandson Keith Subin
+        </p>
+    </div>
+</footer>
 
 <script>
 
