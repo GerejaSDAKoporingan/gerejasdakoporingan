@@ -297,6 +297,99 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
+/* SECTION HEADER */
+.section-header {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.section-header h2 {
+    font-size: 38px;
+    color: #0b1d3a;
+    margin-bottom: 10px;
+}
+
+.section-header p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* ANNOUNCEMENT SECTION */
+.announcement-section {
+    padding: 120px 0;
+    background: #f8f9fb;
+}
+
+.announcement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 35px;
+}
+
+.announcement-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.05);
+    position: relative;
+    transition: 0.3s ease;
+}
+
+.announcement-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+
+.announcement-card h3 {
+    margin-bottom: 15px;
+    color: #0b1d3a;
+}
+
+.announcement-card p {
+    margin-bottom: 8px;
+    color: #444;
+    font-size: 15px;
+}
+
+/* DATE BADGE */
+.event-date {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    background: #0b1d3a;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.event-date.accent {
+    background: #d63b3b;
+}
+
+/* PROGRESS BAR */
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #eee;
+    border-radius: 20px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #0b1d3a;
+    border-radius: 20px;
+}
+
+.progress-text {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #777;
+}
 </style>
 </head>
 
@@ -337,33 +430,59 @@ body {
     </div>
 </section>
 
-<!-- PENGUMUMAN -->
-<section id="pengumuman" class="section section-light fade-section">
+<!-- PENGUMUMAN SECTION -->
+<section id="pengumuman" class="announcement-section">
     <div class="container">
 
-        <div class="section-title">
+        <div class="section-header">
             <h2>Pengumuman Gereja</h2>
             <p>Makluman terkini untuk semua anggota gereja</p>
         </div>
 
-        <div class="grid grid-3">
+        <div class="announcement-grid">
 
-            <div class="card">
+            <!-- Event Card -->
+            <div class="announcement-card fade">
+                <div class="event-date">28 FEB</div>
                 <h3>Mesyuarat Pelayanan Wanita</h3>
-                <p><strong>28 Februari 2026</strong> | 2.00 Petang</p>
+                <p><strong>Masa:</strong> 2.00 Petang</p>
+                <p><strong>Tempat:</strong> Gereja SDA Koporingan</p>
+                <p><strong>Sasaran:</strong> Semua Pelayanan Wanita</p>
             </div>
 
-            <div class="card">
+            <div class="announcement-card fade">
+                <div class="event-date">01 MAC</div>
                 <h3>Gotong Royong Gereja</h3>
-                <p><strong>01 Mac 2026</strong> | 7.30 Pagi</p>
+                <p><strong>Masa:</strong> 7.30 Pagi</p>
+                <p><strong>Tempat:</strong> Gereja SDA Koporingan</p>
+                <p><strong>Sasaran:</strong> Semua anggota gereja</p>
             </div>
 
-            <div class="card">
+            <div class="announcement-card fade">
+                <div class="event-date accent">SASARAN</div>
                 <h3>Pungutan Pembaikan Piano</h3>
-                <p>RM1136.30 / RM3000</p>
-                <div class="progress">
-                    <div class="progress-bar"></div>
+                <p><strong>Sasaran:</strong> RM3000</p>
+                <p><strong>Terkumpul:</strong> RM1136.30</p>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:38%;"></div>
                 </div>
+
+                <span class="progress-text">38% terkumpul</span>
+            </div>
+
+            <div class="announcement-card fade">
+                <div class="event-date">INFO</div>
+                <h3>Bayaran Pembersihan</h3>
+                <p>RM10 setiap keluarga sebulan</p>
+                <p>Bayaran kepada: Pn. Debbie Justin</p>
+            </div>
+
+            <div class="announcement-card fade">
+                <div class="event-date">07 MAC</div>
+                <h3>Aktiviti Jabatan Pendidikan</h3>
+                <p>Kuiz Alkitab</p>
+                <p>Bacaan: Kitab Kejadian</p>
             </div>
 
         </div>
