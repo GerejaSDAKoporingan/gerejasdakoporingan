@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media | Gereja SDA Koporingan</title>
+
+<style>
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #ffffff;
+    color: #222;
+}
+
+/* CONTAINER */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 20px 0;
+    background: #0b1d3a;
+    z-index: 1000;
+}
+
+.nav-inner {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar img {
+    height: 50px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: #d63b3b;
+}
+
+/* HAMBURGER */
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
+
+/* BANNER */
+.banner {
+    padding-top: 140px;
+    padding-bottom: 60px;
+    background: #f8f9fb;
+    text-align: center;
+}
+
+.banner h1 {
+    font-size: 36px;
+    color: #0b1d3a;
+}
+
+.banner p {
+    margin-top: 10px;
+    color: #555;
+}
+
+/* SECTION */
+.section {
+    padding: 80px 0;
+}
+
+/* GALLERY GRID */
+.gallery {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.gallery img {
+    width: 100%;
+    border-radius: 12px;
+    transition: 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+/* CARD */
+.card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.card h3 {
+    color: #0b1d3a;
+    margin-bottom: 15px;
+}
+
+.card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 18px;
+    background: #0b1d3a;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.card a:hover {
+    background: #d63b3b;
+}
+
+/* FADE */
+.fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.8s ease;
+}
+
+.fade.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .navbar ul {
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background: #0b1d3a;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 0;
+        display: none;
+    }
+
+    .navbar ul.active {
+        display: flex;
+    }
+
+    .banner h1 {
+        font-size: 28px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="nav-inner">
+        <img src="logo-sda.png" alt="SDA Logo">
+        <div class="menu-toggle" id="menu-toggle">☰</div>
+        <ul id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#pengumuman">Pengumuman</a></li>
+            <li><a href="index.html#petugas">Petugas</a></li>
+            <li><a href="ahli-lembaga.html">Ahli Lembaga</a></li>
+            <li><a href="media.html">Media</a></li>
+            <li><a href="sejarah.html">Sejarah</a></li>
+            <li><a href="hubungi-kami.html">Hubungi Kami</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- BANNER -->
+<section class="banner">
+    <div class="container">
+        <h1>Media Gereja</h1>
+        <p>Galeri, Video & Bahan Terbitan</p>
+    </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section">
+    <div class="container fade">
+        <h2 style="color:#0b1d3a; margin-bottom:30px;">Galeri Foto</h2>
+
+        <div class="gallery">
+            <img src="gereja-1.jpg" alt="Foto 1" loading="lazy">
+            <img src="gereja-2.jpg" alt="Foto 2" loading="lazy">
+            <img src="gereja-3.jpg" alt="Foto 3" loading="lazy">
+        </div>
+    </div>
+</section>
+
+<!-- LINKS -->
+<section class="section" style="background:#f8f9fb;">
+    <div class="container">
+
+        <div class="card fade">
+            <h3>YouTube Channel</h3>
+            <p>Saksikan siaran dan rakaman kebaktian gereja.</p>
+          <a href="https://youtube.com/@gerejasdakoporingan?si=TfAIC2tQkuXJS_5D" target="_blank">
+    Lawati YouTube
+</a>
+        </div>
+
+        <div class="card fade" style="margin-top:40px;">
+            <h3>Album Facebook</h3>
+            <p>Lihat koleksi gambar aktiviti gereja.</p>
+            <a href="#" target="_blank">Lawati Facebook</a>
+        </div>
+
+        <div class="card fade" style="margin-top:40px;">
+            <h3>Buletin Gereja</h3>
+            <p>Muat turun buletin mingguan gereja.</p>
+            <a href="#" target="_blank">Muat Turun PDF</a>
+        </div>
+
+    </div>
+</section>
+
+<script>
+
+// Mobile Menu
+document.getElementById("menu-toggle").addEventListener("click", function() {
+    document.getElementById("nav-links").classList.toggle("active");
+});
+
+// Fade Animation
+const fadeElements = document.querySelectorAll('.fade');
+
+function checkFade() {
+    const triggerBottom = window.innerHeight * 0.85;
+
+    fadeElements.forEach(el => {
+        const boxTop = el.getBoundingClientRect().top;
+        if (boxTop < triggerBottom) {
+            el.classList.add('show');
+        }
+    });
+}
+
+window.addEventListener('scroll', checkFade);
+window.addEventListener('load', checkFade);
+
+</script>
+
+</body>
+</html>
