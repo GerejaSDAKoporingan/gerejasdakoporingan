@@ -498,6 +498,8 @@ body {
 
 <body>
 
+    <div id="top"></div>
+    
 <div class="menu-overlay" id="menu-overlay"></div>
 
 <div id="page-content">
@@ -508,7 +510,7 @@ body {
         <img src="logo-sda.png" alt="SDA Logo">
         <div class="menu-toggle" id="menu-toggle">☰</div>
         <ul id="nav-links">
-            <li><a href="#">Home</a></li>
+            <li><a href="#top">Home</a></li>
             <li><a href="#pengumuman">Pengumuman</a></li>
 <li><a href="#petugas">Petugas</a></li>
             <li><a href="ahli-lembaga.html">Ahli Lembaga</a></li>
@@ -711,7 +713,7 @@ body {
 </div> <!-- end page-content -->
     
 <script>
-
+  
 const toggle = document.getElementById("menu-toggle");
 const navLinks = document.getElementById("nav-links");
 const overlay = document.getElementById("menu-overlay");   
@@ -727,6 +729,18 @@ toggle.addEventListener("click", function() {
     }
 });
 
+        // Close menu when clicking any link
+const menuLinks = document.querySelectorAll("#nav-links a");
+
+menuLinks.forEach(link => {
+    link.addEventListener("click", function() {
+        navLinks.classList.remove("active");
+        overlay.classList.remove("active");
+        document.body.style.overflow = "auto";
+    });
+});
+  
+    
 overlay.addEventListener("click", function() {
     navLinks.classList.remove("active");
     overlay.classList.remove("active");
