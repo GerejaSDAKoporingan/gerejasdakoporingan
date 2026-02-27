@@ -1,1 +1,190 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gereja SDA Koporingan</title>
 
+<style>
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.4s ease;
+    z-index: 1000;
+}
+
+.navbar.scrolled {
+    background: #0b1d3a;
+}
+
+.navbar img {
+    height: 50px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: #d63b3b;
+}
+
+/* HERO SECTION */
+.hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+.hero img.active {
+    opacity: 1;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 20px;
+    animation: fadeIn 2s ease forwards;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.hero-content h2 {
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translate(-50%, -45%);}
+    to {opacity: 1; transform: translate(-50%, -50%);}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar" id="navbar">
+    <img src="logo-sda.png" alt="SDA Logo">
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Pengumuman</a></li>
+        <li><a href="#">Petugas</a></li>
+        <li><a href="#">Ahli Lembaga</a></li>
+        <li><a href="#">Media</a></li>
+        <li><a href="#">Sejarah</a></li>
+        <li><a href="#">Hubungi Kami</a></li>
+    </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <img src="gereja-1.jpg" class="active">
+    <img src="gereja-2.jpg">
+    <img src="gereja-3.jpg">
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        <h1>Gereja SDA Koporingan</h1>
+        <h2>Selamat Datang</h2>
+        <p>
+            “Aku bersukacita, ketika dikatakan orang kepadaku:<br>
+            ‘Mari kita pergi ke rumah TUHAN.’”<br>
+            — Mazmur 122:1 (ITB)
+        </p>
+    </div>
+</section>
+
+<!-- MUSIC (Homepage Only) -->
+<audio id="bg-music" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+// NAVBAR SCROLL EFFECT
+window.addEventListener("scroll", function() {
+    document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50);
+});
+
+// HERO SLIDER
+let slides = document.querySelectorAll(".hero img");
+let current = 0;
+
+setInterval(() => {
+    slides[current].classList.remove("active");
+    current = (current + 1) % slides.length;
+    slides[current].classList.add("active");
+}, 9000);
+
+// Ensure music plays (fallback)
+document.addEventListener('click', function() {
+    document.getElementById('bg-music').play();
+});
+
+</script>
+
+</body>
+</html>
