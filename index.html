@@ -15,628 +15,101 @@
 <link rel="preload" as="image" href="gereja-1.jpg">
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
 /* FADE ANIMATION */
-.fade {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 0.8s ease;
-}
-
-.fade.show {
-    opacity: 1;
-    transform: translateY(0);
-}
+.fade { opacity: 0; transform: translateY(40px); transition: 0.8s ease; }
+.fade.show { opacity: 1; transform: translateY(0); }
 
 /* ================= SOCIAL ICONS STYLING ================= */
-.social-top {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.social-top a {
-    color: white;
-    font-size: 20px;
-    transition: 0.3s ease;
-    text-decoration: none;
-}
-
-.social-top a:hover {
-    transform: scale(1.2);
-}
-
+.social-top { display: flex; gap: 15px; align-items: center; }
+.social-top a { color: white; font-size: 20px; transition: 0.3s ease; text-decoration: none; }
+.social-top a:hover { transform: scale(1.2); }
 .fa-facebook:hover { color: #1877F2; text-shadow: 0 0 10px #1877F2; }
 .fa-youtube:hover { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
 
 /* ================= COUNTDOWN & TIMELINE STYLING ================= */
 .countdown-container {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
-    background: rgba(11, 29, 58, 0.05);
-    padding: 15px;
-    border-radius: 12px;
-    justify-content: center;
-    border: 1px solid rgba(11, 29, 58, 0.1);
+    display: flex; gap: 15px; margin-top: 20px; background: rgba(11, 29, 58, 0.05);
+    padding: 15px; border-radius: 12px; justify-content: center; border: 1px solid rgba(11, 29, 58, 0.1);
 }
+.countdown-box { text-align: center; min-width: 60px; }
+.countdown-box span { display: block; font-size: 24px; font-weight: 800; color: #d63b3b; font-family: 'Montserrat', sans-serif; }
+.countdown-box small { font-size: 10px; text-transform: uppercase; color: #555; letter-spacing: 1px; font-weight: bold; }
 
-.countdown-box {
-    text-align: center;
-    min-width: 60px;
-}
-
-.countdown-box span {
-    display: block;
-    font-size: 24px;
-    font-weight: 800;
-    color: #d63b3b;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.countdown-box small {
-    font-size: 10px;
-    text-transform: uppercase;
-    color: #555;
-    letter-spacing: 1px;
-    font-weight: bold;
-}
-
-.timeline-divider {
-    border: 0;
-    height: 1px;
-    background: #e6e6e6;
-    margin: 50px 0;
-    position: relative;
-}
-
+.timeline-divider { border: 0; height: 1px; background: #e6e6e6; margin: 50px 0; position: relative; }
 .timeline-divider::after {
-    content: "Maklumat Umum";
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #ffffff;
-    padding: 0 15px;
-    color: #888;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    content: "Maklumat Umum"; position: absolute; top: -10px; left: 50%;
+    transform: translateX(-50%); background: #ffffff; padding: 0 15px;
+    color: #888; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
 }
 
-/* ================= MODERN PETUGAS SECTION (TABS DESIGN) ================= */
-.petugas-section {
-    padding: 100px 0;
-    background: #f8f9fb;
+/* ================= COMPACT PETUGAS SECTION (NEW) ================= */
+.petugas-section { padding: 80px 0; background: #f8f9fb; }
+.petugas-teaser-card {
+    background: #ffffff; padding: 50px; border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.04); text-align: center;
+    border: 1px solid #eee;
 }
+.petugas-teaser-card h3 { font-family: 'Montserrat', sans-serif; color: #0b1d3a; margin-bottom: 15px; font-size: 24px; }
+.preacher-highlight { margin: 25px 0; padding: 20px; background: #fdfdfd; border-radius: 12px; border: 1px dashed #0b1d3a; }
+.preacher-highlight span { font-size: 12px; color: #777; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; }
+.preacher-highlight strong { display: block; font-size: 20px; color: #111; margin-top: 5px; }
 
-/* Tab Buttons */
-.tabs-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
+.btn-primary {
+    display: inline-block; padding: 15px 40px; background: #0b1d3a; color: white;
+    text-decoration: none; border-radius: 50px; font-weight: 600; font-family: 'Montserrat', sans-serif;
+    transition: 0.3s; box-shadow: 0 8px 20px rgba(11, 29, 58, 0.2);
 }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(11, 29, 58, 0.3); background: #d63b3b; }
 
-.tab-btn {
-    padding: 12px 35px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #0b1d3a;
-    background: transparent;
-    border: 2px solid #0b1d3a;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+/* ================= RESET & NAVBAR ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+body { overflow-x: hidden; background: #ffffff; color: #222; }
+.container { width: 90%; max-width: 1200px; margin: auto; }
 
-.tab-btn:hover {
-    background: rgba(11, 29, 58, 0.05);
-    transform: translateY(-2px);
-}
-
-.tab-btn.active {
-    background: #0b1d3a;
-    color: #ffffff;
-    box-shadow: 0 8px 20px rgba(11, 29, 58, 0.2);
-    transform: translateY(0);
-}
-
-/* Tab Content Areas */
-.tab-content {
-    display: none; /* Hidden by default */
-    animation: fadeInTab 0.5s ease forwards;
-}
-
-.tab-content.active {
-    display: block; /* Shown when active */
-}
-
-@keyframes fadeInTab {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Main Card holding the list */
-.petugas-card {
-    background: #ffffff;
-    padding: 45px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.04);
-}
-
-.petugas-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-    gap: 20px;
-}
-
-/* Mini-Card Design for Each Duty */
-.petugas-item {
-    background: #f8f9fb;
-    padding: 20px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-left: 4px solid #0b1d3a;
-    transition: all 0.3s ease;
-}
-
-.petugas-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-    border-left-color: #d63b3b;
-    background: #ffffff;
-}
-
-.petugas-item span {
-    font-size: 12px;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.petugas-item strong {
-    font-size: 16px;
-    color: #111;
-    line-height: 1.4;
-}
-
-/* RESPONSIVE FOR PETUGAS */
-@media (max-width: 900px) {
-    .petugas-card {
-        padding: 30px 20px;
-    }
-    .tab-btn {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-}
-
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 90px;
-}
-
-/* ================= RESET ================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-body {
-    overflow-x: hidden;
-    background: #ffffff;
-    color: #222;
-}
-
-/* ================= CONTAINER ================= */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-}
-
-/* ================= NAVBAR ================= */
-.navbar {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: 0.4s ease;
-    z-index: 1000;
-}
-
-.nav-inner {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar.scrolled {
-    background: rgba(11, 29, 58, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-}
-
-.navbar img {
-    height: 50px;
-}
-
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-    align-items: center;
-}
-
-.navbar ul li a {
-    text-decoration: none;
-    color: white;
-    font-weight: 500;
-    transition: 0.3s;
-}
-
-.navbar ul li a:hover {
-    color: #d63b3b;
-}
-
-/* HAMBURGER */
-.menu-toggle {
-    display: none;
-    font-size: 28px;
-    color: white;
-    cursor: pointer;
-}
+.navbar { position: fixed; width: 100%; top: 0; padding: 20px 0; display: flex; transition: 0.4s ease; z-index: 1000; }
+.nav-inner { width: 90%; max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+.navbar.scrolled { background: rgba(11, 29, 58, 0.85); backdrop-filter: blur(12px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
+.navbar img { height: 50px; }
+.navbar ul { list-style: none; display: flex; gap: 25px; align-items: center; }
+.navbar ul li a { text-decoration: none; color: white; font-weight: 500; }
+.menu-toggle { display: none; font-size: 28px; color: white; cursor: pointer; }
 
 /* ================= HERO ================= */
-.hero {
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-}
-
-.hero img.active {
-    opacity: 1;
-}
-
-.overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.55);
-}
-
-.hero-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-    width: 90%;
-    max-width: 800px;
-    animation: fadeIn 2s ease forwards;
-}
-
-/* ✨ THE NEW GLOWING, ALL-CAPS TITLE ✨ */
+.hero { height: 100vh; position: relative; overflow: hidden; }
+.hero img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 2s; }
+.hero img.active { opacity: 1; }
+.overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.55); }
+.hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; }
 .hero-content h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 55px;
-    font-weight: 800;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 
-        0 0 15px rgba(255, 255, 255, 0.8),
-        0 0 30px rgba(255, 255, 255, 0.6),
-        0 0 45px rgba(255, 255, 255, 0.4);
+    font-family: 'Montserrat', sans-serif; font-size: 55px; font-weight: 800; text-transform: uppercase;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
 }
 
-/* Styled the subtitle to match the cinematic feel */
-.hero-content h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 24px;
-    font-weight: 400;
-    margin-bottom: 25px;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    color: #e6e6e6;
-}
+/* ================= ANNOUNCEMENT ================= */
+.announcement-section { padding: 120px 0; background: #ffffff; }
+.announcement-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; }
+.announcement-card { background: #f8f9fb; padding: 30px; border-radius: 16px; position: relative; transition: 0.3s; }
+.announcement-card.featured { grid-column: 1 / -1; background: #ffffff; border: 2px solid #0b1d3a; text-align: center; padding: 40px; }
+.event-date { position: absolute; top: -15px; left: 20px; background: #0b1d3a; color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+.announcement-card.featured .event-date { left: 50%; transform: translateX(-50%); background: #d63b3b; }
 
-.hero-content p {
-    font-size: 18px;
-    line-height: 1.6;
-    font-style: italic; /* Makes the bible verse look elegant */
-}
-
-@keyframes fadeIn {
-    from {opacity: 0; transform: translate(-50%, -45%);}
-    to {opacity: 1; transform: translate(-50%, -50%);}
-}
-
-/* ================= SECTIONS ================= */
-.section {
-    padding: 100px 0;
-}
-
-.section-light {
-    background: #f8f9fb;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.section-title h2 {
-    font-size: 36px;
-    color: #0b1d3a;
-}
-
-.section-title p {
-    color: #555;
-    margin-top: 10px;
-}
-
-/* ================= MOBILE ================= */
+/* MOBILE */
 @media (max-width: 900px) {
-
-    .menu-toggle {
-        display: block;
-    }
-
+    .menu-toggle { display: block; }
+    .social-top { margin-left: 0; margin-bottom: 20px; order: -1; }
     .navbar ul {
-        position: absolute;
-        top: 75px;
-        right: 5%;
-        background: rgba(11, 29, 58, 0.9);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        width: 220px;
-        flex-direction: column;
-        align-items: flex-end;
-        padding: 20px 25px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        display: none;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.9);
+        width: 220px; flex-direction: column; padding: 20px; border-radius: 12px; display: none;
     }
-
-    .navbar ul.active {
-        display: flex;
-    }
-
-    .navbar ul li {
-        width: 100%;
-        margin-bottom: 18px;
-    }
-
-    .navbar ul li:last-child {
-        margin-bottom: 0;
-    }
-
-    .navbar ul li a {
-        display: block;
-        text-align: right;
-        font-size: 16px;
-    }
-
-    .hero-content h1 {
-        font-size: 38px; /* Adjusted slightly so the long name fits nicely on mobile */
-    }
-
-    .hero-content h2 {
-        font-size: 18px;
-        letter-spacing: 3px;
-    }
-
-    .hero-content p {
-        font-size: 15px;
-    }
-
-    .section {
-        padding: 70px 0;
-    }
+    .navbar ul.active { display: flex; }
+    .hero-content h1 { font-size: 38px; }
 }
 
-/* ================= WHATSAPP BUTTON ================= */
-.whatsapp-btn {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: #25D366;
-    color: white;
-    padding: 14px 22px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    transition: 0.3s ease;
-    z-index: 999;
-    animation: pulse 2s infinite;
-}
-
-.whatsapp-btn:hover {
-    background: #1ebe5d;
-    transform: translateY(-3px);
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(37,211,102, 0.6); }
-    70% { box-shadow: 0 0 0 15px rgba(37,211,102, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(37,211,102, 0); }
-}
-
-/* ================= SCROLL ANIMATION ================= */
-.fade-section {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease;
-}
-
-.fade-section.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* SECTION HEADER */
-.section-header {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.section-header h2 {
-    font-size: 38px;
-    color: #0b1d3a;
-    margin-bottom: 10px;
-}
-
-.section-header p {
-    color: #666;
-    font-size: 16px;
-}
-
-/* ANNOUNCEMENT SECTION */
-.announcement-section {
-    padding: 120px 0;
-    background: #ffffff;
-}
-
-.announcement-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 35px;
-}
-
-.announcement-card {
-    background: #f8f9fb;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.05);
-    position: relative;
-    transition: 0.3s ease;
-}
-
-/* NEW FEATURED CARD STYLING */
-.announcement-card.featured {
-    grid-column: 1 / -1; /* Spans full width */
-    background: #ffffff;
-    border: 2px solid #0b1d3a;
-    box-shadow: 0 15px 45px rgba(11, 29, 58, 0.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 40px;
-}
-
-.announcement-card.featured h3 {
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-.announcement-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-}
-
-.announcement-card h3 {
-    margin-bottom: 15px;
-    color: #0b1d3a;
-}
-
-.announcement-card p {
-    margin-bottom: 8px;
-    color: #444;
-    font-size: 15px;
-}
-
-/* DATE BADGE */
-.event-date {
-    position: absolute;
-    top: -15px;
-    left: 20px;
-    background: #0b1d3a;
-    color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    letter-spacing: 1px;
-    font-weight: bold;
-}
-
-.announcement-card.featured .event-date {
-    left: 50%;
-    transform: translateX(-50%);
-    top: -15px;
-    background: #d63b3b;
-    font-size: 14px;
-    padding: 8px 20px;
-}
-
-.event-date.accent {
-    background: #888;
-}
-
-/* PROGRESS BAR */
-.progress-bar {
-    width: 100%;
-    height: 10px;
-    background: #eee;
-    border-radius: 20px;
-    margin-top: 15px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: #0b1d3a;
-    border-radius: 20px;
-}
-
-.progress-text {
-    display: block;
-    margin-top: 8px;
-    font-size: 13px;
-    color: #777;
-}
-
-/* FOOTER STYLING */
-.footer {
-    text-align: center;
-    padding: 30px 0;
-    background: #f8f9fb;
-    color: #555;
-    font-size: 14px;
-    line-height: 1.6;
-}
+.whatsapp-btn { position: fixed; bottom: 25px; right: 25px; background: #25D366; color: white; padding: 14px 22px; border-radius: 50px; text-decoration: none; z-index: 999; }
+.footer { text-align: center; padding: 30px 0; background: #f8f9fb; font-size: 14px; }
 </style>
 </head>
 
@@ -645,7 +118,6 @@ body {
 <div class="navbar" id="navbar">
     <div class="nav-inner">
         <img src="logo-sda.png" alt="SDA Logo">
-        
         <ul id="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#pengumuman">Pengumuman</a></li>
@@ -655,7 +127,6 @@ body {
             <li><a href="sejarah.html">Sejarah</a></li>
             <li><a href="hubungi-kami.html">Hubungi Kami</a></li>
         </ul>
-
         <div class="nav-right" style="display: flex; align-items: center; gap: 20px;">
             <div class="social-top">
                 <a href="https://www.facebook.com/share/187svoWKJs/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -671,34 +142,23 @@ body {
     <img src="gereja-2.jpg" loading="lazy">
     <img src="gereja-3.jpg" loading="lazy">
     <div class="overlay"></div>
-
     <div class="hero-content">
         <h1>Gereja SDA Koporingan</h1>
-        <h2>Selamat Datang</h2>
-        <p>
-            “Aku bersukacita, ketika dikatakan orang kepadaku:<br>
-            ‘Mari kita pergi ke rumah TUHAN.”<br>
-            — Mazmur 122:1 (ITB)
-        </p>
+        <p>“Aku bersukacita, ketika dikatakan orang kepadaku: ‘Mari kita pergi ke rumah TUHAN.” — Mazmur 122:1</p>
     </div>
 </section>
 
 <section id="pengumuman" class="announcement-section">
     <div class="container">
-
-        <div class="section-header">
-            <h2>Pengumuman Gereja</h2>
-            <p>Makluman terkini untuk semua anggota gereja</p>
+        <div class="section-header" style="text-align:center; margin-bottom:50px;">
+            <h2 style="font-size: 38px; color: #0b1d3a;">Pengumuman Gereja</h2>
         </div>
 
         <div class="announcement-grid">
-
             <div class="announcement-card featured fade">
                 <div class="event-date">07 MAC</div>
-                <h3>Aktiviti Jabatan Pendidikan: Kuiz Alkitab</h3>
-                <p><strong>Bacaan:</strong> Kitab Kejadian</p>
-                <p><strong>Sasaran:</strong> Semua Anggota Gereja</p>
-                
+                <h3>Kuiz Alkitab (Jabatan Pendidikan)</h3>
+                <p>Bacaan: Kitab Kejadian</p>
                 <div class="countdown-container" id="timer-kuiz" data-date="March 7, 2026 09:00:00">
                     <div class="countdown-box"><span id="days">00</span><small>Hari</small></div>
                     <div class="countdown-box"><span id="hours">00</span><small>Jam</small></div>
@@ -706,286 +166,72 @@ body {
                     <div class="countdown-box"><span id="secs">00</span><small>Saat</small></div>
                 </div>
             </div>
-
-            <div class="announcement-card fade">
-                <div class="event-date">28 FEB</div>
-                <h3>Mesyuarat Pelayanan Wanita</h3>
-                <p><strong>Masa:</strong> 2.00 Petang</p>
-                <p><strong>Tempat:</strong> Gereja SDA Koporingan</p>
-                <p><strong>Sasaran:</strong> Semua Pelayanan Wanita</p>
-            </div>
-
-            <div class="announcement-card fade">
-                <div class="event-date">01 MAC</div>
-                <h3>Gotong Royong Gereja</h3>
-                <p><strong>Masa:</strong> 7.30 Pagi</p>
-                <p><strong>Tempat:</strong> Gereja SDA Koporingan</p>
-                <p><strong>Sasaran:</strong> Semua anggota gereja</p>
-            </div>
-            
-        </div> <hr class="timeline-divider fade">
-
-        <div class="announcement-grid">
-            <div class="announcement-card fade">
-                <div class="event-date accent">INFO</div>
-                <h3>Pungutan Pembaikan Piano</h3>
-                <p><strong>Sasaran:</strong> RM3000</p>
-                <p><strong>Terkumpul:</strong> RM1136.30</p>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width:38%;"></div>
-                </div>
-                <span class="progress-text">38% terkumpul</span>
-            </div>
-
-            <div class="announcement-card fade">
-                <div class="event-date accent">INFO</div>
-                <h3>Bayaran Pembersihan</h3>
-                <p>RM10 setiap keluarga sebulan</p>
-                <p>Bayaran kepada: Pn. Debbie Justin</p>
-            </div>
+            <div class="announcement-card fade"><div class="event-date">28 FEB</div><h3>Mesyuarat Pelayanan Wanita</h3><p>Masa: 2.00 Petang</p></div>
+            <div class="announcement-card fade"><div class="event-date">01 MAC</div><h3>Gotong Royong Gereja</h3><p>Masa: 7.30 Pagi</p></div>
         </div>
 
+        <hr class="timeline-divider fade">
+
+        <div class="announcement-grid">
+            <div class="announcement-card fade"><h3>Pembaikan Piano</h3><div class="progress-bar"><div class="progress-fill" style="width:38%;"></div></div></div>
+            <div class="announcement-card fade"><h3>Bayaran Pembersihan</h3><p>RM10 sebulan / keluarga</p></div>
+        </div>
     </div>
 </section>
 
 <section id="petugas" class="petugas-section">
     <div class="container">
-
-        <div class="section-header fade">
-            <h2>Petugas Sabat</h2>
-            <p>Sabat Ke-9 | Kuartel 1 (28 Februari 2026)</p>
-        </div>
-
-        <div class="tabs-container fade">
-            <button class="tab-btn active" onclick="openPetugasTab(event, 'tab-sekolah-sabat')">Sekolah Sabat</button>
-            <button class="tab-btn" onclick="openPetugasTab(event, 'tab-khotbah')">Acara Kebaktian Khotbah</button>
-        </div>
-
-        <div id="tab-sekolah-sabat" class="tab-content active">
-            <div class="petugas-card">
-                <div class="petugas-list">
-
-                    <div class="petugas-item">
-                        <span>Pemimpin Nyanyi</span>
-                        <strong>Cik Efy Barangking</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Lagu Pembuka</span>
-                        <strong>LPMI 104: Tempat Kediaman di Syurga</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Pemimpin Acara & Doa Pembuka</span>
-                        <strong>En Erlandson Keith Subin</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Cerita Misi</span>
-                        <strong>Pn. Debbie Justin</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Bacaan Keluarga</span>
-                        <strong>En. Archer Sonny</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Pianist</span>
-                        <strong>Shane Jayden Jack</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Media</span>
-                        <strong>En. Joy Brandon</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Laporan SS</span>
-                        <strong>Cik Christie Cosmas</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Jurutulis</span>
-                        <strong>Aurellendra & Axl Neve</strong>
-                    </div>
-
-                </div>
+        <div class="petugas-teaser-card fade">
+            <h3>Jadual Petugas Sabat</h3>
+            <p>Sabat Ke-9 | 28 Februari 2026</p>
+            
+            <div class="preacher-highlight">
+                <span>Pengkhotbah Sabat Ini:</span>
+                <strong>Elder Joseph Molondoi</strong>
+                <small style="color:#d63b3b; font-weight:bold; display:block; margin-top:5px;">"Tuhan Yesus Peduli Kegelisahan Kita"</small>
             </div>
+
+            <a href="petugas.html" class="btn-primary">Lihat Jadual Penuh</a>
         </div>
-
-        <div id="tab-khotbah" class="tab-content">
-            <div class="petugas-card">
-                <div class="petugas-list">
-                    
-                    <div class="petugas-item" style="grid-column: 1 / -1;">
-                        <span>Pengkhotbah</span>
-                        <strong>Elder Joseph Molondoi</strong>
-                        <span style="margin-top: 12px;">Tajuk Khotbah</span>
-                        <strong>"Tuhan Yesus Peduli Kegelisahan Kita"</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Pemimpin Acara</span>
-                        <strong>En. Joy Brandon Wong</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Doa Persembahan & Persepuluhan</span>
-                        <strong>En. Erlandson Keith Subin</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Doa Pembuka</span>
-                        <strong>En. Raizal Bin Dunggi</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Lagu Pembuka</span>
-                        <strong>LPMI 16: (Yesus Terindah)</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Lagu Penutup</span>
-                        <strong>LPMI 204 (Yesus Gembala)</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Diakon</span>
-                        <strong>Elder Subin & En. Jack</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Persembahan Istimewa</span>
-                        <strong>Kumpulan 6</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Pianist</span>
-                        <strong>Pn. Naria Grace Clifton</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Media</span>
-                        <strong>Aurellendra Sonny Tivon</strong>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
     </div>
 </section>
 
-<footer class="footer">
-    <div class="container">
-        <p>
-            © 2026–2027 Gereja SDA Koporingan<br>
-            Developed and maintained by Jabatan Multimedia & Penerbitan<br>
-            Erlandson Keith Subin
-        </p>
-    </div>
-</footer>
+<footer class="footer"><p>© 2026–2027 Gereja SDA Koporingan | Erlandson Keith Subin</p></footer>
 
-<a href="https://wa.me/60146536328?text=Salam%20sejahtera,%20saya%20ingin%20bertanya%20mengenai%20Gereja%20SDA%20Koporingan."
-   class="whatsapp-btn"
-   target="_blank">
-   WhatsApp
-</a>
-<audio id="bg-music" autoplay loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
+<audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
 
 <script>
-// --- COUNTDOWN TIMER LOGIC ---
 function updateCountdown() {
     const timerEl = document.getElementById('timer-kuiz');
-    if(!timerEl) return; // safety check
-    
+    if(!timerEl) return;
     const targetDate = new Date(timerEl.getAttribute('data-date')).getTime();
     const now = new Date().getTime();
     const distance = targetDate - now;
-
-    if (distance < 0) {
-        timerEl.innerHTML = "<p style='color:#d63b3b; font-weight:bold; font-size:18px;'>SEDANG BERLANGSUNG</p>";
-        return;
-    }
-
+    if (distance < 0) { timerEl.innerHTML = "BERLANGSUNG"; return; }
     document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
     document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
     document.getElementById('mins').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
     document.getElementById('secs').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
 }
-// Run every second
 setInterval(updateCountdown, 1000);
-updateCountdown(); // Run immediately on load
 
+document.getElementById("menu-toggle").addEventListener("click", () => document.getElementById("nav-links").classList.toggle("active"));
+window.addEventListener("scroll", () => document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50));
 
-// --- Interactive Tabs Logic ---
-function openPetugasTab(evt, tabName) {
-    let tabContents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < tabContents.length; i++) {
-        tabContents[i].classList.remove("active");
-    }
-    let tabButtons = document.getElementsByClassName("tab-btn");
-    for (let i = 0; i < tabButtons.length; i++) {
-        tabButtons[i].classList.remove("active");
-    }
-    document.getElementById(tabName).classList.add("active");
-    evt.currentTarget.classList.add("active");
-}
+let slides = document.querySelectorAll(".hero img"), current = 0;
+setInterval(() => { slides[current].classList.remove("active"); current = (current + 1) % slides.length; slides[current].classList.add("active"); }, 9000);
 
-// Mobile Menu
-document.getElementById("menu-toggle").addEventListener("click", function() {
-    document.getElementById("nav-links").classList.toggle("active");
-});
-    
-// Close menu when clicking a link (mobile fix)
-const menuLinks = document.querySelectorAll("#nav-links a");
-
-menuLinks.forEach(link => {
-    link.addEventListener("click", function() {
-        document.getElementById("nav-links").classList.remove("active");
-    });
-});
-    
-// Navbar Scroll
-window.addEventListener("scroll", function() {
-    document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50);
-});
-
-// Hero Slider
-let slides = document.querySelectorAll(".hero img");
-let current = 0;
-
-setInterval(() => {
-    slides[current].classList.remove("active");
-    current = (current + 1) % slides.length;
-    slides[current].classList.add("active");
-}, 9000);
-
-// Music Fallback
-document.addEventListener('click', function() {
-    document.getElementById('bg-music').play();
-});
-
-// Scroll Fade-In Animation
 const fadeElements = document.querySelectorAll('.fade');
-
-function checkFade() {
-    const triggerBottom = window.innerHeight * 0.85;
-
-    fadeElements.forEach(el => {
-        const boxTop = el.getBoundingClientRect().top;
-
-        if (boxTop < triggerBottom) {
-            el.classList.add('show');
-        }
-    });
+function checkFade() { 
+    fadeElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show'); }); 
 }
+window.addEventListener('scroll', checkFade); window.addEventListener('load', checkFade);
 
-window.addEventListener('scroll', checkFade);
-window.addEventListener('load', checkFade);
+const bgMusic = document.getElementById('bg-music');
+const savedTime = sessionStorage.getItem('musicTime');
+if (savedTime) bgMusic.currentTime = parseFloat(savedTime);
+window.addEventListener('beforeunload', () => sessionStorage.setItem('musicTime', bgMusic.currentTime));
+document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
 </script>
 
 </body>
