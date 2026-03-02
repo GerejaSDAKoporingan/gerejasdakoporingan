@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Media | Gereja SDA Koporingan</title>
 
-<style>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+<style>
 /* RESET */
 * {
     margin: 0;
@@ -32,37 +34,36 @@ body {
     margin: auto;
 }
 
-/* NAVBAR - Semi-transparent glass effect */
+/* NAVBAR */
 .navbar {
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     padding: 20px 0;
-    background: rgba(11, 29, 58, 0.85); /* Clear Navblue */
-    backdrop-filter: blur(12px); /* Frosted glass blur */
-    -webkit-backdrop-filter: blur(12px); /* For Safari support */
+    background: rgba(11, 29, 58, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     z-index: 1000;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .nav-inner {
     width: 90%;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.navbar img {
-    height: 50px;
-}
+.navbar img { height: 50px; }
 
 .navbar ul {
     list-style: none;
     display: flex;
     gap: 25px;
+    align-items: center;
 }
 
 .navbar ul li a {
@@ -72,11 +73,15 @@ body {
     transition: 0.3s;
 }
 
-.navbar ul li a:hover {
-    color: #d63b3b;
-}
+.navbar ul li a:hover { color: #d63b3b; }
 
-/* HAMBURGER */
+/* SOCIAL ICONS */
+.social-top { display: flex; gap: 15px; align-items: center; }
+.social-top a { color: white; font-size: 20px; transition: 0.3s ease; text-decoration: none; }
+.social-top a:hover { transform: scale(1.2); }
+.fa-facebook:hover { color: #1877F2; text-shadow: 0 0 10px #1877F2; }
+.fa-youtube:hover { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
+
 .menu-toggle {
     display: none;
     font-size: 28px;
@@ -86,72 +91,95 @@ body {
 
 /* BANNER */
 .banner {
-    padding-top: 140px;
+    padding-top: 160px;
     padding-bottom: 60px;
     background: #f8f9fb;
     text-align: center;
 }
 
 .banner h1 {
-    font-size: 36px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 45px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     color: #0b1d3a;
+    text-shadow: 0 0 15px rgba(11, 29, 58, 0.1);
 }
 
 .banner p {
     margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 14px;
     color: #555;
 }
 
 /* SECTION */
-.section {
-    padding: 80px 0;
-}
+.section { padding: 80px 0; }
 
 /* GALLERY GRID */
 .gallery {
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .gallery img {
     width: 100%;
-    border-radius: 12px;
-    transition: 0.3s ease;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: 0.4s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
 .gallery img:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
 }
 
-/* CARD */
+/* CARD GRID */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
 .card {
     background: #ffffff;
-    padding: 30px;
-    border-radius: 14px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.04);
     text-align: center;
+    border: 1px solid #eee;
+    transition: 0.3s;
 }
 
+.card:hover { transform: translateY(-5px); }
+
 .card h3 {
+    font-family: 'Montserrat', sans-serif;
     color: #0b1d3a;
     margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 18px;
 }
 
 .card a {
     display: inline-block;
-    margin-top: 10px;
-    padding: 10px 18px;
+    margin-top: 15px;
+    padding: 12px 25px;
     background: #0b1d3a;
     color: white;
     text-decoration: none;
-    border-radius: 30px;
+    border-radius: 50px;
+    font-weight: 600;
     transition: 0.3s;
 }
 
-.card a:hover {
-    background: #d63b3b;
-}
+.card a:hover { background: #d63b3b; transform: scale(1.05); }
 
 /* FADE */
 .fade {
@@ -165,65 +193,38 @@ body {
     transform: translateY(0);
 }
 
-/* FOOTER STYLING */
+/* FOOTER */
 .footer {
     text-align: center;
-    padding: 30px 0;
+    padding: 40px 0;
     background: #f8f9fb;
     color: #555;
     font-size: 14px;
-    line-height: 1.6;
 }
 
 /* MOBILE */
 @media (max-width: 900px) {
+    .menu-toggle { display: block; }
+    .social-top { margin-left: 0; margin-bottom: 20px; order: -1; }
 
-    .menu-toggle {
-        display: block;
-    }
-
-    /* MOBILE DROPDOWN - Clear glass effect */
     .navbar ul {
         position: absolute;
         top: 75px;
         right: 5%;
-        background: rgba(11, 29, 58, 0.9); /* Clear Navblue */
-        backdrop-filter: blur(15px); /* Frosted glass blur */
-        -webkit-backdrop-filter: blur(15px);
+        background: rgba(11, 29, 58, 0.95);
+        backdrop-filter: blur(15px);
         width: 220px;
         flex-direction: column;
         align-items: flex-end;
         padding: 20px 25px;
         border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         display: none;
-        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .navbar ul.active {
-        display: flex;
-    }
-
-    .navbar ul li {
-        width: 100%;
-        margin-bottom: 18px;
-    }
-
-    .navbar ul li:last-child {
-        margin-bottom: 0;
-    }
-
-    .navbar ul li a {
-        display: block;
-        text-align: right;
-        font-size: 16px;
-    }
-
-    .banner h1 {
-        font-size: 28px;
-    }
+    .navbar ul.active { display: flex; }
+    .navbar ul li { width: 100%; margin-bottom: 18px; }
+    .banner h1 { font-size: 32px; }
 }
-
 </style>
 </head>
 
@@ -232,31 +233,39 @@ body {
 <div class="navbar">
     <div class="nav-inner">
         <img src="logo-sda.png" alt="SDA Logo">
-        <div class="menu-toggle" id="menu-toggle">☰</div>
+        
         <ul id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="index.html#pengumuman">Pengumuman</a></li>
-            <li><a href="index.html#petugas">Petugas</a></li>
+            <li><a href="petugas.html">Petugas</a></li>
             <li><a href="ahli-lembaga.html">Ahli Lembaga</a></li>
             <li><a href="media.html">Media</a></li>
             <li><a href="sejarah.html">Sejarah</a></li>
             <li><a href="hubungi-kami.html">Hubungi Kami</a></li>
         </ul>
+
+        <div class="nav-right" style="display: flex; align-items: center; gap: 20px;">
+            <div class="social-top">
+                <a href="https://www.facebook.com/share/187svoWKJs/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.youtube.com/@GerejaSDAKoporingan" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">☰</div>
+        </div>
     </div>
 </div>
 
 <section class="banner">
     <div class="container">
         <h1>Media Gereja</h1>
-        <p>Galeri, Video & Bahan Terbitan</p>
+        <p>Galeri & Bahan Terbitan</p>
     </div>
 </section>
 
 <section class="section">
-    <div class="container fade">
-        <h2 style="color:#0b1d3a; margin-bottom:30px;">Galeri Foto</h2>
+    <div class="container">
+        <h2 style="font-family:'Montserrat'; color:#0b1d3a; margin-bottom:30px; text-transform: uppercase; font-size: 22px; letter-spacing: 1px;" class="fade">Galeri Foto</h2>
 
-        <div class="gallery">
+        <div class="gallery fade">
             <img src="gereja-1.jpg" alt="Foto 1" loading="lazy">
             <img src="gereja-2.jpg" alt="Foto 2" loading="lazy">
             <img src="gereja-3.jpg" alt="Foto 3" loading="lazy">
@@ -266,73 +275,67 @@ body {
 
 <section class="section" style="background:#f8f9fb;">
     <div class="container">
+        <div class="card-grid">
+            <div class="card fade">
+                <h3>YouTube Channel</h3>
+                <p>Saksikan siaran dan rakaman kebaktian gereja melalui saluran rasmi kami.</p>
+                <a href="https://www.youtube.com/@GerejaSDAKoporingan" target="_blank">Lawati YouTube</a>
+            </div>
 
-        <div class="card fade">
-            <h3>YouTube Channel</h3>
-            <p>Saksikan siaran dan rakaman kebaktian gereja.</p>
-          <a href="https://youtube.com/@gerejasdakoporingan?si=TfAIC2tQkuXJS_5D" target="_blank">
-    Lawati YouTube
-</a>
+            <div class="card fade">
+                <h3>Album Facebook</h3>
+                <p>Lihat koleksi gambar aktiviti dan momen-momen indah jemaat di Facebook.</p>
+                <a href="https://www.facebook.com/share/187svoWKJs/?mibextid=wwXIfr" target="_blank">Lawati Facebook</a>
+            </div>
+
+            <div class="card fade">
+                <h3>Buletin Gereja</h3>
+                <p>Muat turun buletin mingguan untuk maklumat lanjut mengenai program jemaat.</p>
+                <a href="#" target="_blank">Muat Turun PDF</a>
+            </div>
         </div>
-
-        <div class="card fade" style="margin-top:40px;">
-            <h3>Album Facebook</h3>
-            <p>Lihat koleksi gambar aktiviti gereja.</p>
-            <a href="#" target="_blank">Lawati Facebook</a>
-        </div>
-
-        <div class="card fade" style="margin-top:40px;">
-            <h3>Buletin Gereja</h3>
-            <p>Muat turun buletin mingguan gereja.</p>
-            <a href="#" target="_blank">Muat Turun PDF</a>
-        </div>
-
     </div>
 </section>
 
 <footer class="footer">
     <div class="container">
-        <p>
-            © 2026–2027 Gereja SDA Koporingan<br>
-            Developed and maintained by Jabatan Multimedia & Penerbitan<br>
-            Erlandson Keith Subin
-        </p>
+        <p>© 2026–2027 Gereja SDA Koporingan<br>
+           Developed and maintained by Jabatan Multimedia & Penerbitan<br>
+           Erlandson Keith Subin</p>
     </div>
 </footer>
 
+<audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
+
 <script>
+// --- MUSIC SMART MEMORY ---
+const bgMusic = document.getElementById('bg-music');
+const savedTime = sessionStorage.getItem('musicTime');
+if (savedTime) { bgMusic.currentTime = parseFloat(savedTime); }
+window.addEventListener('beforeunload', () => { sessionStorage.setItem('musicTime', bgMusic.currentTime); });
+document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
 
 // Mobile Menu
-document.getElementById("menu-toggle").addEventListener("click", function() {
+document.getElementById("menu-toggle").addEventListener("click", () => {
     document.getElementById("nav-links").classList.toggle("active");
 });
 
-// Close menu when clicking a link (mobile fix)
-const menuLinks = document.querySelectorAll("#nav-links a");
-
-menuLinks.forEach(link => {
-    link.addEventListener("click", function() {
+// Close menu
+document.querySelectorAll("#nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
         document.getElementById("nav-links").classList.remove("active");
     });
 });
 
 // Fade Animation
 const fadeElements = document.querySelectorAll('.fade');
-
 function checkFade() {
-    const triggerBottom = window.innerHeight * 0.85;
-
     fadeElements.forEach(el => {
-        const boxTop = el.getBoundingClientRect().top;
-        if (boxTop < triggerBottom) {
-            el.classList.add('show');
-        }
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.85) { el.classList.add('show'); }
     });
 }
-
 window.addEventListener('scroll', checkFade);
 window.addEventListener('load', checkFade);
-
 </script>
 
 </body>
