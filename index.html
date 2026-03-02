@@ -35,7 +35,6 @@
 .social-top {
     display: flex;
     gap: 15px;
-    margin-left: 20px;
     align-items: center;
 }
 
@@ -358,9 +357,6 @@ body {
         display: block;
     }
 
-    /* Moves icons to top of mobile menu */
-    .social-top { margin-left: 0; margin-bottom: 20px; order: -1; } 
-
     .navbar ul {
         position: absolute;
         top: 75px;
@@ -565,15 +561,8 @@ body {
 
 <div class="navbar" id="navbar">
     <div class="nav-inner">
-        <div style="display: flex; align-items: center;">
-            <img src="logo-sda.png" alt="SDA Logo">
-            <div class="social-top">
-                <a href="https://www.facebook.com/share/187svoWKJs/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.youtube.com/@GerejaSDAKoporingan" target="_blank"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
-
-        <div class="menu-toggle" id="menu-toggle">☰</div>
+        <img src="logo-sda.png" alt="SDA Logo">
+        
         <ul id="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#pengumuman">Pengumuman</a></li>
@@ -583,6 +572,14 @@ body {
             <li><a href="sejarah.html">Sejarah</a></li>
             <li><a href="hubungi-kami.html">Hubungi Kami</a></li>
         </ul>
+
+        <div class="nav-right" style="display: flex; align-items: center; gap: 20px;">
+            <div class="social-top">
+                <a href="https://www.facebook.com/share/187svoWKJs/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.youtube.com/@GerejaSDAKoporingan" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">☰</div>
+        </div>
     </div>
 </div>
 
