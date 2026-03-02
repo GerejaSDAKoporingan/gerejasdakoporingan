@@ -13,42 +13,55 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 body { background: #f8f9fb; color: #222; overflow-x: hidden; }
 
-/* NAVBAR (Same as Home) */
+/* NAVBAR */
 .navbar { position: fixed; width: 100%; top: 0; padding: 20px 0; background: rgba(11, 29, 58, 0.95); backdrop-filter: blur(12px); z-index: 1000; }
 .nav-inner { width: 90%; max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
 .navbar img { height: 50px; }
 .navbar ul { list-style: none; display: flex; gap: 25px; align-items: center; }
-.navbar ul li a { text-decoration: none; color: white; font-weight: 500; }
-.social-top a { color: white; margin-left: 15px; font-size: 20px; }
+.navbar ul li a { text-decoration: none; color: white; font-weight: 500; transition: 0.3s; }
+.navbar ul li a:hover { color: #d63b3b; }
+.social-top { display: flex; gap: 15px; align-items: center; }
+.social-top a { color: white; font-size: 20px; transition: 0.3s ease; text-decoration: none; }
+.social-top a:hover { transform: scale(1.2); }
+.fa-facebook:hover { color: #1877F2; text-shadow: 0 0 10px #1877F2; }
+.fa-youtube:hover { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
 .menu-toggle { display: none; font-size: 28px; color: white; cursor: pointer; }
 
 /* BANNER */
 .banner { padding-top: 150px; padding-bottom: 50px; text-align: center; background: #fff; border-bottom: 1px solid #eee; }
 .banner h1 { font-family: 'Montserrat', sans-serif; font-size: 40px; font-weight: 800; text-transform: uppercase; color: #0b1d3a; }
 
-/* PETUGAS CONTENT (Your existing design) */
+/* PETUGAS CONTENT */
 .section { padding: 60px 0; }
 .container { width: 90%; max-width: 1200px; margin: auto; }
 .tabs-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
 .tab-btn { padding: 12px 35px; font-size: 16px; font-weight: 600; color: #0b1d3a; border: 2px solid #0b1d3a; border-radius: 50px; cursor: pointer; background: transparent; transition: 0.3s; }
-.tab-btn.active { background: #0b1d3a; color: white; }
+.tab-btn:hover { background: rgba(11, 29, 58, 0.05); transform: translateY(-2px); }
+.tab-btn.active { background: #0b1d3a; color: white; transform: translateY(0); box-shadow: 0 8px 20px rgba(11, 29, 58, 0.2); }
 .tab-content { display: none; }
 .tab-content.active { display: block; animation: fadeIn 0.5s; }
 .petugas-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 .petugas-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-.petugas-item { background: #f8f9fb; padding: 20px; border-radius: 12px; border-left: 4px solid #0b1d3a; }
-.petugas-item span { font-size: 11px; color: #666; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 5px; }
-.petugas-item strong { font-size: 16px; color: #111; }
+.petugas-item { background: #f8f9fb; padding: 20px; border-radius: 12px; border-left: 4px solid #0b1d3a; transition: all 0.3s ease; }
+.petugas-item:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); border-left-color: #d63b3b; background: #ffffff; }
+.petugas-item span { font-size: 11px; color: #666; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 5px; letter-spacing: 0.8px; }
+.petugas-item strong { font-size: 16px; color: #111; line-height: 1.4; }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 @media (max-width: 900px) {
     .menu-toggle { display: block; }
-    .navbar ul { position: absolute; top: 75px; right: 5%; background: #0b1d3a; width: 200px; flex-direction: column; padding: 20px; border-radius: 12px; display: none; }
+    .social-top { margin-left: 0; margin-bottom: 20px; order: -1; }
+    .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.95); backdrop-filter: blur(15px); width: 220px; flex-direction: column; padding: 20px 25px; border-radius: 12px; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid rgba(255, 255, 255, 0.1); }
     .navbar ul.active { display: flex; }
+    .navbar ul li { width: 100%; margin-bottom: 18px; }
+    .navbar ul li:last-child { margin-bottom: 0; }
+    .navbar ul li a { display: block; text-align: right; font-size: 16px; }
+    .banner h1 { font-size: 32px; }
+    .petugas-card { padding: 30px 20px; }
 }
 
-.footer { text-align: center; padding: 30px; background: #fff; font-size: 14px; margin-top: 50px; }
+.footer { text-align: center; padding: 30px; background: #fff; font-size: 14px; margin-top: 50px; color: #555; }
 </style>
 </head>
 <body>
@@ -56,13 +69,18 @@ body { background: #f8f9fb; color: #222; overflow-x: hidden; }
 <div class="navbar">
     <div class="nav-inner">
         <img src="logo-sda.png" alt="SDA Logo">
+        
         <ul id="nav-links">
             <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#pengumuman">Pengumuman</a></li>
+            <li><a href="#">Petugas</a></li>
             <li><a href="ahli-lembaga.html">Ahli Lembaga</a></li>
             <li><a href="media.html">Media</a></li>
             <li><a href="sejarah.html">Sejarah</a></li>
+            <li><a href="hubungi-kami.html">Hubungi Kami</a></li>
         </ul>
-        <div style="display: flex; align-items: center; gap: 15px;">
+
+        <div class="nav-right" style="display: flex; align-items: center; gap: 20px;">
             <div class="social-top">
                 <a href="https://www.facebook.com/share/187svoWKJs/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
                 <a href="https://www.youtube.com/@GerejaSDAKoporingan" target="_blank"><i class="fab fa-youtube"></i></a>
@@ -81,14 +99,58 @@ body { background: #f8f9fb; color: #222; overflow-x: hidden; }
     <div class="container">
         <div class="tabs-container">
             <button class="tab-btn active" onclick="openTab(event, 'ss')">Sekolah Sabat</button>
-            <button class="tab-btn" onclick="openTab(event, 'khotbah')">Kebaktian Khotbah</button>
+            <button class="tab-btn" onclick="openTab(event, 'khotbah')">Acara Kebaktian Khotbah</button>
         </div>
 
         <div id="ss" class="tab-content active">
             <div class="petugas-card">
                 <div class="petugas-list">
-                    <div class="petugas-item"><span>Pemimpin Nyanyi</span><strong>Cik Efy Barangking</strong></div>
-                    <div class="petugas-item"><span>Pemimpin Acara</span><strong>En Erlandson Keith Subin</strong></div>
+                    
+                    <div class="petugas-item">
+                        <span>Pemimpin Nyanyi</span>
+                        <strong>Cik Efy Barangking</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Lagu Pembuka</span>
+                        <strong>LPMI 104: Tempat Kediaman di Syurga</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Pemimpin Acara & Doa Pembuka</span>
+                        <strong>En Erlandson Keith Subin</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Cerita Misi</span>
+                        <strong>Pn. Debbie Justin</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Bacaan Keluarga</span>
+                        <strong>En. Archer Sonny</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Pianist</span>
+                        <strong>Shane Jayden Jack</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Media</span>
+                        <strong>En. Joy Brandon</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Laporan SS</span>
+                        <strong>Cik Christie Cosmas</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Jurutulis</span>
+                        <strong>Aurellendra & Axl Neve</strong>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -96,15 +158,68 @@ body { background: #f8f9fb; color: #222; overflow-x: hidden; }
         <div id="khotbah" class="tab-content">
             <div class="petugas-card">
                 <div class="petugas-list">
-                    <div class="petugas-item" style="grid-column: 1 / -1;"><span>Pengkhotbah</span><strong>Elder Joseph Molondoi</strong></div>
+                    
+                    <div class="petugas-item" style="grid-column: 1 / -1;">
+                        <span>Pengkhotbah</span>
+                        <strong>Elder Joseph Molondoi</strong>
+                        <span style="margin-top: 12px;">Tajuk Khotbah</span>
+                        <strong>"Tuhan Yesus Peduli Kegelisahan Kita"</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Pemimpin Acara</span>
+                        <strong>En. Joy Brandon Wong</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Doa Persembahan & Persepuluhan</span>
+                        <strong>En. Erlandson Keith Subin</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Doa Pembuka</span>
+                        <strong>En. Raizal Bin Dunggi</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Lagu Pembuka</span>
+                        <strong>LPMI 16: (Yesus Terindah)</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Lagu Penutup</span>
+                        <strong>LPMI 204 (Yesus Gembala)</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Diakon</span>
+                        <strong>Elder Subin & En. Jack</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Persembahan Istimewa</span>
+                        <strong>Kumpulan 6</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Pianist</span>
+                        <strong>Pn. Naria Grace Clifton</strong>
+                    </div>
+
+                    <div class="petugas-item">
+                        <span>Media</span>
+                        <strong>Aurellendra Sonny Tivon</strong>
+                    </div>
+
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
 <footer class="footer">
-    <p>© 2026–2027 Gereja SDA Koporingan</p>
+    <p>© 2026–2027 Gereja SDA Koporingan | Developed by Jabatan Multimedia & Penerbitan</p>
 </footer>
 
 <audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
@@ -116,9 +231,18 @@ function openTab(evt, name) {
     document.getElementById(name).classList.add('active');
     evt.currentTarget.classList.add('active');
 }
+
 document.getElementById("menu-toggle").addEventListener("click", () => {
     document.getElementById("nav-links").classList.toggle("active");
 });
+
+const menuLinks = document.querySelectorAll("#nav-links a");
+menuLinks.forEach(link => {
+    link.addEventListener("click", function() {
+        document.getElementById("nav-links").classList.remove("active");
+    });
+});
+
 // Music Memory
 const bgMusic = document.getElementById('bg-music');
 const savedTime = sessionStorage.getItem('musicTime');
