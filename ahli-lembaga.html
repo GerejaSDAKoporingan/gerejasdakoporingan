@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ahli Lembaga Gereja | Gereja SDA Koporingan</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+
 <style>
 
 /* RESET */
@@ -32,7 +34,7 @@ body {
     margin: auto;
 }
 
-/* NAVBAR - Now with semi-transparent glass effect! */
+/* NAVBAR - Semi-transparent glass effect! */
 .navbar {
     position: fixed;
     width: 100%;
@@ -92,31 +94,42 @@ body {
     text-align: center;
 }
 
+/* UPDATED TITLE HEADER (Bold, Glowing, Montserrat) */
 .banner h1 {
-    font-size: 36px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 45px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     color: #0b1d3a;
+    text-shadow: 0 0 15px rgba(11, 29, 58, 0.2), 0 0 30px rgba(11, 29, 58, 0.1); /* Dark blue glow for light background */
 }
 
 .banner p {
     margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 14px;
     color: #555;
 }
 
 /* SECTION */
 .section {
-    padding: 80px 0;
+    padding: 40px 0 80px 0;
 }
 
-.image-wrapper {
-    margin-bottom: 50px;
+/* FULL SCREEN IMAGES */
+.full-screen-wrapper {
+    width: 100%;
+    margin-bottom: 30px;
     text-align: center;
 }
 
-.image-wrapper img {
+.full-screen-wrapper img {
     width: 100%;
-    max-width: 1000px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 100%; /* Removes the limit so it spans edge-to-edge */
+    display: block; /* Removes weird spacing at the bottom of images */
 }
 
 /* FADE ANIMATION */
@@ -138,7 +151,7 @@ body {
         display: block;
     }
 
-    /* MOBILE DROPDOWN - Now with clear glass effect */
+    /* MOBILE DROPDOWN - Clear glass effect */
     .navbar ul {
         position: absolute;
         top: 75px;
@@ -153,7 +166,7 @@ body {
         border-radius: 12px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         display: none;
-        border: 1px solid rgba(255, 255, 255, 0.1); /* Adds a subtle edge to the glass */
+        border: 1px solid rgba(255, 255, 255, 0.1); 
     }
 
     .navbar ul.active {
@@ -176,7 +189,7 @@ body {
     }
 
     .banner h1 {
-        font-size: 28px;
+        font-size: 30px;
     }
 }
 
@@ -219,17 +232,14 @@ body {
 </section>
 
 <section class="section">
-    <div class="container">
-
-        <div class="image-wrapper fade">
-            <img src="org-1.jpg" alt="Struktur Organisasi 1" loading="lazy">
-        </div>
-
-        <div class="image-wrapper fade">
-            <img src="org-2.jpg" alt="Struktur Organisasi 2" loading="lazy">
-        </div>
-
+    <div class="full-screen-wrapper fade">
+        <img src="org-1.jpg" alt="Struktur Organisasi 1" loading="lazy">
     </div>
+
+    <div class="full-screen-wrapper fade">
+        <img src="org-2.jpg" alt="Struktur Organisasi 2" loading="lazy">
+    </div>
+
 </section>
 
 <footer class="footer">
@@ -242,7 +252,36 @@ body {
     </div>
 </footer>
 
+<audio id="bg-music" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <script>
+
+// --- MUSIC SMART MEMORY ---
+const bgMusic = document.getElementById('bg-music');
+const savedTime = sessionStorage.getItem('musicTime');
+if (savedTime !== null) {
+    bgMusic.currentTime = parseFloat(savedTime);
+}
+
+let playPromise = bgMusic.play();
+if (playPromise !== undefined) {
+    playPromise.catch(error => {
+        console.log("Autoplay blocked. Waiting for click.");
+    });
+}
+
+document.addEventListener('click', function() {
+    if (bgMusic.paused) {
+        bgMusic.play();
+    }
+});
+
+window.addEventListener('beforeunload', function() {
+    sessionStorage.setItem('musicTime', bgMusic.currentTime);
+});
+
 
 // Mobile Menu Toggle
 document.getElementById("menu-toggle").addEventListener("click", function() {
