@@ -21,9 +21,30 @@ html {
 }
 
 body {
-    background: #ffffff;
+    background: transparent; /* Changed from solid white so the background image shows */
     color: #222;
     line-height: 1.8;
+}
+
+/* ================= NEW BACKGROUND ================= */
+.bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('sejarah-1.jpeg') no-repeat center center/cover;
+    z-index: -2;
+}
+
+.bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Dark tint to make reading easy */
+    z-index: -1;
 }
 
 /* CONTAINER */
@@ -89,18 +110,18 @@ body {
 .banner {
     padding-top: 140px;
     padding-bottom: 60px;
-    background: #f8f9fb;
+    background: transparent; /* Removed solid color for background image */
     text-align: center;
 }
 
 .banner h1 {
     font-size: 36px;
-    color: #0b1d3a;
+    color: #ffffff; /* Changed to white to contrast background */
 }
 
 .banner p {
     margin-top: 10px;
-    color: #555;
+    color: #eeeeee; /* Changed to light gray to contrast background */
 }
 
 /* CONTENT */
@@ -108,11 +129,20 @@ body {
     padding: 80px 0;
 }
 
+/* ================= NEW HOVERING CARD ================= */
 .content-box {
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    background: rgba(255, 255, 255, 0.95); /* Slight transparency */
+    padding: 60px 40px; /* Made it bigger */
+    border-radius: 20px; /* Softer edges */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3); /* Stronger shadow for depth */
+    text-align: center; /* Centered text */
+    animation: floatingCard 4s ease-in-out infinite; /* The continuous hover effect */
+}
+
+@keyframes floatingCard {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
 }
 
 /* FADE */
@@ -187,7 +217,7 @@ body {
     }
 
     .content-box {
-        padding: 25px;
+        padding: 40px 25px; /* Adjusted padding for mobile */
     }
 }
 
@@ -195,6 +225,9 @@ body {
 </head>
 
 <body>
+
+<div class="bg-image"></div>
+<div class="bg-overlay"></div>
 
 <div class="navbar">
     <div class="nav-inner">
