@@ -52,6 +52,61 @@
 .fa-facebook:hover { color: #1877F2; text-shadow: 0 0 10px #1877F2; }
 .fa-youtube:hover { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
 
+/* ================= COUNTDOWN & TIMELINE STYLING ================= */
+.countdown-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    background: rgba(11, 29, 58, 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    justify-content: center;
+    border: 1px solid rgba(11, 29, 58, 0.1);
+}
+
+.countdown-box {
+    text-align: center;
+    min-width: 60px;
+}
+
+.countdown-box span {
+    display: block;
+    font-size: 24px;
+    font-weight: 800;
+    color: #d63b3b;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.countdown-box small {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #555;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.timeline-divider {
+    border: 0;
+    height: 1px;
+    background: #e6e6e6;
+    margin: 50px 0;
+    position: relative;
+}
+
+.timeline-divider::after {
+    content: "Maklumat Umum";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    padding: 0 15px;
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
 /* ================= MODERN PETUGAS SECTION (TABS DESIGN) ================= */
 .petugas-section {
     padding: 100px 0;
@@ -489,6 +544,24 @@ body {
     transition: 0.3s ease;
 }
 
+/* NEW FEATURED CARD STYLING */
+.announcement-card.featured {
+    grid-column: 1 / -1; /* Spans full width */
+    background: #ffffff;
+    border: 2px solid #0b1d3a;
+    box-shadow: 0 15px 45px rgba(11, 29, 58, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+}
+
+.announcement-card.featured h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
 .announcement-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 20px 50px rgba(0,0,0,0.08);
@@ -516,10 +589,20 @@ body {
     border-radius: 20px;
     font-size: 12px;
     letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.announcement-card.featured .event-date {
+    left: 50%;
+    transform: translateX(-50%);
+    top: -15px;
+    background: #d63b3b;
+    font-size: 14px;
+    padding: 8px 20px;
 }
 
 .event-date.accent {
-    background: #d63b3b;
+    background: #888;
 }
 
 /* PROGRESS BAR */
@@ -610,6 +693,20 @@ body {
 
         <div class="announcement-grid">
 
+            <div class="announcement-card featured fade">
+                <div class="event-date">07 MAC</div>
+                <h3>Aktiviti Jabatan Pendidikan: Kuiz Alkitab</h3>
+                <p><strong>Bacaan:</strong> Kitab Kejadian</p>
+                <p><strong>Sasaran:</strong> Semua Anggota Gereja</p>
+                
+                <div class="countdown-container" id="timer-kuiz" data-date="March 7, 2026 09:00:00">
+                    <div class="countdown-box"><span id="days">00</span><small>Hari</small></div>
+                    <div class="countdown-box"><span id="hours">00</span><small>Jam</small></div>
+                    <div class="countdown-box"><span id="mins">00</span><small>Min</small></div>
+                    <div class="countdown-box"><span id="secs">00</span><small>Saat</small></div>
+                </div>
+            </div>
+
             <div class="announcement-card fade">
                 <div class="event-date">28 FEB</div>
                 <h3>Mesyuarat Pelayanan Wanita</h3>
@@ -625,34 +722,27 @@ body {
                 <p><strong>Tempat:</strong> Gereja SDA Koporingan</p>
                 <p><strong>Sasaran:</strong> Semua anggota gereja</p>
             </div>
+            
+        </div> <hr class="timeline-divider fade">
 
+        <div class="announcement-grid">
             <div class="announcement-card fade">
-                <div class="event-date accent">SASARAN</div>
+                <div class="event-date accent">INFO</div>
                 <h3>Pungutan Pembaikan Piano</h3>
                 <p><strong>Sasaran:</strong> RM3000</p>
                 <p><strong>Terkumpul:</strong> RM1136.30</p>
-
                 <div class="progress-bar">
                     <div class="progress-fill" style="width:38%;"></div>
                 </div>
-
                 <span class="progress-text">38% terkumpul</span>
             </div>
 
             <div class="announcement-card fade">
-                <div class="event-date">INFO</div>
+                <div class="event-date accent">INFO</div>
                 <h3>Bayaran Pembersihan</h3>
                 <p>RM10 setiap keluarga sebulan</p>
                 <p>Bayaran kepada: Pn. Debbie Justin</p>
             </div>
-
-            <div class="announcement-card fade">
-                <div class="event-date">07 MAC</div>
-                <h3>Aktiviti Jabatan Pendidikan</h3>
-                <p>Kuiz Alkitab</p>
-                <p>Bacaan: Kitab Kejadian</p>
-            </div>
-
         </div>
 
     </div>
@@ -807,21 +897,40 @@ body {
 </audio>
 
 <script>
+// --- COUNTDOWN TIMER LOGIC ---
+function updateCountdown() {
+    const timerEl = document.getElementById('timer-kuiz');
+    if(!timerEl) return; // safety check
+    
+    const targetDate = new Date(timerEl.getAttribute('data-date')).getTime();
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance < 0) {
+        timerEl.innerHTML = "<p style='color:#d63b3b; font-weight:bold; font-size:18px;'>SEDANG BERLANGSUNG</p>";
+        return;
+    }
+
+    document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+    document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+    document.getElementById('mins').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+    document.getElementById('secs').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+}
+// Run every second
+setInterval(updateCountdown, 1000);
+updateCountdown(); // Run immediately on load
+
+
 // --- Interactive Tabs Logic ---
 function openPetugasTab(evt, tabName) {
-    // 1. Hide all tab content
     let tabContents = document.getElementsByClassName("tab-content");
     for (let i = 0; i < tabContents.length; i++) {
         tabContents[i].classList.remove("active");
     }
-
-    // 2. Remove "active" styling from all buttons
     let tabButtons = document.getElementsByClassName("tab-btn");
     for (let i = 0; i < tabButtons.length; i++) {
         tabButtons[i].classList.remove("active");
     }
-
-    // 3. Show the clicked tab content and highlight the button
     document.getElementById(tabName).classList.add("active");
     evt.currentTarget.classList.add("active");
 }
