@@ -6,240 +6,117 @@
 <title>Sejarah Gereja | Gereja SDA Koporingan</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-
 /* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 90px;
-}
-
-body {
-    background: transparent; /* Allows background image to show */
-    color: #222;
-    line-height: 1.8;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body { background: transparent; color: #222; line-height: 1.8; overflow-x: hidden; }
 
 /* ================= BACKGROUND Setup ================= */
 .bg-image {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: url('sejarah-1.jpeg') no-repeat center center/cover;
     z-index: -2;
 }
-
 .bg-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.65); /* Dark tint to make text pop */
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(11, 29, 58, 0.75); /* Dark blue tint for better contrast */
     z-index: -1;
 }
 
-/* CONTAINER */
-.container {
-    width: 90%;
-    max-width: 900px;
-    margin: auto;
-}
+/* ================= NAVBAR ================= */
+.navbar { position: fixed; width: 100%; top: 0; left: 0; padding: 20px 0; background: rgba(11, 29, 58, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 1000; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
+.nav-inner { width: 90%; max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+.navbar img { height: 50px; }
+.navbar ul { list-style: none; display: flex; gap: 25px; align-items: center; }
+.navbar ul li a { text-decoration: none; color: white; font-weight: 500; transition: 0.3s; }
+.navbar ul li a:hover { color: #d63b3b; }
 
-/* NAVBAR - Semi-transparent glass effect */
-.navbar {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    padding: 20px 0;
-    background: rgba(11, 29, 58, 0.85); /* Clear Navblue */
-    backdrop-filter: blur(12px); /* Frosted glass blur */
-    -webkit-backdrop-filter: blur(12px); /* For Safari support */
-    z-index: 1000;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
+/* SOCIAL ICONS */
+.social-top { display: flex; gap: 15px; align-items: center; }
+.social-top a { color: white; font-size: 20px; transition: 0.3s ease; text-decoration: none; }
+.social-top a:hover { transform: scale(1.2); }
+.fa-facebook:hover { color: #1877F2; text-shadow: 0 0 10px #1877F2; }
+.fa-youtube:hover { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
+.menu-toggle { display: none; font-size: 28px; color: white; cursor: pointer; }
 
-.nav-inner {
-    width: 90%;
-    max-width: 1100px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+/* ================= BANNER ================= */
+.banner { padding-top: 140px; padding-bottom: 40px; background: transparent; text-align: center; }
+.banner h1 { font-family: 'Montserrat', sans-serif; font-size: 48px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #ffffff; text-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
+.banner p { margin-top: 10px; font-family: 'Montserrat', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 4px; color: #eeeeee; opacity: 0.9; }
 
-.navbar img {
-    height: 50px;
-}
+/* ================= CONTENT & SUMMARY ================= */
+.section { padding: 40px 0 80px 0; }
+.container { width: 90%; max-width: 1000px; margin: auto; }
 
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 25px;
+.summary-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    padding: 50px; border-radius: 20px; text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3); margin-bottom: 60px;
+    border-top: 4px solid #d63b3b;
 }
+.summary-card h2 { color: #0b1d3a; font-family: 'Montserrat', sans-serif; margin-bottom: 20px; text-transform: uppercase; font-size: 24px; }
+.summary-card p { color: #444; font-size: 16px; line-height: 1.9; }
 
-.navbar ul li a {
-    text-decoration: none;
-    color: white;
-    font-weight: 500;
-    transition: 0.3s;
-}
+/* ================= TIMELINE DESIGN ================= */
+.timeline { position: relative; max-width: 1000px; margin: 0 auto; }
+/* The Vertical Line */
+.timeline::after { content: ''; position: absolute; width: 4px; background: rgba(255, 255, 255, 0.3); top: 0; bottom: 0; left: 50%; margin-left: -2px; border-radius: 5px; }
 
-.navbar ul li a:hover {
-    color: #d63b3b;
-}
+.timeline-item { padding: 20px 40px; position: relative; width: 50%; }
+.timeline-item.left { left: 0; }
+.timeline-item.right { left: 50%; }
 
-/* HAMBURGER */
-.menu-toggle {
-    display: none;
-    font-size: 28px;
-    color: white;
-    cursor: pointer;
+/* The Timeline Dots/Icons */
+.timeline-icon {
+    position: absolute; width: 50px; height: 50px; right: -25px; top: 30px;
+    background: #0b1d3a; border: 4px solid #d63b3b; border-radius: 50%; z-index: 1;
+    display: flex; justify-content: center; align-items: center; color: white; font-size: 18px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
+.timeline-item.right .timeline-icon { left: -25px; }
 
-/* BANNER */
-.banner {
-    padding-top: 140px;
-    padding-bottom: 60px;
-    background: transparent; /* Allows background to show */
-    text-align: center;
+/* The Content Box */
+.timeline-content {
+    padding: 30px; background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    position: relative; transition: transform 0.3s ease;
 }
-
-/* Updated Banner style for historical cinematic feel */
-.banner h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 48px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #ffffff; /* White for contrast */
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Subtle glow */
-}
-
-.banner p {
-    margin-top: 10px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    color: #eeeeee; /* Light grey for contrast */
-    opacity: 0.8;
-}
-
-/* CONTENT */
-.section {
-    padding: 80px 0;
-}
-
-/* ================= THE NEW BLURRY, HOVERING CARD ================= */
-.content-box {
-    /* Glassmorphism Effect */
-    background: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
-    backdrop-filter: blur(10px); /* Frosted glass blur */
-    -webkit-backdrop-filter: blur(10px); /* For Safari support */
-    
-    padding: 60px 40px; /* Made bigger as requested */
-    border-radius: 20px; /* Softer edges */
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3); /* Stronger shadow for depth */
-    text-align: center; /* Centered text */
-    
-    /* The continuous float/hover effect */
-    animation: floatingCard 4s ease-in-out infinite;
-}
-
-@keyframes floatingCard {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
-}
+.timeline-content:hover { transform: translateY(-5px); }
+.timeline-content h3 { font-family: 'Montserrat', sans-serif; color: #d63b3b; font-size: 22px; margin-bottom: 10px; }
+.timeline-content p { color: #333; font-size: 15px; line-height: 1.6; }
 
 /* FADE */
-.fade {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 0.8s ease;
-}
+.fade { opacity: 0; transform: translateY(40px); transition: 0.8s ease; }
+.fade.show { opacity: 1; transform: translateY(0); }
 
-.fade.show {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* FOOTER */
+.footer { text-align: center; padding: 40px 0; background: #f8f9fb; color: #555; font-size: 14px; margin-top: 60px; }
 
-/* FOOTER STYLING */
-.footer {
-    text-align: center;
-    padding: 30px 0;
-    background: #f8f9fb;
-    color: #555;
-    font-size: 14px;
-    line-height: 1.6;
-    margin-top: 60px;
-}
-
-/* MOBILE */
+/* ================= MOBILE RESPONSIVE ================= */
 @media (max-width: 900px) {
-
-    .menu-toggle {
-        display: block;
-    }
-
-    /* MOBILE DROPDOWN - Clear glass effect */
+    .menu-toggle { display: block; }
+    .social-top { margin-left: 0; margin-bottom: 20px; order: -1; }
     .navbar ul {
-        position: absolute;
-        top: 75px;
-        right: 5%;
-        background: rgba(11, 29, 58, 0.9); /* Clear Navblue */
-        backdrop-filter: blur(15px); /* Frosted glass blur */
-        -webkit-backdrop-filter: blur(15px);
-        width: 220px;
-        flex-direction: column;
-        align-items: flex-end;
-        padding: 20px 25px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        display: none;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.95);
+        backdrop-filter: blur(15px); width: 220px; flex-direction: column; align-items: flex-end;
+        padding: 20px 25px; border-radius: 12px; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
+    .navbar ul.active { display: flex; }
+    .navbar ul li { width: 100%; margin-bottom: 18px; }
+    .banner h1 { font-size: 32px; }
+    .summary-card { padding: 30px 20px; }
 
-    .navbar ul.active {
-        display: flex;
-    }
-
-    .navbar ul li {
-        width: 100%;
-        margin-bottom: 18px;
-    }
-
-    .navbar ul li:last-child {
-        margin-bottom: 0;
-    }
-
-    .navbar ul li a {
-        display: block;
-        text-align: right;
-        font-size: 16px;
-    }
-
-    .banner h1 {
-        font-size: 28px;
-    }
-
-    .content-box {
-        padding: 40px 25px; /* Adjusted padding for mobile */
-    }
+    /* Timeline Mobile Fix */
+    .timeline::after { left: 31px; }
+    .timeline-item { width: 100%; padding-left: 70px; padding-right: 0; }
+    .timeline-item.right { left: 0; }
+    .timeline-item.left .timeline-icon, .timeline-item.right .timeline-icon { left: 6px; }
 }
-
 </style>
 </head>
 
@@ -248,19 +125,25 @@ body {
 <div class="bg-image"></div>
 <div class="bg-overlay"></div>
 
-<div class="navbar">
+<div class="navbar" id="navbar">
     <div class="nav-inner">
         <img src="logo-sda.png" alt="SDA Logo">
-        <div class="menu-toggle" id="menu-toggle">☰</div>
         <ul id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="index.html#pengumuman">Pengumuman</a></li>
-            <li><a href="index.html#petugas">Petugas</a></li>
+            <li><a href="petugas.html">Petugas</a></li>
             <li><a href="ahli-lembaga.html">Ahli Lembaga</a></li>
             <li><a href="media.html">Media</a></li>
             <li><a href="sejarah.html">Sejarah</a></li>
             <li><a href="hubungi-kami.html">Hubungi Kami</a></li>
         </ul>
+        <div class="nav-right" style="display: flex; align-items: center; gap: 20px;">
+            <div class="social-top">
+                <a href="https://www.facebook.com/share/187svoWKJs/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.youtube.com/@GerejaSDAKoporingan" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">☰</div>
+        </div>
     </div>
 </div>
 
@@ -273,60 +156,173 @@ body {
 
 <section class="section">
     <div class="container">
-        <div class="content-box fade">
-            <h2 style="color:#0b1d3a; margin-bottom:20px; font-family:'Montserrat';">Akan Datang</h2>
+        
+        <div class="summary-card fade">
+            <h2>Ringkasan Sejarah</h2>
             <p>
-                Kandungan sejarah gereja sedang disediakan.
-                Sila kembali semula untuk maklumat lengkap mengenai
-                perkembangan dan perjalanan Gereja SDA Koporingan.
+                Sejarah Gereja Seventh-day Adventist (SDA) Koporingan merupakan sebuah perjalanan iman yang bermula daripada sekumpulan kecil ahli yang gigih menghadapi cabaran geografi dan infrastruktur yang serba kekurangan. Bermula dengan ibadat di rumah-rumah peribadi dan gereja-gereja di kawasan jiran seperti Togop dan Kapa, jemaah ini akhirnya berjaya memiliki identiti dan bangunan sendiri melalui ketekunan serta bantuan daripada pelbagai pihak termasuk kerajaan. Kini, gereja ini berfungsi sebagai pusat kerohanian untuk menyebarkan "khabar tiga malaikat" kepada komuniti sekeliling.
             </p>
+        </div>
+
+        <div class="timeline">
+
+            <div class="timeline-item left fade">
+                <div class="timeline-icon"><i class="fas fa-users"></i></div>
+                <div class="timeline-content">
+                    <h3>Tahun 1940-an</h3>
+                    <p>Anggota SDA di kampung ini hanya terdiri daripada beberapa orang sahaja, antaranya ialah saudara Kandapat Kilohon, Sumbuh, dan lain-lain. Tempat sembahyang pada waktu itu adalah tidak tetap, termasuk di Togop, Tamparuli, atau Kapa.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right fade">
+                <div class="timeline-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="timeline-content">
+                    <h3>Sekitar 1951</h3>
+                    <p>Jumlah anggota bertambah hasil usaha Mr. Agian, walaupun jalan raya ke pekan Ranau pada masa itu masih dalam keadaan yang sangat buruk.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left fade">
+                <div class="timeline-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="timeline-content">
+                    <h3>Hujung 1950-an</h3>
+                    <p>Kebanyakan anggota bersabat di gereja Kapa, manakala keluarga saudara Kandapat masih bersabat di gereja Bawang.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right fade">
+                <div class="timeline-icon"><i class="fas fa-home"></i></div>
+                <div class="timeline-content">
+                    <h3>Awal 1960-an</h3>
+                    <p>Keluarga saudara Kandapat mula bersabat di rumah mereka sendiri di Losou.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left fade">
+                <div class="timeline-icon"><i class="fas fa-church"></i></div>
+                <div class="timeline-content">
+                    <h3>Tahun 1962</h3>
+                    <p>Sebuah gereja kecil didirikan di Togudon, namun hanya digunakan selama dua atau tiga tahun sebelum berpindah kembali ke Losou.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right fade">
+                <div class="timeline-icon"><i class="fas fa-hammer"></i></div>
+                <div class="timeline-content">
+                    <h3>Tahun 1976</h3>
+                    <p>Anggota jemaah berjaya mendirikan sebuah gereja di puncak bukit (di tapak rumah cikgu Subin sekarang) setelah keluarga saudara Kandapat berpindah ke kampung Koporingan.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left fade">
+                <div class="timeline-icon"><i class="fas fa-wind"></i></div>
+                <div class="timeline-content">
+                    <h3>Pertengahan 1979</h3>
+                    <p>Gereja di puncak bukit tersebut rosak akibat angin kencang, menyebabkan aktiviti ibadat terpaksa dipindahkan ke balai raya untuk beberapa bulan.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right fade">
+                <div class="timeline-icon"><i class="fas fa-tools"></i></div>
+                <div class="timeline-content">
+                    <h3>Disember 1979</h3>
+                    <p>Sebuah gereja baru berukuran 20' x 30' siap dibina oleh saudara Galapan dengan peruntukan daripada kerajaan Berjaya.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left fade">
+                <div class="timeline-icon"><i class="fas fa-ribbon"></i></div>
+                <div class="timeline-content">
+                    <h3>April 1980</h3>
+                    <p>Gereja ini dirasmikan oleh Datuk James Ongkili dan disaksikan oleh Presiden Misi, Pendeta James Thurmon.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right fade">
+                <div class="timeline-icon"><i class="fas fa-certificate"></i></div>
+                <div class="timeline-content">
+                    <h3>11 Februari 1984</h3>
+                    <p>Gereja SDA Koporingan secara rasminya diorganisasikan oleh Pastor Patrick Godwan.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left fade">
+                <div class="timeline-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                <div class="timeline-content">
+                    <h3>Tahun 1992</h3>
+                    <p>Saiz bangunan gereja asal ditambah menjadi 20' x 46' oleh saudara Doulin Gudtak dari kampung Rangalau Lama.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right fade">
+                <div class="timeline-icon"><i class="fas fa-hard-hat"></i></div>
+                <div class="timeline-content">
+                    <h3>Februari 2006</h3>
+                    <p>Pembinaan gereja baru yang lebih besar (30' x 70') bermula selepas menerima peruntukan RM 150,000 daripada Kerajaan Negeri pada pertengahan tahun 2005.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left fade">
+                <div class="timeline-icon"><i class="fas fa-door-open"></i></div>
+                <div class="timeline-content">
+                    <h3>26 Disember 2006</h3>
+                    <p>Gereja baru tersebut dirasmikan oleh Datuk Louis Rampas, ADUN N.9 Kiulu.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right fade">
+                <div class="timeline-icon"><i class="fas fa-star"></i></div>
+                <div class="timeline-content">
+                    <h3>5 September 2009</h3>
+                    <p>Upacara Pentahbisan Gereja Seventh-day Adventist Kampung Koporingan disempurnakan oleh Pastor Nelson Bendah, Presiden SDA Mission Sabah.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
 
 <footer class="footer">
     <div class="container">
-        <p>
-            © 2026–2027 Gereja SDA Koporingan<br>
-            Developed and maintained by Jabatan Multimedia & Penerbitan<br>
-            Erlandson Keith Subin
-        </p>
+        <p>© 2026–2027 Gereja SDA Koporingan<br>
+           Developed and maintained by Jabatan Multimedia & Penerbitan<br>
+           Erlandson Keith Subin</p>
     </div>
 </footer>
 
-<script>
+<audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
 
+<script>
 // Mobile Menu
-document.getElementById("menu-toggle").addEventListener("click", function() {
+document.getElementById("menu-toggle").addEventListener("click", () => {
     document.getElementById("nav-links").classList.toggle("active");
 });
 
-// Close menu when clicking a link (mobile fix)
-const menuLinks = document.querySelectorAll("#nav-links a");
-
-menuLinks.forEach(link => {
-    link.addEventListener("click", function() {
+document.querySelectorAll("#nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
         document.getElementById("nav-links").classList.remove("active");
     });
 });
 
 // Fade Animation
 const fadeElements = document.querySelectorAll('.fade');
-
 function checkFade() {
     const triggerBottom = window.innerHeight * 0.85;
-
     fadeElements.forEach(el => {
-        const boxTop = el.getBoundingClientRect().top;
-        if (boxTop < triggerBottom) {
+        if (el.getBoundingClientRect().top < triggerBottom) {
             el.classList.add('show');
         }
     });
 }
-
 window.addEventListener('scroll', checkFade);
 window.addEventListener('load', checkFade);
 
+// Music Smart Memory
+const bgMusic = document.getElementById('bg-music');
+const savedTime = sessionStorage.getItem('musicTime');
+if (savedTime) bgMusic.currentTime = parseFloat(savedTime);
+window.addEventListener('beforeunload', () => sessionStorage.setItem('musicTime', bgMusic.currentTime));
+document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
 </script>
 
 </body>
