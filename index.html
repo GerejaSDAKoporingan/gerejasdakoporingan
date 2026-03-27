@@ -29,15 +29,6 @@
 .fa-facebook:hover { color: #1877F2; text-shadow: 0 0 10px #1877F2; }
 .fa-youtube:hover { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
 
-/* ================= COUNTDOWN & TIMELINE STYLING ================= */
-.countdown-container {
-    display: flex; gap: 15px; margin-top: 20px; background: rgba(11, 29, 58, 0.05);
-    padding: 15px; border-radius: 12px; justify-content: center; border: 1px solid rgba(11, 29, 58, 0.1);
-}
-.countdown-box { text-align: center; min-width: 60px; }
-.countdown-box span { display: block; font-size: 24px; font-weight: 800; color: #d63b3b; font-family: 'Montserrat', sans-serif; }
-.countdown-box small { font-size: 10px; text-transform: uppercase; color: #555; letter-spacing: 1px; font-weight: bold; }
-
 .timeline-divider { border: 0; height: 1px; background: #e6e6e6; margin: 50px 0; position: relative; }
 .timeline-divider::after {
     content: "Maklumat Umum"; position: absolute; top: -10px; left: 50%;
@@ -45,33 +36,30 @@
     color: #888; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
 }
 
-/* ================= COMPACT PETUGAS SECTION (TEASER) ================= */
+/* ================= PETUGAS DASHBOARD ================= */
 .petugas-section { padding: 80px 0; background: #f8f9fb; }
-.petugas-teaser-card {
-    background: #ffffff; padding: 50px; border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.04); text-align: center;
-    border: 1px solid #eee;
+.petugas-main-card {
+    background: #ffffff; padding: 40px; border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.05); border: 1px solid #eee;
 }
-.petugas-teaser-card h3 { font-family: 'Montserrat', sans-serif; color: #0b1d3a; margin-bottom: 15px; font-size: 24px; }
-.preacher-highlight { margin: 25px 0; padding: 20px; background: #fdfdfd; border-radius: 12px; border: 1px dashed #0b1d3a; }
-.preacher-highlight span { font-size: 12px; color: #777; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; }
-.preacher-highlight strong { display: block; font-size: 20px; color: #111; margin-top: 5px; }
+.service-title { font-family: 'Montserrat'; font-weight: 800; color: #0b1d3a; font-size: 22px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.petugas-grid-mini { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+.p-item { background: #fbfbfd; padding: 15px; border-radius: 12px; border-left: 3px solid #d63b3b; }
+.p-item span { display: block; font-size: 10px; color: #888; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+.p-item strong { display: block; font-size: 14px; color: #111; }
 
 .btn-primary {
     display: inline-block; padding: 15px 40px; background: #0b1d3a; color: white;
     text-decoration: none; border-radius: 50px; font-weight: 600; font-family: 'Montserrat', sans-serif;
     transition: 0.3s; box-shadow: 0 8px 20px rgba(11, 29, 58, 0.2);
 }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(11, 29, 58, 0.3); background: #d63b3b; }
+.btn-primary:hover { transform: translateY(-3px); background: #d63b3b; }
 
-/* ================= PROGRESS BAR DESIGN ================= */
-.fund-card { background: #ffffff; border-radius: 20px; padding: 35px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.03); text-align: center; }
-.fund-card h3 { font-family: 'Montserrat', sans-serif; color: #0b1d3a; font-size: 18px; text-transform: uppercase; margin-bottom: 15px; }
-.fund-stats { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: #555; font-weight: 600; }
-.fund-stats strong { color: #111; font-size: 16px; }
-.fund-bar-bg { width: 100%; height: 14px; background: #f0f0f5; border-radius: 50px; overflow: hidden; position: relative; }
-.fund-bar-fill { height: 100%; background: linear-gradient(90deg, #0b1d3a, #1a3a6c); border-radius: 50px; width: 46%; transition: width 1s ease-in-out; }
-.fund-percentage { margin-top: 15px; display: inline-block; background: #0b1d3a; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+/* ================= PIANO PROGRESS ================= */
+.fund-card { background: #ffffff; border-radius: 20px; padding: 35px; border: 1px solid #eee; text-align: center; }
+.fund-stats { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; font-weight: 600; }
+.fund-bar-bg { width: 100%; height: 14px; background: #f0f0f5; border-radius: 50px; overflow: hidden; }
+.fund-bar-fill { height: 100%; background: linear-gradient(90deg, #0b1d3a, #d63b3b); width: 49%; transition: width 1s; }
 
 /* ================= RESET & NAVBAR ================= */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
@@ -92,36 +80,21 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
 .hero img.active { opacity: 1; }
 .overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.55); }
 .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; }
-.hero-content h1 {
-    font-family: 'Montserrat', sans-serif; font-size: 55px; font-weight: 800; text-transform: uppercase;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
-}
+.hero-content h1 { font-family: 'Montserrat', sans-serif; font-size: 55px; font-weight: 800; text-transform: uppercase; }
 
 /* ================= ANNOUNCEMENT ================= */
 .announcement-section { padding: 120px 0; background: #ffffff; }
 .announcement-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; }
-.announcement-card { background: #f8f9fb; padding: 30px; border-radius: 16px; position: relative; transition: 0.3s; }
-.announcement-card.featured { grid-column: 1 / -1; background: #ffffff; border: 2px solid #0b1d3a; text-align: center; padding: 40px; }
-.event-date { position: absolute; top: -15px; left: 20px; background: #0b1d3a; color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; letter-spacing: 1px; }
-.announcement-card.featured .event-date { left: 50%; transform: translateX(-50%); background: #d63b3b; font-size: 14px; padding: 8px 20px; }
-.event-date.accent { background: #888; }
-.announcement-card h3 { margin-bottom: 15px; color: #0b1d3a; }
-.announcement-card p { margin-bottom: 8px; color: #444; font-size: 15px; }
-.announcement-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+.announcement-card { background: #f8f9fb; padding: 30px; border-radius: 16px; position: relative; transition: 0.3s; border-left: 4px solid #0b1d3a; }
+.event-date { position: absolute; top: -15px; left: 20px; background: #0b1d3a; color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; }
 
-/* MOBILE */
 @media (max-width: 900px) {
     .menu-toggle { display: block; }
-    .social-top { margin-left: 0; margin-bottom: 20px; order: -1; }
-    .navbar ul {
-        position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.9);
-        width: 220px; flex-direction: column; padding: 20px; border-radius: 12px; display: none;
-    }
+    .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.9); width: 220px; flex-direction: column; padding: 20px; border-radius: 12px; display: none; }
     .navbar ul.active { display: flex; }
     .hero-content h1 { font-size: 38px; }
 }
 
-.whatsapp-btn { position: fixed; bottom: 25px; right: 25px; background: #25D366; color: white; padding: 14px 22px; border-radius: 50px; text-decoration: none; z-index: 999; }
 .footer { text-align: center; padding: 30px 0; background: #f8f9fb; font-size: 14px; }
 </style>
 </head>
@@ -164,62 +137,38 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
 <section id="pengumuman" class="announcement-section">
     <div class="container">
         <div class="section-header" style="text-align:center; margin-bottom:50px;">
-            <h2 style="font-family:'Montserrat'; font-weight:800; color:#0b1d3a; text-transform:uppercase; font-size: 38px;">Pengumuman Gereja</h2>
-            <p style="color: #666; font-size: 16px; margin-top: 10px;">Jadual & Program Utama | Mac 2026</p>
+            <h2 style="font-family:'Montserrat'; font-weight:800; color:#0b1d3a; text-transform:uppercase; font-size: 38px;">Pengumuman Jemaat</h2>
+            <p style="color: #666; font-size: 16px; margin-top: 10px;">Program Utama Minggu Ini</p>
         </div>
 
         <div class="announcement-grid">
             
-            <div class="announcement-card featured fade">
-                <div class="event-date">21 MAC</div>
-                <h3>Kuiz Alkitab (Jabatan Pendidikan)</h3>
-                <p><strong>Masa:</strong> Sabat (2.00 Petang)</p>
-                <p><strong>Bacaan:</strong> Kitab Kejadian</p>
-                <p><strong>Sasaran:</strong> Semua anggota gereja</p>
-                <div class="countdown-container" id="timer-kuiz" data-date="March 21, 2026 14:00:00">
-                    <div class="countdown-box"><span id="days">00</span><small>Hari</small></div>
-                    <div class="countdown-box"><span id="hours">00</span><small>Jam</small></div>
-                    <div class="countdown-box"><span id="mins">00</span><small>Min</small></div>
-                    <div class="countdown-box"><span id="secs">00</span><small>Saat</small></div>
-                </div>
-            </div>
-
-            <div class="announcement-card fade">
-                <div class="event-date">21 MAC</div>
-                <h3>Mesyuarat Komiti Gereja</h3>
-                <p><strong>Hari:</strong> Sabat</p>
-                <p><strong>Masa:</strong> 6.00 Petang</p>
-                <p><strong>Tempat:</strong> Gereja SDA Koporingan</p>
-                <p><strong>Sasaran:</strong> Semua Lembaga Gereja</p>
-            </div>
-
-            <div class="announcement-card fade" style="border-left: 4px solid #d63b3b;">
-                <div class="event-date" style="background:#d63b3b;">21-28 MAC</div>
-                <h3>Minggu Doa Belia</h3>
-                <p><strong>Tempat:</strong> Gereja SDA Koporingan</p>
-                <p><strong>Isnin - Jumaat:</strong> 7.30 PM</p>
-                <p><strong>Sabat - Ahad:</strong> 6.30 PM</p>
-                <p><strong>Sasaran:</strong> Semua anggota gereja</p>
+            <div class="announcement-card fade" style="border-left-color: #d63b3b; grid-column: 1 / -1; background: #fffcfc; border: 1px solid #ffebeb; border-left: 5px solid #d63b3b;">
+                <div class="event-date" style="background:#d63b3b;">28 MAC</div>
+                <h3 style="color: #d63b3b;">Sabat Ke-13 & Perjamuan Suci</h3>
+                <p>Hari istimewa yang merangkumi Acara Kelas Dewasa, Penyampaian Hadiah Kuiz, Majlis Watikah Ahli Lembaga, dan Pelancaran Buku GTMI.</p>
+                <p><strong>Selepas Kebaktian:</strong> Potluck Bersama</p>
             </div>
 
             <div class="announcement-card fade">
                 <div class="event-date">28 MAC</div>
-                <h3>Sabat Ke-13 & Pertemuan AY</h3>
-                <ul style="list-style: none; padding-top: 5px; font-size: 14px; color: #444; line-height: 1.8;">
-                    <li><i class="fas fa-bible" style="color:#0b1d3a; margin-right:8px;"></i> Acara Sabat Ke-13 (Kelas Dewasa)</li>
-                    <li><i class="fas fa-wine-glass" style="color:#0b1d3a; margin-right:8px;"></i> Perjamuan Suci</li>
-                    <li><i class="fas fa-utensils" style="color:#0b1d3a; margin-right:8px;"></i> Potluck Bersama</li>
-                    <li><i class="fas fa-users" style="color:#0b1d3a; margin-right:8px;"></i> Pertemuan AY (3.00 PM - 4.00 PM)</li>
-                </ul>
+                <h3>Pertemuan AY & Pathfinder</h3>
+                <p><strong>Masa:</strong> 3.00 PM – 4.00 PM</p>
+                <p>Kehadiran diwajibkan bagi semua Pemimpin Belia, Adventurer, Pathfinder, MIT dan MG.</p>
+            </div>
+
+            <div class="announcement-card fade" style="border-left-color: #d63b3b;">
+                <div class="event-date" style="background: #d63b3b;">28 MAC</div>
+                <h3>Penutupan Minggu Doa Belia</h3>
+                <p><strong>Masa:</strong> 6.30 Petang</p>
+                <p>Mari kita berkumpul untuk sesi terakhir Minggu Doa Belia di Gereja SDA Koporingan.</p>
             </div>
 
             <div class="announcement-card fade">
                 <div class="event-date">29 MAC</div>
-                <h3>Global Youth Day (Peringkat Mission)</h3>
-                <p><strong>Hari:</strong> Ahad</p>
-                <p><strong>Masa:</strong> 2.00 PTG - 4.00 PTG</p>
-                <p><strong>Tempat:</strong> Pioneer Memorial Church (PMC)</p>
-                <p><strong>Sasaran:</strong> Semua Pemimpin Jabatan Belia, ahli Adventurer, Pathfinder, MIT dan MG</p>
+                <h3>Global Youth Day (Mission)</h3>
+                <p><strong>Tempat:</strong> PMC (Pioneer Memorial Church)</p>
+                <p><strong>Masa:</strong> 2.00 PTG – 4.00 PTG</p>
             </div>
 
         </div>
@@ -227,28 +176,20 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
         <hr class="timeline-divider fade">
 
         <div class="announcement-grid">
-            
             <div class="fund-card fade">
-                <div class="event-date accent">INFO</div>
-                <h3><i class="fas fa-music" style="color: #d63b3b; margin-right: 8px;"></i> Tabung Pembaikan Piano</h3>
-                
+                <h3 style="font-family:'Montserrat'; font-size:16px; margin-bottom:15px; color:#0b1d3a;">TABUNG PEMBAIKAN PIANO</h3>
                 <div class="fund-stats">
-                    <span>Terkumpul: <strong>RM 1,387.30</strong></span>
+                    <span>Terkumpul: <strong>RM 1,467.30</strong></span>
                     <span>Sasaran: <strong>RM 3,000.00</strong></span>
                 </div>
-                
-                <div class="fund-bar-bg">
-                    <div class="fund-bar-fill"></div>
-                </div>
-                
-                <span class="fund-percentage">46% Dicapai</span>
+                <div class="fund-bar-bg"><div class="fund-bar-fill"></div></div>
+                <p style="margin-top:10px; font-size:12px; font-weight:bold; color:#d63b3b;">49% DICAPAI</p>
             </div>
             
             <div class="announcement-card fade">
-                <div class="event-date accent">INFO</div>
-                <h3>Bayaran Pembersihan Gereja</h3>
-                <p><strong>Kadar:</strong> RM10 / keluarga sebulan</p>
-                <p>Bayaran boleh diserahkan kepada Pn. Debbie Justin.</p>
+                <div class="event-date accent" style="background:#888;">INFO</div>
+                <h3>Bayaran Pembersihan</h3>
+                <p>RM10 / keluarga sebulan. Sila serahkan kepada Pn. Debbie Justin.</p>
             </div>
         </div>
     </div>
@@ -256,17 +197,36 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
 
 <section id="petugas" class="petugas-section">
     <div class="container">
-        <div class="petugas-teaser-card fade">
-            <h3>Jadual Petugas Akan Datang</h3>
-            <p>Sabat Pertama | 04 April 2026</p>
-            
-            <div class="preacher-highlight">
-                <span>Pengkhotbah Sabat Ini:</span>
-                <strong>En. Jonathan</strong>
-                <small style="color:#d63b3b; font-weight:bold; display:block; margin-top:5px;">"Kebaktian Khotbah"</small>
+        <div class="petugas-main-card fade">
+            <div style="text-align:center; margin-bottom:40px;">
+                <h3 style="font-family:'Montserrat'; text-transform:uppercase; color:#0b1d3a;">Jadual Petugas Sabat Ke-13</h3>
+                <p style="font-weight:bold; color:#d63b3b;">28 Mac 2026</p>
             </div>
 
-            <a href="petugas.html" class="btn-primary">Lihat Jadual Suku Ke-2</a>
+            <div class="service-title"><i class="fas fa-sun" style="color:#f39c12;"></i> Sekolah Sabat (8.30 AM)</div>
+            <div class="petugas-grid-mini">
+                <div class="p-item"><span>Pemimpin Acara</span><strong>Pn. Emily Subin</strong></div>
+                <div class="p-item"><span>Cerita Misi</span><strong>En. Erlandson Keith Subin</strong></div>
+                <div class="p-item"><span>Pianist</span><strong>Aurellendra Sonny</strong></div>
+                <div class="p-item"><span>Media</span><strong>En. Joy Brandon Wong</strong></div>
+            </div>
+
+            <div class="service-title"><i class="fas fa-church" style="color:#d63b3b;"></i> Kebaktian Khotbah & Perjamuan</div>
+            <div class="petugas-grid-mini">
+                <div class="p-item" style="border-left-color:#0b1d3a; grid-column: 1 / -1;">
+                    <span>Pengkhotbah</span>
+                    <strong>Pastor Max Selamat Buloh</strong>
+                    <small style="display:block; margin-top:5px; color:#d63b3b; font-weight:bold;">"Apabila Mereka Berkata Aman"</small>
+                </div>
+                <div class="p-item"><span>Pemimpin Acara</span><strong>Elder Sonny Tivon Stimol</strong></div>
+                <div class="p-item"><span>Doa Pembuka</span><strong>Elder Justin Kinsui</strong></div>
+                <div class="p-item"><span>Pianist</span><strong>Pn. Naria Grace Clifton</strong></div>
+                <div class="p-item"><span>Media</span><strong>En. Raizal Dunggi</strong></div>
+            </div>
+
+            <div style="text-align:center; margin-top:20px;">
+                <a href="petugas.html" class="btn-primary">Lihat Jadual Penuh Suku Ke-2</a>
+            </div>
         </div>
     </div>
 </section>
@@ -277,9 +237,6 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
             <i class="fas fa-bolt" style="font-size: 30px; color: #d63b3b; text-shadow: 0 0 15px rgba(214, 59, 59, 0.6);"></i>
             <h4 style="font-family: 'Montserrat'; text-transform: uppercase; letter-spacing: 3px; color: #d63b3b; font-size: 14px; font-weight: 700;">Belia Koporingan</h4>
             <h2 style="font-family: 'Montserrat'; font-size: clamp(28px, 5vw, 42px); font-weight: 800; line-height: 1.2;">Youth Department Hub</h2>
-            <p style="max-width: 650px; margin: 10px auto 25px; opacity: 0.85; font-size: 16px; line-height: 1.6;">
-                Terokai aktiviti AY, Pathfinder, Adventurer, dan pelbagai program pembangunan rohani khusus untuk generasi muda di Laman Rasmi Jabatan Belia.
-            </p>
             <a href="https://gerejasdakoporingan.github.io/belia-koporingan/" target="_blank" class="btn-primary" style="background: white; color: #0b1d3a; border: none; padding: 18px 45px; font-size: 15px;">
                 Lawati Laman Belia <i class="fas fa-external-link-alt" style="margin-left: 10px;"></i>
             </a>
@@ -287,25 +244,11 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
     </div>
 </section>
 
-<footer class="footer"><p>© 2026–2027 Gereja SDA Koporingan | Dikemaskini oleh Erlandson Keith Subin</p></footer>
+<footer class="footer"><p>© 2026–2027 Gereja SDA Koporingan | Erlandson Keith Subin</p></footer>
 
 <audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
 
 <script>
-function updateCountdown() {
-    const timerEl = document.getElementById('timer-kuiz');
-    if(!timerEl) return;
-    const targetDate = new Date(timerEl.getAttribute('data-date')).getTime();
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-    if (distance < 0) { timerEl.innerHTML = "<p style='color:#d63b3b; font-weight:bold; font-size:18px;'>SEDANG BERLANGSUNG / TAMAT</p>"; return; }
-    document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-    document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-    document.getElementById('mins').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-    document.getElementById('secs').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-}
-setInterval(updateCountdown, 1000);
-
 document.getElementById("menu-toggle").addEventListener("click", () => document.getElementById("nav-links").classList.toggle("active"));
 window.addEventListener("scroll", () => document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50));
 
