@@ -36,8 +36,6 @@ body { background: #fbfbfd; color: #1d1d1f; overflow-x: hidden; -webkit-font-smo
     color: #1d1d1f; font-weight: 700; font-size: 13px; cursor: pointer; border: none; transition: 0.3s; 
 }
 .pill.active { background: #0b1d3a; color: #fff; transform: scale(1.05); box-shadow: 0 8px 20px rgba(11, 29, 58, 0.2); }
-.pill.live { border: 2px solid #d63b3b; position: relative; }
-.pill.live::after { content: 'LIVE'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #d63b3b; color: #fff; font-size: 8px; padding: 2px 6px; border-radius: 4px; }
 
 /* SERVICE CARDS */
 .section { padding: 40px 0 80px; }
@@ -61,7 +59,6 @@ body { background: #fbfbfd; color: #1d1d1f; overflow-x: hidden; -webkit-font-smo
     .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.98); backdrop-filter: blur(20px); width: 220px; flex-direction: column; padding: 25px; border-radius: 16px; display: none; }
     .navbar ul.active { display: flex; }
     .banner h1 { font-size: 24px; }
-    .petugas-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -85,13 +82,11 @@ body { background: #fbfbfd; color: #1d1d1f; overflow-x: hidden; -webkit-font-smo
 </div>
 
 <div class="picker-container">
-    <div class="sabbath-picker" id="date-picker">
-        </div>
+    <div class="sabbath-picker" id="date-picker"></div>
 </div>
 
 <div class="section">
-    <div class="container" id="schedule-content">
-        </div>
+    <div class="container" id="schedule-content"></div>
 </div>
 
 <footer class="footer">
@@ -101,79 +96,107 @@ body { background: #fbfbfd; color: #1d1d1f; overflow-x: hidden; -webkit-font-smo
 <audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
 
 <script>
-/* ================= DATA CENTER (Update April-Jun Here) ================= */
+/* ================= DATA CENTER (Full Quarter April-Jun) ================= */
 const scheduleData = [
-    { date: "4 APR", label: "Sabat 1", 
+    { date: "4 APR", fullDate: "2026-04-04", label: "Sabat 1", 
       ss: { piano: "Natalie Jack", mc: "Pn. Jupina", misi: "En. Raizal", kesihatan: "Cik Cristie", laporan: "Shane Jayden", media: "En. Emerson", tulis: "En. Jonathan" },
       khotbah: { preacher: "En. Jonathan", mc: "Eld. Ernest", persembahan: "En. Melvin", doa: "Pn. Agnes", diakon: "En. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "Eld. Joseph" }
     },
-    { date: "11 APR", label: "Sabat 2", 
+    { date: "11 APR", fullDate: "2026-04-11", label: "Sabat 2", 
       ss: { piano: "Abner Raizal", mc: "Pn. Salicina", misi: "Pn. Debbie", kesihatan: "Pn. Minah", laporan: "Anabelle", media: "En. Jonathan", tulis: "Christie Cosmas" },
       khotbah: { preacher: "Pn. Jupina", mc: "Eld. Sonny", persembahan: "Eld. Justin", doa: "En. Raizal", diakon: "En. Elvinson & Pn. Debbie", special: "Kumpulan 2", piano: "Pn. Salicina", media: "En. Emerson" }
     },
-    { date: "18 APR", label: "Sabat 3", 
+    { date: "18 APR", fullDate: "2026-04-18", label: "Sabat 3", 
       ss: { piano: "Natalie Jack", mc: "Pn. Debbie", misi: "Pn. Jupina", kesihatan: "En. Jonathan", laporan: "Cik Cristie", media: "Joy Brandon", tulis: "En. Clifton" },
       khotbah: { preacher: "En. Emerson", mc: "Eld. Ernest", persembahan: "En. Melvin", doa: "Pn. Agnes", diakon: "En. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "Eld. Joseph" }
     },
-    { date: "25 APR", label: "Sabat 4", 
+    { date: "25 APR", fullDate: "2026-04-25", label: "Sabat 4", 
       ss: { piano: "Abner Raizal", mc: "Pn. Salicina", misi: "Pn. Debbie", kesihatan: "Pn. Minah", laporan: "Anabelle", media: "En. Jonathan", tulis: "Christie Cosmas" },
       khotbah: { preacher: "Elder Joseph M", mc: "Eld. Sonny", persembahan: "Eld. Justin", doa: "En. Raizal", diakon: "En. Elvinson & Pn. Debbie", special: "Kumpulan 2", piano: "Pn. Salicina", media: "En. Emerson" }
+    },
+    { date: "2 MEI", fullDate: "2026-05-02", label: "Sabat 5", 
+      ss: { piano: "Natalie Jack", mc: "Pn. Jupina", misi: "En. Raizal", kesihatan: "Cik Cristie", laporan: "Shane Jayden", media: "En. Emerson", tulis: "En. Jonathan" },
+      khotbah: { preacher: "Pn. Agnes", mc: "Eld. Ernest", persembahan: "En. Melvin", doa: "Pn. Agnes", diakon: "En. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "Eld. Joseph" }
+    },
+    { date: "9 MEI", fullDate: "2026-05-09", label: "Sabat 6", 
+      ss: { piano: "Abner Raizal", mc: "Pn. Salicina", misi: "Pn. Debbie", kesihatan: "Pn. Minah", laporan: "Anabelle", media: "En. Jonathan", tulis: "Christie Cosmas" },
+      khotbah: { preacher: "Pn. Jupina", mc: "Eld. Sonny", persembahan: "Eld. Justin", doa: "En. Raizal", diakon: "En. Elvinson & Pn. Debbie", special: "Kumpulan 2", piano: "Pn. Salicina", media: "En. Emerson" }
+    },
+    { date: "16 MEI", fullDate: "2026-05-16", label: "Sabat 7", 
+      ss: { piano: "Natalie Jack", mc: "Pn. Debbie", misi: "Pn. Jupina", kesihatan: "En. Jonathan", laporan: "Cik Cristie", media: "Joy Brandon", tulis: "En. Clifton" },
+      khotbah: { preacher: "En. Raizal", mc: "Eld. Ernest", persembahan: "En. Melvin", doa: "Pn. Agnes", diakon: "En. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "Eld. Joseph" }
+    },
+    { date: "23 MEI", fullDate: "2026-05-23", label: "Sabat 8", 
+      ss: { piano: "Abner Raizal", mc: "Pn. Salicina", misi: "Pn. Debbie", kesihatan: "Pn. Minah", laporan: "Anabelle", media: "En. Jonathan", tulis: "Christie Cosmas" },
+      khotbah: { preacher: "En. Melvin", mc: "Eld. Sonny", persembahan: "Eld. Justin", doa: "En. Raizal", diakon: "En. Elvinson & Pn. Debbie", special: "Kumpulan 2", piano: "Pn. Salicina", media: "En. Emerson" }
+    },
+    { date: "30 MEI", fullDate: "2026-05-30", label: "Sabat 9", 
+      ss: { piano: "Natalie Jack", mc: "Pn. Jupina", misi: "En. Raizal", kesihatan: "Cik Cristie", laporan: "Shane Jayden", media: "En. Emerson", tulis: "En. Jonathan" },
+      khotbah: { preacher: "Elder Sonny T", mc: "Eld. Ernest", persembahan: "En. Melvin", doa: "Pn. Agnes", diakon: "En. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "Eld. Joseph" }
+    },
+    { date: "6 JUN", fullDate: "2026-06-06", label: "Sabat 10", 
+      ss: { piano: "Abner Raizal", mc: "Pn. Salicina", misi: "Pn. Debbie", kesihatan: "Pn. Minah", laporan: "Anabelle", media: "En. Jonathan", tulis: "Christie Cosmas" },
+      khotbah: { preacher: "Eld. Ernest K", mc: "Eld. Sonny", persembahan: "Eld. Justin", doa: "En. Raizal", diakon: "En. Elvinson & Pn. Debbie", special: "Kumpulan 2", piano: "Pn. Salicina", media: "En. Emerson" }
+    },
+    { date: "13 JUN", fullDate: "2026-06-13", label: "Sabat 11", 
+      ss: { piano: "Natalie Jack", mc: "Pn. Debbie", misi: "Pn. Jupina", kesihatan: "En. Jonathan", laporan: "Cik Cristie", media: "Joy Brandon", tulis: "En. Clifton" },
+      khotbah: { preacher: "Eld. Justin K", mc: "Eld. Ernest", persembahan: "En. Melvin", doa: "Pn. Agnes", diakon: "En. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "Eld. Joseph" }
+    },
+    { date: "20 JUN", fullDate: "2026-06-20", label: "Sabat 12", 
+      ss: { piano: "Abner Raizal", mc: "Pn. Salicina", misi: "Pn. Debbie", kesihatan: "Pn. Minah", laporan: "Anabelle", media: "En. Jonathan", tulis: "Christie Cosmas" },
+      khotbah: { preacher: "En. Clifton", mc: "Eld. Sonny", persembahan: "Eld. Justin", doa: "En. Raizal", diakon: "En. Elvinson & Pn. Debbie", special: "Kumpulan 2", piano: "Pn. Salicina", media: "En. Emerson" }
+    },
+    { date: "27 JUN", fullDate: "2026-06-27", label: "Sabat 13", 
+      ss: { piano: "Natalie Jack", mc: "Pn. Jupina", misi: "En. Raizal", kesihatan: "Cik Cristie", laporan: "Shane Jayden", media: "En. Emerson", tulis: "En. Jonathan" },
+      khotbah: { preacher: "Special (Sabat 13)", mc: "Eld. Ernest", persembahan: "En. Melvin", doa: "Pn. Agnes", diakon: "En. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "Eld. Joseph" }
     }
-    // ... Just repeat this block for all 13 Sabbaths from your image
 ];
 
-/* ================= THE ENGINE ================= */
+/* ================= ENGINE ================= */
 function renderSchedule(index) {
     const data = scheduleData[index];
-    const html = `
+    document.getElementById('schedule-content').innerHTML = `
         <div class="service-header" style="color:#0071e3;"><i class="fas fa-sun"></i> Sekolah Sabat (09:45 AM)</div>
         <div class="petugas-grid">
             <div class="card">
-                ${renderRole("Pianist", data.ss.piano, "fa-piano")}
-                ${renderRole("Pemimpin Acara", data.ss.mc, "fa-microphone")}
-                ${renderRole("Cerita Misi", data.ss.misi, "fa-earth-asia")}
-                ${renderRole("Kesihatan", data.ss.kesihatan, "fa-heart-pulse")}
+                ${r("Pianist", data.ss.piano, "fa-piano")}
+                ${r("Pemimpin Acara", data.ss.mc, "fa-microphone")}
+                ${r("Cerita Misi", data.ss.misi, "fa-earth-asia")}
             </div>
             <div class="card">
-                ${renderRole("Laporan SS", data.ss.laporan, "fa-file-signature")}
-                ${renderRole("Media", data.ss.media, "fa-laptop-code")}
-                ${renderRole("Jurutulis", data.ss.tulis, "fa-pen-nib")}
+                ${r("Keluarga & Kesihatan", data.ss.kesihatan, "fa-heart-pulse")}
+                ${r("Media", data.ss.media, "fa-laptop-code")}
+                ${r("Jurutulis", data.ss.tulis, "fa-pen-nib")}
             </div>
         </div>
-
         <div class="service-header" style="color:#d63b3b;"><i class="fas fa-church"></i> Kebaktian Khotbah (11:00 AM)</div>
         <div class="petugas-grid">
             <div class="card" style="border-left: 5px solid #d63b3b;">
-                ${renderRole("Pengkhotbah", data.khotbah.preacher, "fa-star")}
-                ${renderRole("Pemimpin Acara", data.khotbah.mc, "fa-microphone-lines")}
-                ${renderRole("Doa Syafaat", data.khotbah.doa, "fa-hands-praying")}
-                ${renderRole("Persembahan", data.khotbah.persembahan, "fa-hand-holding-heart")}
+                ${r("Pengkhotbah", data.khotbah.preacher, "fa-star")}
+                ${r("Pemimpin Acara", data.khotbah.mc, "fa-microphone-lines")}
+                ${r("Doa Syafaat", data.khotbah.doa, "fa-hands-praying")}
             </div>
             <div class="card">
-                ${renderRole("Diakon/Diakones", data.khotbah.diakon, "fa-user-shield")}
-                ${renderRole("Istimewa", data.khotbah.special, "fa-gift")}
-                ${renderRole("Pianist", data.khotbah.piano, "fa-music")}
-                ${renderRole("Media", data.khotbah.media, "fa-desktop")}
+                ${r("Diakon/Diakones", data.khotbah.diakon, "fa-user-shield")}
+                ${r("Pianist", data.khotbah.piano, "fa-music")}
+                ${r("Media", data.khotbah.media, "fa-desktop")}
             </div>
-        </div>
-    `;
-    document.getElementById('schedule-content').innerHTML = html;
+        </div>`;
 }
 
-function renderRole(title, name, icon) {
-    return `<div class="role-item">
-        <div class="role-icon"><i class="fas ${icon}"></i></div>
-        <div class="role-text"><span>${title}</span><strong>${name}</strong></div>
-    </div>`;
-}
+function r(t, n, i) { return `<div class="role-item"><div class="role-icon"><i class="fas ${i}"></i></div><div class="role-text"><span>${t}</span><strong>${n}</strong></div></div>`; }
 
-/* ================= INITIALIZE HUB ================= */
 const picker = document.getElementById('date-picker');
+const today = new Date();
+let autoSelect = 0;
+
 scheduleData.forEach((item, index) => {
     const btn = document.createElement('button');
     btn.className = 'pill';
     btn.innerHTML = item.date;
-    btn.onclick = (e) => {
+    const itemDate = new Date(item.fullDate);
+    if (itemDate <= today) autoSelect = index;
+    btn.onclick = () => {
         document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
         btn.classList.add('active');
         renderSchedule(index);
@@ -181,10 +204,10 @@ scheduleData.forEach((item, index) => {
     picker.appendChild(btn);
 });
 
-// Auto-select first Sabat for now
-document.querySelector('.pill').click();
+const activePill = picker.children[autoSelect];
+activePill.click();
+activePill.scrollIntoView({ behavior: 'smooth', inline: 'center' });
 
-/* UI STUFF */
 document.getElementById("menu-toggle").addEventListener("click", () => document.getElementById("nav-links").classList.toggle("active"));
 const bgMusic = document.getElementById('bg-music');
 document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
