@@ -9,245 +9,184 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-/* RESET & BASIC */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-body { background: #f8f9fb; color: #222; overflow-x: hidden; }
+/* RESET & CORE STYLE */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+body { background: #fbfbfd; color: #1d1d1f; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
 /* NAVBAR */
-.navbar { position: fixed; width: 100%; top: 0; padding: 20px 0; background: rgba(11, 29, 58, 0.95); backdrop-filter: blur(12px); z-index: 1000; }
+.navbar { position: fixed; width: 100%; top: 0; padding: 20px 0; background: rgba(11, 29, 58, 0.95); backdrop-filter: blur(20px); z-index: 1000; }
 .nav-inner { width: 90%; max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
-.navbar img { height: 50px; }
+.navbar img { height: 45px; }
 .navbar ul { list-style: none; display: flex; gap: 25px; align-items: center; }
-.navbar ul li a { text-decoration: none; color: white; font-weight: 500; transition: 0.3s; }
-.navbar ul li a:hover { color: #d63b3b; }
-.social-top { display: flex; gap: 15px; align-items: center; }
-.social-top a { color: white; font-size: 20px; transition: 0.3s ease; text-decoration: none; }
-.social-top a:hover { transform: scale(1.2); }
-.fa-facebook:hover { color: #1877F2; text-shadow: 0 0 10px #1877F2; }
-.fa-youtube:hover { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
+.navbar ul li a { text-decoration: none; color: white; font-weight: 500; font-size: 14px; }
 .menu-toggle { display: none; font-size: 28px; color: white; cursor: pointer; }
 
 /* BANNER */
-.banner { padding-top: 150px; padding-bottom: 50px; text-align: center; background: #fff; border-bottom: 1px solid #eee; }
-.banner h1 { font-family: 'Montserrat', sans-serif; font-size: 40px; font-weight: 800; text-transform: uppercase; color: #0b1d3a; }
+.banner { padding-top: 140px; padding-bottom: 40px; text-align: center; background: #fff; }
+.banner h1 { font-family: 'Montserrat'; font-size: 32px; font-weight: 800; color: #0b1d3a; text-transform: uppercase; }
+.banner p { color: #86868b; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
-/* PETUGAS CONTENT */
-.section { padding: 60px 0; }
-.container { width: 90%; max-width: 1200px; margin: auto; }
-.tabs-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
-.tab-btn { padding: 12px 35px; font-size: 16px; font-weight: 600; color: #0b1d3a; border: 2px solid #0b1d3a; border-radius: 50px; cursor: pointer; background: transparent; transition: 0.3s; }
-.tab-btn:hover { background: rgba(11, 29, 58, 0.05); transform: translateY(-2px); }
-.tab-btn.active { background: #0b1d3a; color: white; transform: translateY(0); box-shadow: 0 8px 20px rgba(11, 29, 58, 0.2); }
-.tab-content { display: none; }
-.tab-content.active { display: block; animation: fadeIn 0.5s; }
-.petugas-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-.petugas-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-.petugas-item { background: #f8f9fb; padding: 20px; border-radius: 12px; border-left: 4px solid #0b1d3a; transition: all 0.3s ease; }
-.petugas-item:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); border-left-color: #d63b3b; background: #ffffff; }
-.petugas-item span { font-size: 11px; color: #666; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 5px; letter-spacing: 0.8px; }
-.petugas-item strong { font-size: 16px; color: #111; line-height: 1.4; }
+/* SABBATH PICKER (HORIZONTAL SCROLL) */
+.picker-container { background: #fff; border-bottom: 1px solid #f2f2f2; position: sticky; top: 85px; z-index: 999; padding: 15px 0; }
+.sabbath-picker { display: flex; gap: 12px; overflow-x: auto; padding: 0 5%; scrollbar-width: none; scroll-behavior: smooth; }
+.sabbath-picker::-webkit-scrollbar { display: none; }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.pill { 
+    flex: 0 0 auto; padding: 10px 24px; border-radius: 50px; background: #f5f5f7; 
+    color: #1d1d1f; font-weight: 700; font-size: 13px; cursor: pointer; border: none; transition: 0.3s; 
+}
+.pill.active { background: #0b1d3a; color: #fff; transform: scale(1.05); box-shadow: 0 8px 20px rgba(11, 29, 58, 0.2); }
+.pill.live { border: 2px solid #d63b3b; position: relative; }
+.pill.live::after { content: 'LIVE'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #d63b3b; color: #fff; font-size: 8px; padding: 2px 6px; border-radius: 4px; }
+
+/* SERVICE CARDS */
+.section { padding: 40px 0 80px; }
+.container { width: 92%; max-width: 1100px; margin: auto; }
+.service-header { font-family: 'Montserrat'; font-size: 18px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+.petugas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
+.card { background: #fff; border-radius: 24px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f2f2f2; }
+
+.role-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid #f9f9fb; }
+.role-item:last-child { border-bottom: none; }
+.role-icon { width: 40px; height: 40px; background: #f5f5f7; border-radius: 12px; display: flex; justify-content: center; align-items: center; color: #0b1d3a; font-size: 16px; }
+.role-text span { display: block; font-size: 11px; color: #86868b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.role-text strong { display: block; font-size: 15px; color: #1d1d1f; }
+
+/* FOOTER */
+.footer { text-align: center; padding: 40px; color: #86868b; font-size: 13px; background: #fff; border-top: 1px solid #f2f2f2; }
 
 @media (max-width: 900px) {
     .menu-toggle { display: block; }
-    .social-top { margin-left: 0; margin-bottom: 20px; order: -1; }
-    .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.95); backdrop-filter: blur(15px); width: 220px; flex-direction: column; padding: 20px 25px; border-radius: 12px; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid rgba(255, 255, 255, 0.1); }
+    .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.98); backdrop-filter: blur(20px); width: 220px; flex-direction: column; padding: 25px; border-radius: 16px; display: none; }
     .navbar ul.active { display: flex; }
-    .navbar ul li { width: 100%; margin-bottom: 18px; }
-    .navbar ul li:last-child { margin-bottom: 0; }
-    .navbar ul li a { display: block; text-align: right; font-size: 16px; }
-    .banner h1 { font-size: 32px; }
-    .petugas-card { padding: 30px 20px; }
+    .banner h1 { font-size: 24px; }
+    .petugas-grid { grid-template-columns: 1fr; }
 }
-
-.footer { text-align: center; padding: 30px; background: #fff; font-size: 14px; margin-top: 50px; color: #555; }
 </style>
 </head>
 <body>
 
 <div class="navbar">
     <div class="nav-inner">
-        <img src="logo-sda.png" alt="SDA Logo">
-        
+        <img src="logo-sda.png" alt="Logo">
         <ul id="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#pengumuman">Pengumuman</a></li>
-            <li><a href="#">Petugas</a></li>
-            <li><a href="ahli-lembaga.html">Ahli Lembaga</a></li>
-            <li><a href="media.html">Media</a></li>
             <li><a href="sejarah.html">Sejarah</a></li>
-            <li><a href="hubungi-kami.html">Hubungi Kami</a></li>
+            <li><a href="hubungi-kami.html">Hubungi</a></li>
         </ul>
-
-        <div class="nav-right" style="display: flex; align-items: center; gap: 20px;">
-            <div class="social-top">
-                <a href="https://www.facebook.com/share/187svoWKJs/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.youtube.com/@GerejaSDAKoporingan" target="_blank"><i class="fab fa-youtube"></i></a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle">☰</div>
-        </div>
+        <div class="menu-toggle" id="menu-toggle">☰</div>
     </div>
 </div>
 
 <div class="banner">
-    <h1>Petugas Sabat</h1>
-    <p>Minggu ini: 21 Mac 2026</p>
+    <p>Suku Ke-2 (April – Jun 2026)</p>
+    <h1>Jadual Petugas</h1>
+</div>
+
+<div class="picker-container">
+    <div class="sabbath-picker" id="date-picker">
+        </div>
 </div>
 
 <div class="section">
-    <div class="container">
-        <div class="tabs-container">
-            <button class="tab-btn active" onclick="openTab(event, 'ss')">Sekolah Sabat</button>
-            <button class="tab-btn" onclick="openTab(event, 'khotbah')">Acara Kebaktian Khotbah</button>
+    <div class="container" id="schedule-content">
         </div>
-
-        <div id="ss" class="tab-content active">
-            <div class="petugas-card">
-                <div class="petugas-list">
-                    
-                    <div class="petugas-item">
-                        <span>Pemimpin Nyanyi</span>
-                        <strong>Aurellendra Sonny</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Lagu Pembuka</span>
-                        <strong>LPMI 104: Tempat Kediaman di Syurga</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Pemimpin Acara & Doa Pembuka</span>
-                        <strong>En. Joy Brandon Wong</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Cerita Misi</span>
-                        <strong>Elder Ernest Kelly Subin</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Bacaan Keluarga</span>
-                        <strong>En. Archer Sonny</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Pianist</span>
-                        <strong>Abner Raizal</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Media</span>
-                        <strong>En. Emerson Klen Subin</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Bacaan Laporan Sekolah Sabat</span>
-                        <strong>Anabelle Raizal</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Jurutulis</span>
-                        <strong>Shane Jayden & Christie Cosmas</strong>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div id="khotbah" class="tab-content">
-            <div class="petugas-card">
-                <div class="petugas-list">
-                    
-                    <div class="petugas-item" style="grid-column: 1 / -1;">
-                        <span>Pengkhotbah</span>
-                        <strong>Pn. Agnes Vivy Toisin</strong>
-                        <span style="margin-top: 12px;">Tajuk Khotbah</span>
-                        <strong>"Pemuridan Dalam Tindakan"</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Pemimpin Acara</span>
-                        <strong>Pn. Salicina@Sally Matimbun</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Doa Persembahan & Persepuluhan</span>
-                        <strong>Cik Eqa Barangking</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Doa Pembuka</span>
-                        <strong>Aurellendra Sonny</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Lagu Pembuka</span>
-                        <strong>Lagu Tema Communion in Action</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Lagu Penutup</span>
-                        <strong>Lagu Tema Communion in Action</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Diakonis</span>
-                        <strong>Pn. Minah Kinsui & Cik Jossy Maguring</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Persembahan Istimewa</span>
-                        <strong>Kumpulan 3</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Pianist</span>
-                        <strong>En. Emerson Klen Subin</strong>
-                    </div>
-
-                    <div class="petugas-item">
-                        <span>Media</span>
-                        <strong>En. Jonathan Ezra Wong</strong>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
 </div>
 
 <footer class="footer">
-    <p>© 2026–2027 Gereja SDA Koporingan | Developed by Jabatan Multimedia & Penerbitan</p>
+    <p>© 2026–2027 Gereja SDA Koporingan | Dikemaskini: Mac 2026</p>
 </footer>
 
 <audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
 
 <script>
-function openTab(evt, name) {
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(name).classList.add('active');
-    evt.currentTarget.classList.add('active');
+/* ================= DATA CENTER (Update April-Jun Here) ================= */
+const scheduleData = [
+    { date: "4 APR", label: "Sabat 1", 
+      ss: { piano: "Natalie Jack", mc: "Pn. Jupina", misi: "En. Raizal", kesihatan: "Cik Cristie", laporan: "Shane Jayden", media: "En. Emerson", tulis: "En. Jonathan" },
+      khotbah: { preacher: "En. Jonathan", mc: "Eld. Ernest", persembahan: "En. Melvin", doa: "Pn. Agnes", diakon: "En. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "Eld. Joseph" }
+    },
+    { date: "11 APR", label: "Sabat 2", 
+      ss: { piano: "Abner Raizal", mc: "Pn. Salicina", misi: "Pn. Debbie", kesihatan: "Pn. Minah", laporan: "Anabelle", media: "En. Jonathan", tulis: "Christie Cosmas" },
+      khotbah: { preacher: "Pn. Jupina", mc: "Eld. Sonny", persembahan: "Eld. Justin", doa: "En. Raizal", diakon: "En. Elvinson & Pn. Debbie", special: "Kumpulan 2", piano: "Pn. Salicina", media: "En. Emerson" }
+    },
+    { date: "18 APR", label: "Sabat 3", 
+      ss: { piano: "Natalie Jack", mc: "Pn. Debbie", misi: "Pn. Jupina", kesihatan: "En. Jonathan", laporan: "Cik Cristie", media: "Joy Brandon", tulis: "En. Clifton" },
+      khotbah: { preacher: "En. Emerson", mc: "Eld. Ernest", persembahan: "En. Melvin", doa: "Pn. Agnes", diakon: "En. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "Eld. Joseph" }
+    },
+    { date: "25 APR", label: "Sabat 4", 
+      ss: { piano: "Abner Raizal", mc: "Pn. Salicina", misi: "Pn. Debbie", kesihatan: "Pn. Minah", laporan: "Anabelle", media: "En. Jonathan", tulis: "Christie Cosmas" },
+      khotbah: { preacher: "Elder Joseph M", mc: "Eld. Sonny", persembahan: "Eld. Justin", doa: "En. Raizal", diakon: "En. Elvinson & Pn. Debbie", special: "Kumpulan 2", piano: "Pn. Salicina", media: "En. Emerson" }
+    }
+    // ... Just repeat this block for all 13 Sabbaths from your image
+];
+
+/* ================= THE ENGINE ================= */
+function renderSchedule(index) {
+    const data = scheduleData[index];
+    const html = `
+        <div class="service-header" style="color:#0071e3;"><i class="fas fa-sun"></i> Sekolah Sabat (09:45 AM)</div>
+        <div class="petugas-grid">
+            <div class="card">
+                ${renderRole("Pianist", data.ss.piano, "fa-piano")}
+                ${renderRole("Pemimpin Acara", data.ss.mc, "fa-microphone")}
+                ${renderRole("Cerita Misi", data.ss.misi, "fa-earth-asia")}
+                ${renderRole("Kesihatan", data.ss.kesihatan, "fa-heart-pulse")}
+            </div>
+            <div class="card">
+                ${renderRole("Laporan SS", data.ss.laporan, "fa-file-signature")}
+                ${renderRole("Media", data.ss.media, "fa-laptop-code")}
+                ${renderRole("Jurutulis", data.ss.tulis, "fa-pen-nib")}
+            </div>
+        </div>
+
+        <div class="service-header" style="color:#d63b3b;"><i class="fas fa-church"></i> Kebaktian Khotbah (11:00 AM)</div>
+        <div class="petugas-grid">
+            <div class="card" style="border-left: 5px solid #d63b3b;">
+                ${renderRole("Pengkhotbah", data.khotbah.preacher, "fa-star")}
+                ${renderRole("Pemimpin Acara", data.khotbah.mc, "fa-microphone-lines")}
+                ${renderRole("Doa Syafaat", data.khotbah.doa, "fa-hands-praying")}
+                ${renderRole("Persembahan", data.khotbah.persembahan, "fa-hand-holding-heart")}
+            </div>
+            <div class="card">
+                ${renderRole("Diakon/Diakones", data.khotbah.diakon, "fa-user-shield")}
+                ${renderRole("Istimewa", data.khotbah.special, "fa-gift")}
+                ${renderRole("Pianist", data.khotbah.piano, "fa-music")}
+                ${renderRole("Media", data.khotbah.media, "fa-desktop")}
+            </div>
+        </div>
+    `;
+    document.getElementById('schedule-content').innerHTML = html;
 }
 
-document.getElementById("menu-toggle").addEventListener("click", () => {
-    document.getElementById("nav-links").classList.toggle("active");
+function renderRole(title, name, icon) {
+    return `<div class="role-item">
+        <div class="role-icon"><i class="fas ${icon}"></i></div>
+        <div class="role-text"><span>${title}</span><strong>${name}</strong></div>
+    </div>`;
+}
+
+/* ================= INITIALIZE HUB ================= */
+const picker = document.getElementById('date-picker');
+scheduleData.forEach((item, index) => {
+    const btn = document.createElement('button');
+    btn.className = 'pill';
+    btn.innerHTML = item.date;
+    btn.onclick = (e) => {
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        renderSchedule(index);
+    };
+    picker.appendChild(btn);
 });
 
-const menuLinks = document.querySelectorAll("#nav-links a");
-menuLinks.forEach(link => {
-    link.addEventListener("click", function() {
-        document.getElementById("nav-links").classList.remove("active");
-    });
-});
+// Auto-select first Sabat for now
+document.querySelector('.pill').click();
 
-// Music Memory
+/* UI STUFF */
+document.getElementById("menu-toggle").addEventListener("click", () => document.getElementById("nav-links").classList.toggle("active"));
 const bgMusic = document.getElementById('bg-music');
-const savedTime = sessionStorage.getItem('musicTime');
-if (savedTime) bgMusic.currentTime = parseFloat(savedTime);
-window.addEventListener('beforeunload', () => { sessionStorage.setItem('musicTime', bgMusic.currentTime); });
 document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
 </script>
 </body>
