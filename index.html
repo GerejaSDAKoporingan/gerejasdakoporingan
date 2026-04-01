@@ -142,35 +142,17 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
         </div>
 
         <div class="announcement-grid">
-            
             <div class="announcement-card fade" style="border-left-color: #d63b3b; grid-column: 1 / -1; background: #fffcfc; border: 1px solid #ffebeb; border-left: 5px solid #d63b3b;">
-                <div class="event-date" style="background:#d63b3b;">28 MAC</div>
-                <h3 style="color: #d63b3b;">Sabat Ke-13 & Perjamuan Suci</h3>
-                <p>Hari istimewa yang merangkumi Acara Kelas Dewasa, Penyampaian Hadiah Kuiz, Majlis Watikah Ahli Lembaga, dan Pelancaran Buku GTMI.</p>
-                <p><strong>Selepas Kebaktian:</strong> Potluck Bersama</p>
+                <div class="event-date" style="background:#d63b3b;">4 APRIL</div>
+                <h3 style="color: #d63b3b;">Sabat Pertama Suku Ke-2</h3>
+                <p>Selamat datang ke Suku Kedua 2026. Mari kita mulakan pelayanan suku ini dengan semangat yang baru.</p>
             </div>
 
             <div class="announcement-card fade">
-                <div class="event-date">28 MAC</div>
-                <h3>Pertemuan AY & Pathfinder</h3>
-                <p><strong>Masa:</strong> 3.00 PM – 4.00 PM</p>
-                <p>Kehadiran diwajibkan bagi semua Pemimpin Belia, Adventurer, Pathfinder, MIT dan MG.</p>
+                <div class="event-date">UMUM</div>
+                <h3>Kutipan Piano & Pembersihan</h3>
+                <p>Tabung pembaikan piano masih berjalan. Bayaran pembersihan RM10/keluarga boleh diserahkan kepada Pn. Debbie Justin.</p>
             </div>
-
-            <div class="announcement-card fade" style="border-left-color: #d63b3b;">
-                <div class="event-date" style="background: #d63b3b;">28 MAC</div>
-                <h3>Penutupan Minggu Doa Belia</h3>
-                <p><strong>Masa:</strong> 6.30 Petang</p>
-                <p>Mari kita berkumpul untuk sesi terakhir Minggu Doa Belia di Gereja SDA Koporingan.</p>
-            </div>
-
-            <div class="announcement-card fade">
-                <div class="event-date">29 MAC</div>
-                <h3>Global Youth Day (Mission)</h3>
-                <p><strong>Tempat:</strong> PMC (Pioneer Memorial Church)</p>
-                <p><strong>Masa:</strong> 2.00 PTG – 4.00 PTG</p>
-            </div>
-
         </div>
 
         <hr class="timeline-divider fade">
@@ -185,12 +167,6 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
                 <div class="fund-bar-bg"><div class="fund-bar-fill"></div></div>
                 <p style="margin-top:10px; font-size:12px; font-weight:bold; color:#d63b3b;">49% DICAPAI</p>
             </div>
-            
-            <div class="announcement-card fade">
-                <div class="event-date accent" style="background:#888;">INFO</div>
-                <h3>Bayaran Pembersihan</h3>
-                <p>RM10 / keluarga sebulan. Sila serahkan kepada Pn. Debbie Justin.</p>
-            </div>
         </div>
     </div>
 </section>
@@ -199,47 +175,21 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
     <div class="container">
         <div class="petugas-main-card fade">
             <div style="text-align:center; margin-bottom:40px;">
-                <h3 style="font-family:'Montserrat'; text-transform:uppercase; color:#0b1d3a;">Jadual Petugas Sabat Ke-13</h3>
-                <p style="font-weight:bold; color:#d63b3b;">28 Mac 2026</p>
+                <h3 id="display-label" style="font-family:'Montserrat'; text-transform:uppercase; color:#0b1d3a;">Memuatkan Jadual...</h3>
+                <p id="display-date" style="font-weight:bold; color:#d63b3b;"></p>
             </div>
 
-            <div class="service-title"><i class="fas fa-sun" style="color:#f39c12;"></i> Sekolah Sabat (8.30 AM)</div>
-            <div class="petugas-grid-mini">
-                <div class="p-item"><span>Pemimpin Acara</span><strong>Pn. Emily Subin</strong></div>
-                <div class="p-item"><span>Cerita Misi</span><strong>En. Erlandson Keith Subin</strong></div>
-                <div class="p-item"><span>Pianist</span><strong>Aurellendra Sonny</strong></div>
-                <div class="p-item"><span>Media</span><strong>En. Joy Brandon Wong</strong></div>
-            </div>
-
-            <div class="service-title"><i class="fas fa-church" style="color:#d63b3b;"></i> Kebaktian Khotbah & Perjamuan</div>
-            <div class="petugas-grid-mini">
-                <div class="p-item" style="border-left-color:#0b1d3a; grid-column: 1 / -1;">
-                    <span>Pengkhotbah</span>
-                    <strong>Pastor Max Selamat Buloh</strong>
-                    <small style="display:block; margin-top:5px; color:#d63b3b; font-weight:bold;">"Apabila Mereka Berkata Aman"</small>
+            <div class="service-title"><i class="fas fa-sun" style="color:#f39c12;"></i> Sekolah Sabat</div>
+            <div class="petugas-grid-mini" id="ss-grid">
                 </div>
-                <div class="p-item"><span>Pemimpin Acara</span><strong>Elder Sonny Tivon Stimol</strong></div>
-                <div class="p-item"><span>Doa Pembuka</span><strong>Elder Justin Kinsui</strong></div>
-                <div class="p-item"><span>Pianist</span><strong>Pn. Naria Grace Clifton</strong></div>
-                <div class="p-item"><span>Media</span><strong>En. Raizal Dunggi</strong></div>
-            </div>
+
+            <div class="service-title"><i class="fas fa-church" style="color:#d63b3b;"></i> Kebaktian Khotbah</div>
+            <div class="petugas-grid-mini" id="khotbah-grid">
+                </div>
 
             <div style="text-align:center; margin-top:20px;">
                 <a href="petugas.html" class="btn-primary">Lihat Jadual Penuh Suku Ke-2</a>
             </div>
-        </div>
-    </div>
-</section>
-
-<section class="fade" style="padding: 80px 0; background: #0b1d3a; color: white; text-align: center; border-radius: 30px; margin: 40px 20px;">
-    <div class="container">
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-            <i class="fas fa-bolt" style="font-size: 30px; color: #d63b3b; text-shadow: 0 0 15px rgba(214, 59, 59, 0.6);"></i>
-            <h4 style="font-family: 'Montserrat'; text-transform: uppercase; letter-spacing: 3px; color: #d63b3b; font-size: 14px; font-weight: 700;">Belia Koporingan</h4>
-            <h2 style="font-family: 'Montserrat'; font-size: clamp(28px, 5vw, 42px); font-weight: 800; line-height: 1.2;">Youth Department Hub</h2>
-            <a href="https://gerejasdakoporingan.github.io/belia-koporingan/" target="_blank" class="btn-primary" style="background: white; color: #0b1d3a; border: none; padding: 18px 45px; font-size: 15px;">
-                Lawati Laman Belia <i class="fas fa-external-link-alt" style="margin-left: 10px;"></i>
-            </a>
         </div>
     </div>
 </section>
@@ -249,23 +199,59 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
 <audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
 
 <script>
+/* ================= AUTO-UPDATE ENGINE ================= */
+const fullData = [
+    { date: "4 APR", fullDate: "2026-04-04", label: "Sabat 1", 
+      ss: { mc: "Pn. Jupina", misi: "Eld. Justin", piano: "Axl Neve Alwayne", media: "Jonathan" },
+      khotbah: { preacher: "En. Jonathan", mc: "En. Erlandson", piano: "En. Emerson", media: "En. Raizal" }
+    },
+    { date: "11 APR", fullDate: "2026-04-11", label: "Sabat 2", 
+      ss: { mc: "En. Brandon", misi: "Eld. Sonny", piano: "Jayden Jack", media: "Emerson" },
+      khotbah: { preacher: "Pn. Jupina", mc: "Pn. Emily", piano: "En. Joy Brandon", media: "En. Emerson" }
+    }
+    // Add more if needed, but the logic will pick the nearest future date
+];
+
+function initDashboard() {
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    let current = fullData[0];
+
+    for(let i=0; i<fullData.length; i++){
+        if(new Date(fullData[i].fullDate) >= today){
+            current = fullData[i];
+            break;
+        }
+    }
+
+    document.getElementById('display-label').innerText = "Jadual Petugas " + current.label;
+    document.getElementById('display-date').innerText = current.date + " 2026";
+    
+    document.getElementById('ss-grid').innerHTML = `
+        <div class="p-item"><span>Pemimpin Acara</span><strong>${current.ss.mc}</strong></div>
+        <div class="p-item"><span>Cerita Misi</span><strong>${current.ss.misi}</strong></div>
+        <div class="p-item"><span>Pianist</span><strong>${current.ss.piano}</strong></div>
+        <div class="p-item"><span>Media</span><strong>${current.ss.media}</strong></div>
+    `;
+
+    document.getElementById('khotbah-grid').innerHTML = `
+        <div class="p-item" style="grid-column: 1 / -1;"><span>Pengkhotbah</span><strong>${current.khotbah.preacher}</strong></div>
+        <div class="p-item"><span>Pemimpin Acara</span><strong>${current.khotbah.mc}</strong></div>
+        <div class="p-item"><span>Pianist</span><strong>${current.khotbah.piano}</strong></div>
+        <div class="p-item"><span>Media</span><strong>${current.khotbah.media}</strong></div>
+    `;
+}
+
+window.onload = initDashboard;
+
+/* UI Scripts */
 document.getElementById("menu-toggle").addEventListener("click", () => document.getElementById("nav-links").classList.toggle("active"));
 window.addEventListener("scroll", () => document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50));
-
-let slides = document.querySelectorAll(".hero img"), current = 0;
-setInterval(() => { slides[current].classList.remove("active"); current = (current + 1) % slides.length; slides[current].classList.add("active"); }, 9000);
-
 const fadeElements = document.querySelectorAll('.fade');
 function checkFade() { 
     fadeElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show'); }); 
 }
-window.addEventListener('scroll', checkFade); window.addEventListener('load', checkFade);
-
-const bgMusic = document.getElementById('bg-music');
-const savedTime = sessionStorage.getItem('musicTime');
-if (savedTime) bgMusic.currentTime = parseFloat(savedTime);
-window.addEventListener('beforeunload', () => sessionStorage.setItem('musicTime', bgMusic.currentTime));
-document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
+window.addEventListener('scroll', checkFade);
 </script>
 
 </body>
