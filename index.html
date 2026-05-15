@@ -1,5 +1,3 @@
-I have updated the Announcement Section and the Piano Fund Tracker with your new totals. The fund progress bar and percentage have been recalculated to show the correct progress toward the RM3,000 goal (approximately 55%).
-Here is your updated index.html:
 <!DOCTYPE html>
 <html lang="ms">
 <head>
@@ -145,15 +143,15 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
 
         <div class="announcement-grid">
             <div class="announcement-card fade" style="border-left-color: #d63b3b; grid-column: 1 / -1; background: #fffcfc; border: 1px solid #ffebeb; border-left: 5px solid #d63b3b;">
-                <div class="event-date" style="background:#d63b3b;">4 APRIL</div>
-                <h3 style="color: #d63b3b;">Sabat Pertama Suku Ke-2</h3>
-                <p>Selamat datang ke Suku Kedua 2026. Mari kita mulakan pelayanan suku ini dengan semangat yang baru.</p>
+                <div class="event-date" style="background:#d63b3b;">MAKLUMAT</div>
+                <h3 style="color: #d63b3b;">Suku Kedua 2026</h3>
+                <p>Teruskan sokongan dan doa bagi semua pelayanan gereja sepanjang suku ini.</p>
             </div>
 
             <div class="announcement-card fade">
                 <div class="event-date">UMUM</div>
                 <h3>Bayaran Pembersihan</h3>
-                <p>Kadar RM10 untuk setiap keluarga sebulan. Bayaran boleh diserahkan kepada Pn. Debbie Justin.</p>
+                <p>RM10 untuk setiap keluarga sebulan. Sila serahkan kepada Pn. Debbie Justin.</p>
             </div>
         </div>
 
@@ -212,7 +210,7 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
 <audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
 
 <script>
-/* ================= DASHBOARD ENGINE ================= */
+/* ================= AUTOMATED PETUGAS DATA (Triwulan 2 2026) ================= */
 const fullData = [
     { date: "4 APR", fullDate: "2026-04-04", label: "Sabat 1", 
       ss: { mc: "Pn. Jupina", misi: "Eld. Justin", piano: "Axl Neve Alwayne", media: "Jonathan" },
@@ -233,6 +231,38 @@ const fullData = [
     { date: "2 MEI", fullDate: "2026-05-02", label: "Sabat 5", 
       ss: { mc: "Eld. Justin", misi: "En. Jack", piano: "Abner Raizal", media: "Joy Brandon" },
       khotbah: { preacher: "Cik Jossy", mc: "Pn. Agnes", piano: "En. Joy Brandon", media: "Anabelle" }
+    },
+    { date: "9 MEI", fullDate: "2026-05-09", label: "Sabat 6", 
+      ss: { mc: "Pn. Jupina", misi: "Pn. Erniecia", piano: "Aurellendra Sonny", media: "Jonathan" },
+      khotbah: { preacher: "En. Joy Brandon", mc: "Eld. Joseph", piano: "Pn. Naria", media: "Axl Neve Alwayne" }
+    },
+    { date: "16 MEI", fullDate: "2026-05-16", label: "Sabat 7", 
+      ss: { mc: "Pn. Debbie", misi: "Pn. Erniecia", piano: "Axl Neve Alwayne", media: "Emerson" },
+      khotbah: { preacher: "Pn. Cenysia", mc: "Pn. Jupinah", piano: "En. Emerson", media: "En. Joy Brandon" }
+    },
+    { date: "23 MEI", fullDate: "2026-05-23", label: "Sabat 8", 
+      ss: { mc: "Cik Jossy", misi: "Cik Efy", piano: "Jayden Jack", media: "Raizal" },
+      khotbah: { preacher: "Pr. Max", mc: "Eld. Justin", piano: "En. Joy Brandon", media: "En. Brandon" }
+    },
+    { date: "30 MEI", fullDate: "2026-05-30", label: "Sabat 9", 
+      ss: { mc: "En. Shane Archer", misi: "Pn. Debbie", piano: "Natalie Jack", media: "Joy Brandon" },
+      khotbah: { preacher: "Eld. Sonny", mc: "Eld. Ernest", piano: "Pn. Naria", media: "En. Joy Brandon" }
+    },
+    { date: "6 JUN", fullDate: "2026-06-06", label: "Sabat 10", 
+      ss: { mc: "En. Brandon", misi: "En. Erlandson", piano: "Anabelle Raizal", media: "Jonathan" },
+      khotbah: { preacher: "Eld. Justin", mc: "Eld. Joimur", piano: "En. Emerson", media: "Jayden Jack" }
+    },
+    { date: "13 JUN", fullDate: "2026-06-13", label: "Sabat 11", 
+      ss: { mc: "Pn. Jupina", misi: "En. Joy", piano: "Abner Raizal", media: "Raizal" },
+      khotbah: { preacher: "Eld. Ernest", mc: "Eld. Joseph", piano: "En. Joy Brandon", media: "Aurellendra" }
+    },
+    { date: "20 JUN", fullDate: "2026-06-20", label: "Sabat 12", 
+      ss: { mc: "Cik Efy", misi: "En. Jonathan", piano: "Aurellendra Sonny", media: "Emerson" },
+      khotbah: { preacher: "En. Melvin", mc: "Eld. Sonny", piano: "Pn. Naria", media: "En. Jonathan" }
+    },
+    { date: "27 JUN", fullDate: "2026-06-27", label: "Sabat 13", 
+      ss: { mc: "Pn. Debbie", misi: "Pn. Emily", piano: "Axl Neve Alwayne", media: "Joy Brandon" },
+      khotbah: { preacher: "Pn. Emily", mc: "Pn. Debbie", piano: "En. Emerson", media: "En. Raizal" }
     }
 ];
 
@@ -241,6 +271,7 @@ function initDashboard() {
     today.setHours(0,0,0,0);
     let current = fullData[0];
 
+    // Find the next upcoming Sabbath
     for(let i=0; i<fullData.length; i++){
         if(new Date(fullData[i].fullDate) >= today){
             current = fullData[i];
@@ -264,7 +295,7 @@ function initDashboard() {
         <div class="p-item"><span>Media</span><strong>${current.khotbah.media}</strong></div>`;
 }
 
-window.onload = initDashboard;
+window.addEventListener('load', initDashboard);
 
 /* UI Scripts */
 document.getElementById("menu-toggle").addEventListener("click", () => document.getElementById("nav-links").classList.toggle("active"));
