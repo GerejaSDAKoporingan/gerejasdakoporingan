@@ -1,3 +1,5 @@
+I have updated the Announcement Section and the Piano Fund Tracker with your new totals. The fund progress bar and percentage have been recalculated to show the correct progress toward the RM3,000 goal (approximately 55%).
+Here is your updated index.html:
 <!DOCTYPE html>
 <html lang="ms">
 <head>
@@ -59,7 +61,7 @@
 .fund-card { background: #ffffff; border-radius: 20px; padding: 35px; border: 1px solid #eee; text-align: center; }
 .fund-stats { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; font-weight: 600; }
 .fund-bar-bg { width: 100%; height: 14px; background: #f0f0f5; border-radius: 50px; overflow: hidden; }
-.fund-bar-fill { height: 100%; background: linear-gradient(90deg, #0b1d3a, #d63b3b); width: 49%; transition: width 1s; }
+.fund-bar-fill { height: 100%; background: linear-gradient(90deg, #0b1d3a, #d63b3b); width: 55.17%; transition: width 1s; }
 
 /* ================= RESET & NAVBAR ================= */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
@@ -150,8 +152,8 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
 
             <div class="announcement-card fade">
                 <div class="event-date">UMUM</div>
-                <h3>Kutipan Piano & Pembersihan</h3>
-                <p>Tabung pembaikan piano masih berjalan. Bayaran pembersihan RM10/keluarga boleh diserahkan kepada Pn. Debbie Justin.</p>
+                <h3>Bayaran Pembersihan</h3>
+                <p>Kadar RM10 untuk setiap keluarga sebulan. Bayaran boleh diserahkan kepada Pn. Debbie Justin.</p>
             </div>
         </div>
 
@@ -161,11 +163,11 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
             <div class="fund-card fade">
                 <h3 style="font-family:'Montserrat'; font-size:16px; margin-bottom:15px; color:#0b1d3a;">TABUNG PEMBAIKAN PIANO</h3>
                 <div class="fund-stats">
-                    <span>Terkumpul: <strong>RM 1,467.30</strong></span>
+                    <span>Terkumpul: <strong>RM 1,655.10</strong></span>
                     <span>Sasaran: <strong>RM 3,000.00</strong></span>
                 </div>
-                <div class="fund-bar-bg"><div class="fund-bar-fill"></div></div>
-                <p style="margin-top:10px; font-size:12px; font-weight:bold; color:#d63b3b;">49% DICAPAI</p>
+                <div class="fund-bar-bg"><div class="fund-bar-fill" style="width: 55.17%;"></div></div>
+                <p style="margin-top:10px; font-size:12px; font-weight:bold; color:#d63b3b;">~55% DICAPAI</p>
             </div>
         </div>
     </div>
@@ -198,9 +200,6 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
             <i class="fas fa-bolt" style="font-size: 30px; color: #d63b3b; text-shadow: 0 0 15px rgba(214, 59, 59, 0.6);"></i>
             <h4 style="font-family: 'Montserrat'; text-transform: uppercase; letter-spacing: 3px; color: #d63b3b; font-size: 14px; font-weight: 700;">Belia Koporingan</h4>
             <h2 style="font-family: 'Montserrat'; font-size: clamp(28px, 5vw, 42px); font-weight: 800; line-height: 1.2;">Youth Department Hub</h2>
-            <p style="max-width: 650px; margin: 10px auto 25px; opacity: 0.85; font-size: 16px; line-height: 1.6;">
-                Terokai aktiviti AY, Pathfinder, Adventurer, dan pelbagai program pembangunan rohani khusus untuk generasi muda di Laman Rasmi Jabatan Belia.
-            </p>
             <a href="https://gerejasdakoporingan.github.io/belia-koporingan/" target="_blank" class="btn-primary" style="background: white; color: #0b1d3a; border: none; padding: 18px 45px; font-size: 15px;">
                 Lawati Laman Belia <i class="fas fa-external-link-alt" style="margin-left: 10px;"></i>
             </a>
@@ -222,6 +221,18 @@ const fullData = [
     { date: "11 APR", fullDate: "2026-04-11", label: "Sabat 2", 
       ss: { mc: "En. Brandon", misi: "Eld. Sonny", piano: "Jayden Jack", media: "Emerson" },
       khotbah: { preacher: "Pn. Jupina", mc: "Pn. Emily", piano: "En. Joy Brandon", media: "En. Emerson" }
+    },
+    { date: "18 APR", fullDate: "2026-04-18", label: "Sabat 3", 
+      ss: { mc: "Pn. Debbie", misi: "Pn. Jupina", piano: "Natalie Jack", media: "Joy Brandon" },
+      khotbah: { preacher: "En. Emerson", mc: "Eld. Ernest", piano: "Pn. Naria", media: "En. Erlandson" }
+    },
+    { date: "25 APR", fullDate: "2026-04-25", label: "Sabat 4", 
+      ss: { mc: "En. Shane Archer", misi: "En. Subin", piano: "Anabelle Raizal", media: "Raizal" },
+      khotbah: { preacher: "En. Erlandson", mc: "Eld. Justin", piano: "En. Emerson", media: "En. Jonathan" }
+    },
+    { date: "2 MEI", fullDate: "2026-05-02", label: "Sabat 5", 
+      ss: { mc: "Eld. Justin", misi: "En. Jack", piano: "Abner Raizal", media: "Joy Brandon" },
+      khotbah: { preacher: "Cik Jossy", mc: "Pn. Agnes", piano: "En. Joy Brandon", media: "Anabelle" }
     }
 ];
 
