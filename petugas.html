@@ -51,6 +51,9 @@ body { background: #fbfbfd; color: #1d1d1f; overflow-x: hidden; -webkit-font-smo
 .role-text span { display: block; font-size: 11px; color: #86868b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 .role-text strong { display: block; font-size: 15px; color: #1d1d1f; }
 
+/* LOADING & ERROR STATES */
+.status-msg { text-align: center; font-size: 16px; font-weight: 600; color: #86868b; padding: 40px 0; }
+
 /* FOOTER */
 .footer { text-align: center; padding: 40px; color: #86868b; font-size: 13px; background: #fff; border-top: 1px solid #f2f2f2; }
 
@@ -78,84 +81,167 @@ body { background: #fbfbfd; color: #1d1d1f; overflow-x: hidden; -webkit-font-smo
 </div>
 
 <div class="banner">
-    <p>Suku Ke-2 (April – Jun 2026)</p>
+    <p id="quarter-label">Suku Ke-3 (Julai – September 2026)</p>
     <h1>Jadual Petugas</h1>
 </div>
 
 <div class="picker-container">
-    <div class="sabbath-picker" id="date-picker"></div>
+    <div class="sabbath-picker" id="date-picker">
+        <div class="status-msg">Memuatkan senarai tarikh...</div>
+    </div>
 </div>
 
 <div class="section">
-    <div class="container" id="schedule-content"></div>
+    <div class="container" id="schedule-content">
+        <div class="status-msg">Sila pilih tarikh sabat di atas.</div>
+    </div>
 </div>
 
 <footer class="footer">
-    <p>© 2026–2027 Gereja SDA Koporingan | Dikemaskini: Mac 2026</p>
+    <p>© 2026–2027 Gereja SDA Koporingan | Auto-SINK dari Google Sheets</p>
 </footer>
 
 <audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
 
 <script>
-/* ================= DATA CENTER (Extracted from PDF) ================= */
-const scheduleData = [
-    { date: "4 APR", fullDate: "2026-04-04", label: "Sabat 1", 
-      ss: { nyanyi: "Pn. Erniecia", acara: "Pn. Jupina", misi: "Eld. Justin", kesihatan: "En. Raizal", piano: "Axl Neve Alwayne", media: "Jonathan", tulis: "En. Jayden, En. Archer & En. Axl" },
-      khotbah: { preacher: "En. Jonathan", mc: "En. Erlandson", persembahan: "En. Brandon", doa: "Cik Efy", diakon: "Cik Jossy & Pn. Anjilin", special: "Kumpulan 5", piano: "En. Emerson", media: "En. Raizal" }
-    },
-    { date: "11 APR", fullDate: "2026-04-11", label: "Sabat 2", 
-      ss: { nyanyi: "Pn. Mailin", acara: "En. Brandon", misi: "Eld. Sonny", kesihatan: "Pn. Salicina Sally", piano: "Jayden Jack", media: "Emerson", tulis: "En. Shane Archer, Cik Cristie & Cik Chloe" },
-      khotbah: { preacher: "Pn. Jupina", mc: "Pn. Emily", persembahan: "Pn. Debbie", doa: "Pn. Agnes", diakon: "Eld. Subin & En. Jack", special: "Kumpulan 6", piano: "En. Joy Brandon", media: "En. Emerson" }
-    },
-    { date: "18 APR", fullDate: "2026-04-18", label: "Sabat 3", 
-      ss: { nyanyi: "En. Clifton", acara: "Pn. Debbie", misi: "Pn. Jupina", kesihatan: "En. Jonathan", piano: "Natalie Jack", media: "Joy Brandon", tulis: "En. Axl, Cik Anabelle & Cik Cristie" },
-      khotbah: { preacher: "En. Emerson", mc: "Eld. Ernest", persembahan: "En. Melvin", doa: "En. Archer", diakon: "Pn. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "En. Erlandson" }
-    },
-    { date: "25 APR", fullDate: "2026-04-25", label: "Sabat 4", 
-      ss: { nyanyi: "Cik Efy", acara: "En. Shane Archer", misi: "En. Subin", kesihatan: "Pn. Debbie", piano: "Anabelle Raizal", media: "Raizal", tulis: "Cik Chloe, Cik Anabelle & En. Axl" },
-      khotbah: { preacher: "En. Erlandson", mc: "Eld. Justin", persembahan: "Cik Eqa", doa: "En. Joy", diakon: "En. Jointin & Eld. Subin", special: "Kumpulan 2", piano: "En. Emerson", media: "En. Jonathan" }
-    },
-    { date: "2 MEI", fullDate: "2026-05-02", label: "Sabat 5", 
-      ss: { nyanyi: "Pn. Mailin", acara: "Eld. Justin", misi: "En. Jack", kesihatan: "En. Jayden", piano: "Abner Raizal", media: "Joy Brandon", tulis: "En. Archer, En. Axl & Cik Chloe" },
-      khotbah: { preacher: "Cik Jossy", mc: "Pn. Agnes", persembahan: "Pn. Anjilin", doa: "Pn. Cenysia", diakon: "Pn. Moini & Pn. Minah", special: "Kumpulan 3", piano: "En. Joy Brandon", media: "Anabelle" }
-    },
-    { date: "9 MEI", fullDate: "2026-05-09", label: "Sabat 6", 
-      ss: { nyanyi: "Cik Jossy", acara: "Pn. Jupina", misi: "Pn. Erniecia", kesihatan: "En. Joy", piano: "Aurellendra Sonny", media: "Jonathan", tulis: "Cik Anabelle, Cik Cristie & En. Shane Archer" },
-      khotbah: { preacher: "En. Joy Brandon", mc: "Eld. Joseph", persembahan: "En. Emerson", doa: "En. Brandon", diakon: "En. Jointin & En. Jack", special: "Kumpulan 4", piano: "Pn. Naria", media: "Axl Neve Alwayne" }
-    },
-    { date: "16 MEI", fullDate: "2026-05-16", label: "Sabat 7", 
-      ss: { nyanyi: "En. Clifton", acara: "Pn. Debbie", misi: "Pn. Erniecia", kesihatan: "Cik Aurellendra", piano: "Axl Neve Alwayne", media: "Emerson", tulis: "Cik Anabelle, En. Axl & En. Shane" },
-      khotbah: { preacher: "Pn. Cenysia", mc: "Pn. Jupinah", persembahan: "Pn. Debbie", doa: "Pn. Jouna", diakon: "Pn. Anjilin & Pn. Minah", special: "Kumpulan 5", piano: "En. Emerson", media: "En. Joy Brandon" }
-    },
-    { date: "23 MEI", fullDate: "2026-05-23", label: "Sabat 8", 
-      ss: { nyanyi: "Pn. Anjilin", acara: "Cik Jossy", misi: "Cik Efy", kesihatan: "Cik Cristie", piano: "Jayden Jack", media: "Raizal", tulis: "Cik Cristie, Cik Aurellendra & En. Axl" },
-      khotbah: { preacher: "Pr. Max", mc: "Eld. Justin", persembahan: "En. Melvin", doa: "Eld. Sonny", diakon: "Eld. Joseph & Eld. Subin", special: "Kumpulan 6", piano: "En. Joy Brandon", media: "En. Brandon" }
-    },
-    { date: "30 MEI", fullDate: "2026-05-30", label: "Sabat 9", 
-      ss: { nyanyi: "Pn. Erna", acara: "En. Shane Archer", misi: "Pn. Debbie", kesihatan: "Pn. Jupina", piano: "Natalie Jack", media: "Joy Brandon", tulis: "Cik Chloe, En. Archer & Cik Cristie" },
-      khotbah: { preacher: "Eld. Sonny", mc: "Eld. Ernest", persembahan: "Cik Eqa", doa: "En. Jack", diakon: "Pn. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "En. Joy Brandon" }
-    },
-    { date: "6 JUN", fullDate: "2026-06-06", label: "Sabat 10", 
-      ss: { nyanyi: "Pn. Erniecia", acara: "En. Brandon", misi: "En. Erlandson", kesihatan: "En. Archer", piano: "Anabelle Raizal", media: "Jonathan", tulis: "Cik Aurellendra, Cik Chloe & Cik Chloe" },
-      khotbah: { preacher: "Eld. Justin", mc: "Eld. Joimur", persembahan: "En. Melvin", doa: "En. Emerson", diakon: "Eld. Subin & En. Jack", special: "Kumpulan 2", piano: "En. Emerson", media: "Jayden Jack" }
-    },
-    { date: "13 JUN", fullDate: "2026-06-13", label: "Sabat 11", 
-      ss: { nyanyi: "Cik Efy", acara: "Pn. Jupina", misi: "En. Joy", kesihatan: "En. Melvin", piano: "Abner Raizal", media: "Raizal", tulis: "Cik Aurellendra, En. Acher & Cik Cristie" },
-      khotbah: { preacher: "Eld. Ernest", mc: "Eld. Joseph", persembahan: "En. Archer", doa: "En. Jonathan", diakon: "Pn. Minah & Cik Jossy", special: "Kumpulan 3", piano: "En. Joy Brandon", media: "Aurellendra" }
-    },
-    { date: "20 JUN", fullDate: "2026-06-20", label: "Sabat 12", 
-      ss: { nyanyi: "Cik Jossy", acara: "Cik Efy", misi: "En. Jonathan", kesihatan: "Cik Marcia Grace", piano: "Aurellendra Sonny", media: "Emerson", tulis: "Cik Chloe, Cik Anabelle & En. Archer" },
-      khotbah: { preacher: "En. Melvin", mc: "Eld. Sonny", persembahan: "En. Brandon", doa: "En. Erlandson", diakon: "En. Jointin & En. Emerson", special: "Kumpulan 4", piano: "Pn. Naria", media: "En. Jonathan" }
-    },
-    { date: "27 JUN", fullDate: "2026-06-27", label: "Sabat 13", 
-      ss: { nyanyi: "Pn. Anjilin", acara: "Pn. Debbie", misi: "Pn. Emily", kesihatan: "Cik Efy", piano: "Axl Neve Alwayne", media: "Joy Brandon", tulis: "Cik Cristie, Cik Aurellendra & Cik Anabelle" },
-      khotbah: { preacher: "Pn. Emily", mc: "Pn. Debbie", persembahan: "Pn. Jupina", doa: "Cik Efy", diakon: "Eld. Joseph & En. Jointin", special: "Kumpulan 5", piano: "En. Emerson", media: "En. Raizal" }
-    }
-];
+/* ================= CONFIGURATION ================= */
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTKbaGizmx7SFOiTMCXTw9cLDAO1mi4Sbgm2b-ynr3bucU45fXshQbFzFuAuM-xVfFvyz-UopoIOm8h/pub?gid=2033894049&single=true&output=csv";
 
-/* ================= ENGINE ================= */
+let globalScheduleData = [];
+
+/* Helper to safely split CSV rows accounting for commas inside quotes */
+function parseCSVRow(text) {
+    let p = '', row = [''], q = false;
+    for (let i = 0; i < text.length; i++) {
+        let c = text[i];
+        if (c === '"') { q = !q; }
+        else if (c === ',' && !q) { row.push(''); }
+        else { row[row.length - 1] += c; }
+    }
+    return row.map(cell => cell.trim().replace(/^"|"$/g, ''));
+}
+
+/* Helper to convert spreadsheet formats like "4" or "4 APR" into true 2026 Dates */
+function parseSabbathDate(dateStr, monthStr) {
+    const cleanDay = dateStr.replace(/[^\d]/g, '');
+    const months = { 'APR': 3, 'MEI': 4, 'JUN': 5, 'JUL': 6, 'OGO': 7, 'SEP': 8 };
+    const monthIndex = months[monthStr.substring(0,3).toUpperCase()] || 6; 
+    return new Date(2026, monthIndex, parseInt(cleanDay));
+}
+
+/* ================= LIVE SHEET FETCHER ================= */
+async function loadLiveSchedule() {
+    try {
+        const response = await fetch(SHEET_CSV_URL);
+        const data = await response.text();
+        const lines = data.split(/\r?\n/).filter(line => line.trim() !== '');
+        
+        let rawSSRows = [];
+        let rawKhotbahRows = [];
+        let readingSection = null;
+
+        // Process sections from single layout CSV output
+        lines.forEach(line => {
+            const parsed = parseCSVRow(line);
+            if (parsed.join('').toUpperCase().includes("SEKOLAH SABAT")) {
+                readingSection = "SS";
+                return;
+            }
+            if (parsed.join('').toUpperCase().includes("JADUAL KHOTBAH")) {
+                readingSection = "KHOTBAH";
+                return;
+            }
+            
+            if (readingSection === "SS") rawSSRows.push(parsed);
+            if (readingSection === "KHOTBAH") rawKhotbahRows.push(parsed);
+        });
+
+        // Filter and clear pure data lines
+        rawSSRows = rawSSRows.filter(r => r[0] && !r[0].toUpperCase().includes("BULAN") && !r[0].toUpperCase().includes("TARIKH"));
+        rawKhotbahRows = rawKhotbahRows.filter(r => r[0] && !r[0].toUpperCase().includes("BULAN") && !r[0].toUpperCase().includes("TARIKH"));
+
+        globalScheduleData = [];
+        let currentMonthSS = "JULAI";
+        let currentMonthK = "JULAI";
+
+        // Map data perfectly across matching Sabat records
+        for (let i = 0; i < rawSSRows.length; i++) {
+            let rowSS = rawSSRows[i];
+            let rowK = rawKhotbahRows[i] || [];
+
+            if (rowSS[0]) currentMonthSS = rowSS[0];
+            if (rowK[0]) currentMonthK = rowK[0];
+
+            let daySS = rowSS[1] || "";
+            let sabatLabel = "Sabat " + (rowSS[2] || (i + 1));
+            let realJsDate = parseSabbathDate(daySS, currentMonthSS);
+
+            globalScheduleData.push({
+                date: daySS + " " + currentMonthSS.substring(0,3).toUpperCase(),
+                fullDate: realJsDate,
+                label: sabatLabel,
+                ss: {
+                    nyanyi: rowSS[3] || "Tiada Data",
+                    acara: rowSS[4] || "Tiada Data",
+                    misi: rowSS[5] || "Tiada Data",
+                    kesihatan: rowSS[6] || "Tiada Data",
+                    piano: rowSS[7] || "Tiada Data",
+                    media: rowSS[8] || "Tiada Data",
+                    tulis: (rowSS[9] || "") + (rowSS[10] ? " & " + rowSS[10] : "") || "Tiada Data"
+                },
+                khotbah: {
+                    mc: rowK[3] || "Tiada Data",
+                    persembahan: rowK[4] || "Tiada Data",
+                    doa: rowK[5] || "Tiada Data",
+                    diakon: rowK[6] || "Tiada Data",
+                    preacher: rowK[7] || "Tiada Data",
+                    special: rowK[8] || "Tiada Data",
+                    piano: rowK[9] || "Tiada Data",
+                    media: rowK[10] || "Tiada Data"
+                }
+            });
+        }
+
+        buildDatePicker();
+
+    } catch (error) {
+        console.error("Error reading live sheet layout:", error);
+        document.getElementById('date-picker').innerHTML = `<div class="status-msg" style="color:#d63b3b;">Gagal memuatkan jadual dari Google Sheets. Sila pastikan Sheet telah dikongsi 'Publish to Web'.</div>`;
+    }
+}
+
+/* ================= THE ENGINE INTERFACE ================= */
+function buildDatePicker() {
+    const picker = document.getElementById('date-picker');
+    picker.innerHTML = '';
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    let autoSelect = 0;
+
+    globalScheduleData.forEach((item, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'pill';
+        btn.innerHTML = item.date;
+        
+        if (item.fullDate <= today) autoSelect = index;
+        
+        btn.onclick = () => {
+            document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            renderSchedule(index);
+        };
+        picker.appendChild(btn);
+    });
+
+    if (picker.children.length > 0) {
+        const activePill = picker.children[autoSelect];
+        activePill.click();
+        activePill.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    }
+}
+
 function renderSchedule(index) {
-    const data = scheduleData[index];
+    const data = globalScheduleData[index];
     document.getElementById('schedule-content').innerHTML = `
         <div class="service-header" style="color:#0071e3;"><i class="fas fa-sun"></i> Sekolah Sabat (09:45 AM)</div>
         <div class="petugas-grid">
@@ -188,29 +274,10 @@ function renderSchedule(index) {
         </div>`;
 }
 
-function r(t, n, i) { return `<div class="role-item"><div class="role-icon"><i class="fas ${i}"></i></div><div class="role-text"><span>${t}</span><strong>${n}</strong></div></div>`; }
+function r(t, n, i) { return `<div class="role-item"><div class="role-icon"><i class="fas ${i}"></i></div><div class="role-text"><span>${t}</span><strong>${n || "Tiada Data"}</strong></div></div>`; }
 
-const picker = document.getElementById('date-picker');
-const today = new Date();
-let autoSelect = 0;
-
-scheduleData.forEach((item, index) => {
-    const btn = document.createElement('button');
-    btn.className = 'pill';
-    btn.innerHTML = item.date;
-    const itemDate = new Date(item.fullDate);
-    if (itemDate <= today) autoSelect = index;
-    btn.onclick = () => {
-        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        renderSchedule(index);
-    };
-    picker.appendChild(btn);
-});
-
-const activePill = picker.children[autoSelect];
-activePill.click();
-activePill.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+/* Initialize live sequence setup */
+window.addEventListener('load', loadLiveSchedule);
 
 document.getElementById("menu-toggle").addEventListener("click", () => document.getElementById("nav-links").classList.toggle("active"));
 const bgMusic = document.getElementById('bg-music');
