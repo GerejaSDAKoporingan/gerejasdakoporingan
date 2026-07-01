@@ -5,371 +5,212 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jadual Petugas | Gereja SDA Koporingan</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <style>
-/* ============ TOKENS ============ */
-:root{
-  --navy:#0b1d3a;
-  --navy-2:#132a52;
-  --gold:#c9a24b;
-  --gold-soft:#e8d9b0;
-  --cream:#faf6ec;
-  --paper:#fffdf8;
-  --ink:#241f16;
-  --ink-soft:#6b6355;
-  --line:#eae2ce;
-  --red:#9a3324;
+/* RESET & CORE STYLE */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+body { background: #fbfbfd; color: #1d1d1f; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* NAVBAR */
+.navbar { position: fixed; width: 100%; top: 0; padding: 20px 0; background: rgba(11, 29, 58, 0.95); backdrop-filter: blur(20px); z-index: 1000; }
+.nav-inner { width: 90%; max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+.navbar img { height: 45px; }
+.navbar ul { list-style: none; display: flex; gap: 25px; align-items: center; }
+.navbar ul li a { text-decoration: none; color: white; font-weight: 500; font-size: 14px; }
+.menu-toggle { display: none; font-size: 28px; color: white; cursor: pointer; }
+
+/* BANNER */
+.banner { padding-top: 140px; padding-bottom: 40px; text-align: center; background: #fff; }
+.banner h1 { font-family: 'Montserrat'; font-size: 32px; font-weight: 800; color: #0b1d3a; text-transform: uppercase; }
+.banner p { color: #86868b; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+/* SABBATH PICKER (HORIZONTAL SCROLL) */
+.picker-container { background: #fff; border-bottom: 1px solid #f2f2f2; position: sticky; top: 85px; z-index: 999; padding: 15px 0; }
+.sabbath-picker { display: flex; gap: 12px; overflow-x: auto; padding: 0 5%; scrollbar-width: none; scroll-behavior: smooth; }
+.sabbath-picker::-webkit-scrollbar { display: none; }
+
+.pill { 
+    flex: 0 0 auto; padding: 10px 24px; border-radius: 50px; background: #f5f5f7; 
+    color: #1d1d1f; font-weight: 700; font-size: 13px; cursor: pointer; border: none; transition: 0.3s; 
 }
+.pill.active { background: #0b1d3a; color: #fff; transform: scale(1.05); box-shadow: 0 8px 20px rgba(11, 29, 58, 0.2); }
 
-/* ============ RESET ============ */
-*{ margin:0; padding:0; box-sizing:border-box; font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
-html{ scroll-behavior:smooth; }
-body{ background:var(--cream); color:var(--ink); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
-.serif{ font-family:'Fraunces',serif; }
+/* SERVICE CARDS */
+.section { padding: 40px 0 80px; }
+.container { width: 92%; max-width: 1100px; margin: auto; }
+.service-header { font-family: 'Montserrat'; font-size: 18px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 
-/* ============ NAVBAR (kept consistent with rest of site) ============ */
-.navbar{ position:fixed; width:100%; top:0; padding:20px 0; background:rgba(11,29,58,0.95); backdrop-filter:blur(20px); z-index:1000; }
-.nav-inner{ width:90%; max-width:1200px; margin:auto; display:flex; justify-content:space-between; align-items:center; }
-.navbar img{ height:45px; }
-.navbar ul{ list-style:none; display:flex; gap:25px; align-items:center; }
-.navbar ul li a{ text-decoration:none; color:#fff; font-weight:500; font-size:14px; }
-.menu-toggle{ display:none; font-size:28px; color:#fff; cursor:pointer; }
+.petugas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
+.card { background: #fff; border-radius: 24px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f2f2f2; }
 
-/* ============ HERO ============ */
-.banner{
-  padding:150px 0 60px;
-  text-align:center;
-  background:
-    radial-gradient(circle at 15% 20%, rgba(201,162,75,0.10), transparent 45%),
-    radial-gradient(circle at 85% 10%, rgba(11,29,58,0.06), transparent 40%),
-    var(--paper);
-  border-bottom:1px solid var(--line);
-  position:relative;
-}
-.banner .eyebrow{
-  display:inline-flex; align-items:center; gap:10px;
-  color:var(--gold); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px;
-}
-.banner .eyebrow::before, .banner .eyebrow::after{ content:''; width:24px; height:1px; background:var(--gold); }
-.banner h1{ font-family:'Fraunces'; font-size:40px; font-weight:600; color:var(--navy); margin-top:14px; letter-spacing:-0.5px; }
-.banner .sub{ margin-top:10px; color:var(--ink-soft); font-size:14px; }
+.role-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid #f9f9fb; }
+.role-item:last-child { border-bottom: none; }
+.role-icon { width: 40px; height: 40px; background: #f5f5f7; border-radius: 12px; display: flex; justify-content: center; align-items: center; color: #0b1d3a; font-size: 16px; }
+.role-text span { display: block; font-size: 11px; color: #86868b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.role-text strong { display: block; font-size: 15px; color: #1d1d1f; }
 
-/* ============ SABBATH PICKER ============ */
-.picker-container{ background:var(--paper); border-bottom:1px solid var(--line); position:sticky; top:85px; z-index:999; padding:16px 0; }
-.sabbath-picker{ display:flex; gap:10px; overflow-x:auto; padding:0 5%; scrollbar-width:none; scroll-behavior:smooth; }
-.sabbath-picker::-webkit-scrollbar{ display:none; }
+/* FOOTER */
+.footer { text-align: center; padding: 40px; color: #86868b; font-size: 13px; background: #fff; border-top: 1px solid #f2f2f2; }
 
-.pill{
-  flex:0 0 auto; padding:12px 22px; border-radius:10px;
-  background:var(--cream); color:var(--navy);
-  font-weight:700; font-size:13px; cursor:pointer; border:1px solid var(--line);
-  transition:0.25s; position:relative; text-align:left; line-height:1.3;
-}
-.pill .pnum{ display:block; font-family:'Fraunces'; font-size:11px; font-weight:600; color:var(--gold); text-transform:uppercase; letter-spacing:1px; }
-.pill.active{ background:var(--navy); border-color:var(--navy); color:#fff; box-shadow:0 10px 24px rgba(11,29,58,0.25); }
-.pill.active .pnum{ color:var(--gold-soft); }
-.pill.today::after{
-  content:'HARI INI'; position:absolute; top:-9px; right:8px; background:var(--red); color:#fff;
-  font-size:8px; font-weight:800; padding:2px 6px; border-radius:5px; letter-spacing:0.5px;
-}
-
-/* ============ SCHEDULE ============ */
-.section{ padding:50px 0 90px; }
-.container{ width:92%; max-width:1080px; margin:auto; }
-
-.service-header{
-  font-family:'Fraunces'; font-size:20px; font-weight:600; margin-bottom:22px;
-  display:flex; align-items:baseline; gap:14px; color:var(--navy);
-}
-.service-header .time{ font-family:'Inter'; font-size:12px; font-weight:700; color:var(--ink-soft); letter-spacing:0.5px; }
-.service-header::after{ content:''; flex:1; height:1px; background:var(--line); }
-
-.petugas-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; margin-bottom:44px; }
-.card{
-  background:var(--paper); border-radius:14px; padding:8px 28px;
-  box-shadow:0 14px 30px rgba(11,29,58,0.05);
-  border:1px solid var(--line); border-top:3px solid var(--gold);
-}
-.card.accent{ border-top:3px solid var(--red); }
-
-.role-item{ display:flex; align-items:center; gap:16px; padding:16px 0; border-bottom:1px dashed var(--line); }
-.role-item:last-child{ border-bottom:none; }
-.role-icon{ width:38px; height:38px; flex:0 0 auto; background:var(--cream); border:1px solid var(--line); border-radius:9px; display:flex; justify-content:center; align-items:center; color:var(--navy); font-size:14px; }
-.role-text{ min-width:0; }
-.role-text span{ display:block; font-size:10.5px; color:var(--ink-soft); font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
-.role-text strong{ display:block; font-size:15px; color:var(--ink); font-weight:600; margin-top:2px; }
-
-/* ============ STATES ============ */
-.state-box{ text-align:center; padding:60px 20px; color:var(--ink-soft); }
-.state-box i{ font-size:22px; color:var(--gold); margin-bottom:12px; display:block; }
-.skeleton{ background:linear-gradient(90deg, var(--line) 25%, #f5f0e0 37%, var(--line) 63%); background-size:400% 100%; animation:shimmer 1.4s ease infinite; border-radius:8px; height:16px; margin:8px 0; }
-@keyframes shimmer{ 0%{ background-position:100% 0; } 100%{ background-position:0 0; } }
-
-/* ============ FOOTER ============ */
-.footer{ text-align:center; padding:40px; color:var(--ink-soft); font-size:13px; background:var(--paper); border-top:1px solid var(--line); }
-.footer .sync-note{ font-size:11px; margin-top:6px; opacity:0.75; }
-
-@media (max-width:900px){
-  .menu-toggle{ display:block; }
-  .navbar ul{ position:absolute; top:75px; right:5%; background:rgba(11,29,58,0.98); backdrop-filter:blur(20px); width:220px; flex-direction:column; padding:25px; border-radius:16px; display:none; }
-  .navbar ul.active{ display:flex; }
-  .banner h1{ font-size:28px; }
-  .petugas-grid{ grid-template-columns:1fr; }
-  .picker-container{ top:81px; }
+@media (max-width: 900px) {
+    .menu-toggle { display: block; }
+    .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.98); backdrop-filter: blur(20px); width: 220px; flex-direction: column; padding: 25px; border-radius: 16px; display: none; }
+    .navbar ul.active { display: flex; }
+    .banner h1 { font-size: 24px; }
+    .petugas-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
 <div class="navbar">
-  <div class="nav-inner">
-    <img src="logo-sda.png" alt="Logo">
-    <ul id="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="sejarah.html">Sejarah</a></li>
-      <li><a href="hubungi-kami.html">Hubungi</a></li>
-    </ul>
-    <div class="menu-toggle" id="menu-toggle">☰</div>
-  </div>
+    <div class="nav-inner">
+        <img src="logo-sda.png" alt="Logo">
+        <ul id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sejarah.html">Sejarah</a></li>
+            <li><a href="hubungi-kami.html">Hubungi</a></li>
+        </ul>
+        <div class="menu-toggle" id="menu-toggle">☰</div>
+    </div>
 </div>
 
 <div class="banner">
-  <span class="eyebrow" id="quarter-label">Memuatkan…</span>
-  <h1>Jadual Petugas</h1>
-  <p class="sub">Gereja SDA Koporingan</p>
+    <p>Suku Ke-2 (April – Jun 2026)</p>
+    <h1>Jadual Petugas</h1>
 </div>
 
 <div class="picker-container">
-  <div class="sabbath-picker" id="date-picker"></div>
+    <div class="sabbath-picker" id="date-picker"></div>
 </div>
 
 <div class="section">
-  <div class="container" id="schedule-content">
-    <div class="state-box">
-      <i class="fas fa-circle-notch fa-spin"></i>
-      Sedang memuatkan jadual dari Google Sheet…
-    </div>
-  </div>
+    <div class="container" id="schedule-content"></div>
 </div>
 
 <footer class="footer">
-  <p>© 2026–2027 Gereja SDA Koporingan</p>
-  <p class="sync-note" id="sync-note">Jadual dikemaskini secara automatik dari Google Sheet.</p>
+    <p>© 2026–2027 Gereja SDA Koporingan | Dikemaskini: Mac 2026</p>
 </footer>
 
 <audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
 
 <script>
-/* =========================================================================
-   LIVE DATA SOURCE
-   This page pulls its schedule directly from a Google Sheet that has been
-   published to the web as CSV (File > Share > Publish to web > CSV).
-   Editing the sheet updates this page automatically on next load/refresh.
+/* ================= DATA CENTER (Extracted from PDF) ================= */
+const scheduleData = [
+    { date: "4 APR", fullDate: "2026-04-04", label: "Sabat 1", 
+      ss: { nyanyi: "Pn. Erniecia", acara: "Pn. Jupina", misi: "Eld. Justin", kesihatan: "En. Raizal", piano: "Axl Neve Alwayne", media: "Jonathan", tulis: "En. Jayden, En. Archer & En. Axl" },
+      khotbah: { preacher: "En. Jonathan", mc: "En. Erlandson", persembahan: "En. Brandon", doa: "Cik Efy", diakon: "Cik Jossy & Pn. Anjilin", special: "Kumpulan 5", piano: "En. Emerson", media: "En. Raizal" }
+    },
+    { date: "11 APR", fullDate: "2026-04-11", label: "Sabat 2", 
+      ss: { nyanyi: "Pn. Mailin", acara: "En. Brandon", misi: "Eld. Sonny", kesihatan: "Pn. Salicina Sally", piano: "Jayden Jack", media: "Emerson", tulis: "En. Shane Archer, Cik Cristie & Cik Chloe" },
+      khotbah: { preacher: "Pn. Jupina", mc: "Pn. Emily", persembahan: "Pn. Debbie", doa: "Pn. Agnes", diakon: "Eld. Subin & En. Jack", special: "Kumpulan 6", piano: "En. Joy Brandon", media: "En. Emerson" }
+    },
+    { date: "18 APR", fullDate: "2026-04-18", label: "Sabat 3", 
+      ss: { nyanyi: "En. Clifton", acara: "Pn. Debbie", misi: "Pn. Jupina", kesihatan: "En. Jonathan", piano: "Natalie Jack", media: "Joy Brandon", tulis: "En. Axl, Cik Anabelle & Cik Cristie" },
+      khotbah: { preacher: "En. Emerson", mc: "Eld. Ernest", persembahan: "En. Melvin", doa: "En. Archer", diakon: "Pn. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "En. Erlandson" }
+    },
+    { date: "25 APR", fullDate: "2026-04-25", label: "Sabat 4", 
+      ss: { nyanyi: "Cik Efy", acara: "En. Shane Archer", misi: "En. Subin", kesihatan: "Pn. Debbie", piano: "Anabelle Raizal", media: "Raizal", tulis: "Cik Chloe, Cik Anabelle & En. Axl" },
+      khotbah: { preacher: "En. Erlandson", mc: "Eld. Justin", persembahan: "Cik Eqa", doa: "En. Joy", diakon: "En. Jointin & Eld. Subin", special: "Kumpulan 2", piano: "En. Emerson", media: "En. Jonathan" }
+    },
+    { date: "2 MEI", fullDate: "2026-05-02", label: "Sabat 5", 
+      ss: { nyanyi: "Pn. Mailin", acara: "Eld. Justin", misi: "En. Jack", kesihatan: "En. Jayden", piano: "Abner Raizal", media: "Joy Brandon", tulis: "En. Archer, En. Axl & Cik Chloe" },
+      khotbah: { preacher: "Cik Jossy", mc: "Pn. Agnes", persembahan: "Pn. Anjilin", doa: "Pn. Cenysia", diakon: "Pn. Moini & Pn. Minah", special: "Kumpulan 3", piano: "En. Joy Brandon", media: "Anabelle" }
+    },
+    { date: "9 MEI", fullDate: "2026-05-09", label: "Sabat 6", 
+      ss: { nyanyi: "Cik Jossy", acara: "Pn. Jupina", misi: "Pn. Erniecia", kesihatan: "En. Joy", piano: "Aurellendra Sonny", media: "Jonathan", tulis: "Cik Anabelle, Cik Cristie & En. Shane Archer" },
+      khotbah: { preacher: "En. Joy Brandon", mc: "Eld. Joseph", persembahan: "En. Emerson", doa: "En. Brandon", diakon: "En. Jointin & En. Jack", special: "Kumpulan 4", piano: "Pn. Naria", media: "Axl Neve Alwayne" }
+    },
+    { date: "16 MEI", fullDate: "2026-05-16", label: "Sabat 7", 
+      ss: { nyanyi: "En. Clifton", acara: "Pn. Debbie", misi: "Pn. Erniecia", kesihatan: "Cik Aurellendra", piano: "Axl Neve Alwayne", media: "Emerson", tulis: "Cik Anabelle, En. Axl & En. Shane" },
+      khotbah: { preacher: "Pn. Cenysia", mc: "Pn. Jupinah", persembahan: "Pn. Debbie", doa: "Pn. Jouna", diakon: "Pn. Anjilin & Pn. Minah", special: "Kumpulan 5", piano: "En. Emerson", media: "En. Joy Brandon" }
+    },
+    { date: "23 MEI", fullDate: "2026-05-23", label: "Sabat 8", 
+      ss: { nyanyi: "Pn. Anjilin", acara: "Cik Jossy", misi: "Cik Efy", kesihatan: "Cik Cristie", piano: "Jayden Jack", media: "Raizal", tulis: "Cik Cristie, Cik Aurellendra & En. Axl" },
+      khotbah: { preacher: "Pr. Max", mc: "Eld. Justin", persembahan: "En. Melvin", doa: "Eld. Sonny", diakon: "Eld. Joseph & Eld. Subin", special: "Kumpulan 6", piano: "En. Joy Brandon", media: "En. Brandon" }
+    },
+    { date: "30 MEI", fullDate: "2026-05-30", label: "Sabat 9", 
+      ss: { nyanyi: "Pn. Erna", acara: "En. Shane Archer", misi: "Pn. Debbie", kesihatan: "Pn. Jupina", piano: "Natalie Jack", media: "Joy Brandon", tulis: "Cik Chloe, En. Archer & Cik Cristie" },
+      khotbah: { preacher: "Eld. Sonny", mc: "Eld. Ernest", persembahan: "Cik Eqa", doa: "En. Jack", diakon: "Pn. Rosiah & Pn. Jusilin", special: "Kumpulan 1", piano: "Pn. Naria", media: "En. Joy Brandon" }
+    },
+    { date: "6 JUN", fullDate: "2026-06-06", label: "Sabat 10", 
+      ss: { nyanyi: "Pn. Erniecia", acara: "En. Brandon", misi: "En. Erlandson", kesihatan: "En. Archer", piano: "Anabelle Raizal", media: "Jonathan", tulis: "Cik Aurellendra, Cik Chloe & Cik Chloe" },
+      khotbah: { preacher: "Eld. Justin", mc: "Eld. Joimur", persembahan: "En. Melvin", doa: "En. Emerson", diakon: "Eld. Subin & En. Jack", special: "Kumpulan 2", piano: "En. Emerson", media: "Jayden Jack" }
+    },
+    { date: "13 JUN", fullDate: "2026-06-13", label: "Sabat 11", 
+      ss: { nyanyi: "Cik Efy", acara: "Pn. Jupina", misi: "En. Joy", kesihatan: "En. Melvin", piano: "Abner Raizal", media: "Raizal", tulis: "Cik Aurellendra, En. Acher & Cik Cristie" },
+      khotbah: { preacher: "Eld. Ernest", mc: "Eld. Joseph", persembahan: "En. Archer", doa: "En. Jonathan", diakon: "Pn. Minah & Cik Jossy", special: "Kumpulan 3", piano: "En. Joy Brandon", media: "Aurellendra" }
+    },
+    { date: "20 JUN", fullDate: "2026-06-20", label: "Sabat 12", 
+      ss: { nyanyi: "Cik Jossy", acara: "Cik Efy", misi: "En. Jonathan", kesihatan: "Cik Marcia Grace", piano: "Aurellendra Sonny", media: "Emerson", tulis: "Cik Chloe, Cik Anabelle & En. Archer" },
+      khotbah: { preacher: "En. Melvin", mc: "Eld. Sonny", persembahan: "En. Brandon", doa: "En. Erlandson", diakon: "En. Jointin & En. Emerson", special: "Kumpulan 4", piano: "Pn. Naria", media: "En. Jonathan" }
+    },
+    { date: "27 JUN", fullDate: "2026-06-27", label: "Sabat 13", 
+      ss: { nyanyi: "Pn. Anjilin", acara: "Pn. Debbie", misi: "Pn. Emily", kesihatan: "Cik Efy", piano: "Axl Neve Alwayne", media: "Joy Brandon", tulis: "Cik Cristie, Cik Aurellendra & Cik Anabelle" },
+      khotbah: { preacher: "Pn. Emily", mc: "Pn. Debbie", persembahan: "Pn. Jupina", doa: "Cik Efy", diakon: "Eld. Joseph & En. Jointin", special: "Kumpulan 5", piano: "En. Emerson", media: "En. Raizal" }
+    }
+];
 
-   REQUIRED COLUMN HEADERS IN THE SHEET (row 1, spelled exactly like this):
-
-   Tarikh              -> date, format YYYY-MM-DD (e.g. 2026-04-04)
-   Label                -> optional, e.g. "Sabat 1". Auto-generated if left blank.
-
-   Sekolah Sabat (09:45 AM):
-   SS_PemimpinNyanyi
-   SS_AcaraDoaPembuka
-   SS_CeritaMisi
-   SS_KesihatanKeluarga
-   SS_Pianis
-   SS_Media
-   SS_JuruTulis
-
-   Kebaktian Khotbah (11:00 AM):
-   KH_Pengkhotbah
-   KH_PemimpinAcara
-   KH_DoaPembuka
-   KH_Persembahan
-   KH_Diakon
-   KH_Pianis
-   KH_Media
-   KH_Istimewa
-
-   Any extra columns in the sheet are simply ignored.
-   ========================================================================= */
-
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTKbaGizmx7SFOiTMCXTw9cLDAO1mi4Sbgm2b-ynr3bucU45fXshQbFzFuAuM-xVfFvyz-UopoIOm8h/pub?gid=2033894049&single=true&output=csv";
-const REFRESH_MS = 5 * 60 * 1000; // re-check the sheet every 5 minutes
-
-let scheduleData = [];
-let activeIndex = 0;
-
-const MONTHS_MS = { "jan":0,"feb":1,"mac":2,"apr":3,"mei":4,"jun":5,"jul":6,"ogos":7,"sep":8,"okt":9,"nov":10,"dis":11 };
-
-function getVal(row, key){
-  // case/whitespace tolerant lookup
-  if (row[key] !== undefined) return (row[key] || "").toString().trim();
-  const found = Object.keys(row).find(k => k.trim().toLowerCase() === key.toLowerCase());
-  return found ? (row[found] || "").toString().trim() : "";
+/* ================= ENGINE ================= */
+function renderSchedule(index) {
+    const data = scheduleData[index];
+    document.getElementById('schedule-content').innerHTML = `
+        <div class="service-header" style="color:#0071e3;"><i class="fas fa-sun"></i> Sekolah Sabat (09:45 AM)</div>
+        <div class="petugas-grid">
+            <div class="card">
+                ${r("Pemimpin Nyanyi & Doa Penutup S.Sabat", data.ss.nyanyi, "fa-microphone-lines")}
+                ${r("Acara & Doa Pembuka", data.ss.acara, "fa-microphone")}
+                ${r("Cerita Misi", data.ss.misi, "fa-earth-asia")}
+            </div>
+            <div class="card">
+                ${r("Bacaan Keluarga & Kesihatan", data.ss.kesihatan, "fa-heart-pulse")}
+                ${r("Pianist", data.ss.piano, "fa-piano")}
+                ${r("Media", data.ss.media, "fa-laptop-code")}
+                ${r("Laporan & Jurutulis", data.ss.tulis, "fa-pen-nib")}
+            </div>
+        </div>
+        <div class="service-header" style="color:#d63b3b;"><i class="fas fa-church"></i> Kebaktian Khotbah (11:00 AM)</div>
+        <div class="petugas-grid">
+            <div class="card" style="border-left: 5px solid #d63b3b;">
+                ${r("Pengkhotbah", data.khotbah.preacher, "fa-star")}
+                ${r("Pemimpin Acara", data.khotbah.mc, "fa-user-tie")}
+                ${r("Doa Pembuka", data.khotbah.doa, "fa-hands-praying")}
+                ${r("Persembahan", data.khotbah.persembahan, "fa-hand-holding-heart")}
+            </div>
+            <div class="card">
+                ${r("Diakon/Diakones", data.khotbah.diakon, "fa-user-shield")}
+                ${r("Pianist", data.khotbah.piano, "fa-music")}
+                ${r("Media", data.khotbah.media, "fa-desktop")}
+                ${r("Istimewa", data.khotbah.special, "fa-gift")}
+            </div>
+        </div>`;
 }
 
-function formatShortDate(iso){
-  const monthsShort = ["JAN","FEB","MAC","APR","MEI","JUN","JUL","OGOS","SEP","OKT","NOV","DIS"];
-  const d = new Date(iso + "T00:00:00");
-  if (isNaN(d)) return iso;
-  return `${d.getDate()} ${monthsShort[d.getMonth()]}`;
-}
+function r(t, n, i) { return `<div class="role-item"><div class="role-icon"><i class="fas ${i}"></i></div><div class="role-text"><span>${t}</span><strong>${n}</strong></div></div>`; }
 
-function parseRows(rows){
-  const clean = [];
-  rows.forEach((row, i) => {
-    const tarikh = getVal(row, "Tarikh");
-    if (!tarikh) return; // skip blank rows
-    clean.push({
-      fullDate: tarikh,
-      date: formatShortDate(tarikh),
-      label: getVal(row, "Label") || `Sabat ${clean.length + 1}`,
-      ss: {
-        nyanyi: getVal(row, "SS_PemimpinNyanyi"),
-        acara: getVal(row, "SS_AcaraDoaPembuka"),
-        misi: getVal(row, "SS_CeritaMisi"),
-        kesihatan: getVal(row, "SS_KesihatanKeluarga"),
-        piano: getVal(row, "SS_Pianis"),
-        media: getVal(row, "SS_Media"),
-        tulis: getVal(row, "SS_JuruTulis"),
-      },
-      khotbah: {
-        preacher: getVal(row, "KH_Pengkhotbah"),
-        mc: getVal(row, "KH_PemimpinAcara"),
-        doa: getVal(row, "KH_DoaPembuka"),
-        persembahan: getVal(row, "KH_Persembahan"),
-        diakon: getVal(row, "KH_Diakon"),
-        piano: getVal(row, "KH_Pianis"),
-        media: getVal(row, "KH_Media"),
-        special: getVal(row, "KH_Istimewa"),
-      }
-    });
-  });
-  clean.sort((a,b) => new Date(a.fullDate) - new Date(b.fullDate));
-  return clean;
-}
+const picker = document.getElementById('date-picker');
+const today = new Date();
+let autoSelect = 0;
 
-function r(t, n, i){
-  if (!n) return "";
-  return `<div class="role-item"><div class="role-icon"><i class="fas ${i}"></i></div><div class="role-text"><span>${t}</span><strong>${n}</strong></div></div>`;
-}
-
-function renderSchedule(index){
-  const data = scheduleData[index];
-  if (!data) return;
-  document.getElementById('schedule-content').innerHTML = `
-    <div class="service-header">Sekolah Sabat <span class="time">09:45 AM</span></div>
-    <div class="petugas-grid">
-      <div class="card">
-        ${r("Pemimpin Nyanyi & Doa Penutup", data.ss.nyanyi, "fa-microphone-lines")}
-        ${r("Acara & Doa Pembuka", data.ss.acara, "fa-microphone")}
-        ${r("Cerita Misi", data.ss.misi, "fa-earth-asia")}
-      </div>
-      <div class="card">
-        ${r("Bacaan Keluarga & Kesihatan", data.ss.kesihatan, "fa-heart-pulse")}
-        ${r("Pianis", data.ss.piano, "fa-music")}
-        ${r("Media", data.ss.media, "fa-laptop-code")}
-        ${r("Laporan & Jurutulis", data.ss.tulis, "fa-pen-nib")}
-      </div>
-    </div>
-    <div class="service-header">Kebaktian Khotbah <span class="time">11:00 AM</span></div>
-    <div class="petugas-grid">
-      <div class="card accent">
-        ${r("Pengkhotbah", data.khotbah.preacher, "fa-star")}
-        ${r("Pemimpin Acara", data.khotbah.mc, "fa-user-tie")}
-        ${r("Doa Pembuka", data.khotbah.doa, "fa-hands-praying")}
-        ${r("Persembahan", data.khotbah.persembahan, "fa-hand-holding-heart")}
-      </div>
-      <div class="card">
-        ${r("Diakon/Diakones", data.khotbah.diakon, "fa-user-shield")}
-        ${r("Pianis", data.khotbah.piano, "fa-piano")}
-        ${r("Media", data.khotbah.media, "fa-desktop")}
-        ${r("Istimewa", data.khotbah.special, "fa-gift")}
-      </div>
-    </div>`;
-}
-
-function buildPicker(){
-  const picker = document.getElementById('date-picker');
-  picker.innerHTML = "";
-  const today = new Date(); today.setHours(0,0,0,0);
-  let autoSelect = 0;
-  let closestDiff = Infinity;
-
-  scheduleData.forEach((item, index) => {
+scheduleData.forEach((item, index) => {
     const btn = document.createElement('button');
-    const itemDate = new Date(item.fullDate + "T00:00:00");
-    const isToday = itemDate.getTime() === today.getTime();
-    btn.className = 'pill' + (isToday ? ' today' : '');
-    btn.innerHTML = `<span class="pnum">${item.label}</span>${item.date}`;
-
-    const diff = itemDate - today;
-    if (diff <= 0 && Math.abs(diff) < closestDiff){ closestDiff = Math.abs(diff); autoSelect = index; }
-    else if (closestDiff === Infinity && diff > 0 && diff < closestDiff){ closestDiff = diff; autoSelect = index; }
-
+    btn.className = 'pill';
+    btn.innerHTML = item.date;
+    const itemDate = new Date(item.fullDate);
+    if (itemDate <= today) autoSelect = index;
     btn.onclick = () => {
-      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      activeIndex = index;
-      renderSchedule(index);
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        renderSchedule(index);
     };
     picker.appendChild(btn);
-  });
+});
 
-  if (scheduleData.length){
-    activeIndex = autoSelect;
-    const activePill = picker.children[autoSelect];
-    activePill.classList.add('active');
-    renderSchedule(autoSelect);
-    setTimeout(() => activePill.scrollIntoView({ behavior:'smooth', inline:'center' }), 100);
-  }
-}
-
-function setQuarterLabel(){
-  if (!scheduleData.length) return;
-  const first = new Date(scheduleData[0].fullDate + "T00:00:00");
-  const last = new Date(scheduleData[scheduleData.length - 1].fullDate + "T00:00:00");
-  const monthsFull = ["Januari","Februari","Mac","April","Mei","Jun","Julai","Ogos","September","Oktober","November","Disember"];
-  document.getElementById('quarter-label').textContent =
-    `${monthsFull[first.getMonth()]} – ${monthsFull[last.getMonth()]} ${last.getFullYear()}`;
-}
-
-function showError(msg){
-  document.getElementById('schedule-content').innerHTML = `
-    <div class="state-box">
-      <i class="fas fa-triangle-exclamation"></i>
-      ${msg}
-    </div>`;
-}
-
-function loadSchedule(isBackgroundRefresh){
-  Papa.parse(CSV_URL + "&_ts=" + Date.now(), {
-    download: true,
-    header: true,
-    skipEmptyLines: true,
-    complete: function(results){
-      const parsed = parseRows(results.data);
-      if (!parsed.length){
-        if (!isBackgroundRefresh) showError("Tiada jadual dijumpai buat masa ini. Sila semak semula Google Sheet.");
-        return;
-      }
-      scheduleData = parsed;
-      setQuarterLabel();
-      buildPicker();
-      document.getElementById('sync-note').textContent =
-        "Jadual dikemaskini secara automatik dari Google Sheet • kemaskini terakhir: " + new Date().toLocaleTimeString('ms-MY');
-    },
-    error: function(){
-      if (!isBackgroundRefresh) showError("Gagal memuatkan jadual. Sila semak sambungan internet anda.");
-    }
-  });
-}
-
-loadSchedule(false);
-setInterval(() => loadSchedule(true), REFRESH_MS);
+const activePill = picker.children[autoSelect];
+activePill.click();
+activePill.scrollIntoView({ behavior: 'smooth', inline: 'center' });
 
 document.getElementById("menu-toggle").addEventListener("click", () => document.getElementById("nav-links").classList.toggle("active"));
 const bgMusic = document.getElementById('bg-music');
