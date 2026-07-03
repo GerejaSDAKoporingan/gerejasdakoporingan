@@ -29,38 +29,6 @@
 .fa-facebook:hover { color: #1877F2; text-shadow: 0 0 10px #1877F2; }
 .fa-youtube:hover { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
 
-.timeline-divider { border: 0; height: 1px; background: #e6e6e6; margin: 50px 0; position: relative; }
-.timeline-divider::after {
-    content: "Maklumat Umum"; position: absolute; top: -10px; left: 50%;
-    transform: translateX(-50%); background: #ffffff; padding: 0 15px;
-    color: #888; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
-}
-
-/* ================= PETUGAS DASHBOARD ================= */
-.petugas-section { padding: 80px 0; background: #f8f9fb; }
-.petugas-main-card {
-    background: #ffffff; padding: 40px; border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.05); border: 1px solid #eee;
-}
-.service-title { font-family: 'Montserrat'; font-weight: 800; color: #0b1d3a; font-size: 22px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-.petugas-grid-mini { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
-.p-item { background: #fbfbfd; padding: 15px; border-radius: 12px; border-left: 3px solid #d63b3b; }
-.p-item span { display: block; font-size: 10px; color: #888; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
-.p-item strong { display: block; font-size: 14px; color: #111; }
-
-.btn-primary {
-    display: inline-block; padding: 15px 40px; background: #0b1d3a; color: white;
-    text-decoration: none; border-radius: 50px; font-weight: 600; font-family: 'Montserrat', sans-serif;
-    transition: 0.3s; box-shadow: 0 8px 20px rgba(11, 29, 58, 0.2);
-}
-.btn-primary:hover { transform: translateY(-3px); background: #d63b3b; }
-
-/* ================= PIANO PROGRESS ================= */
-.fund-card { background: #ffffff; border-radius: 20px; padding: 35px; border: 1px solid #eee; text-align: center; }
-.fund-stats { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; font-weight: 600; }
-.fund-bar-bg { width: 100%; height: 14px; background: #f0f0f5; border-radius: 50px; overflow: hidden; }
-.fund-bar-fill { height: 100%; background: linear-gradient(90deg, #0b1d3a, #d63b3b); width: 55.17%; transition: width 1s; }
-
 /* ================= RESET & NAVBAR ================= */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 body { overflow-x: hidden; background: #ffffff; color: #222; }
@@ -82,11 +50,8 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
 .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; }
 .hero-content h1 { font-family: 'Montserrat', sans-serif; font-size: 55px; font-weight: 800; text-transform: uppercase; }
 
-/* ================= ANNOUNCEMENT ================= */
-.announcement-section { padding: 120px 0; background: #ffffff; }
-.announcement-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; }
-.announcement-card { background: #f8f9fb; padding: 30px; border-radius: 16px; position: relative; transition: 0.3s; border-left: 4px solid #0b1d3a; }
-.event-date { position: absolute; top: -15px; left: 20px; background: #0b1d3a; color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+.btn-primary { display: inline-block; padding: 15px 40px; background: #0b1d3a; color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-family: 'Montserrat', sans-serif; transition: 0.3s; }
+.btn-primary:hover { transform: translateY(-3px); background: #d63b3b; }
 
 @media (max-width: 900px) {
     .menu-toggle { display: block; }
@@ -106,8 +71,7 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
         <img src="logo-sda.png" alt="SDA Logo">
         <ul id="nav-links">
             <li><a href="#">Home</a></li>
-            <li><a href="#pengumuman">Pengumuman</a></li>
-            <li><a href="#petugas">Petugas</a></li>
+            <li><a href="petugas.html">Jadual Petugas</a></li>
             <li><a href="ahli-lembaga.html">Ahli Lembaga</a></li>
             <li><a href="media.html">Media</a></li>
             <li><a href="sejarah.html">Sejarah</a></li>
@@ -134,61 +98,10 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
     </div>
 </section>
 
-<section id="pengumuman" class="announcement-section">
+<section class="fade" style="padding: 120px 0; background: #ffffff; color: #0b1d3a; text-align: center;">
     <div class="container">
-        <div class="section-header" style="text-align:center; margin-bottom:50px;">
-            <h2 style="font-family:'Montserrat'; font-weight:800; color:#0b1d3a; text-transform:uppercase; font-size: 38px;">Pengumuman Jemaat</h2>
-            <p style="color: #666; font-size: 16px; margin-top: 10px;">Program Utama Minggu Ini</p>
-        </div>
-
-        <div class="announcement-grid">
-            <div class="announcement-card fade" style="border-left-color: #d63b3b; grid-column: 1 / -1; background: #fffcfc; border: 1px solid #ffebeb; border-left: 5px solid #d63b3b;">
-                <div class="event-date" style="background:#d63b3b;">MAKLUMAT</div>
-                <h3 style="color: #d63b3b;">Suku Kedua 2026</h3>
-                <p>Teruskan sokongan dan doa bagi semua pelayanan gereja sepanjang suku ini.</p>
-            </div>
-
-            <div class="announcement-card fade">
-                <div class="event-date">UMUM</div>
-                <h3>Bayaran Pembersihan</h3>
-                <p>RM10 untuk setiap keluarga sebulan. Sila serahkan kepada Pn. Debbie Justin.</p>
-            </div>
-        </div>
-
-        <hr class="timeline-divider fade">
-
-        <div class="announcement-grid">
-            <div class="fund-card fade">
-                <h3 style="font-family:'Montserrat'; font-size:16px; margin-bottom:15px; color:#0b1d3a;">TABUNG PEMBAIKAN PIANO</h3>
-                <div class="fund-stats">
-                    <span>Terkumpul: <strong>RM 1,655.10</strong></span>
-                    <span>Sasaran: <strong>RM 3,000.00</strong></span>
-                </div>
-                <div class="fund-bar-bg"><div class="fund-bar-fill" style="width: 55.17%;"></div></div>
-                <p style="margin-top:10px; font-size:12px; font-weight:bold; color:#d63b3b;">~55% DICAPAI</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="petugas" class="petugas-section">
-    <div class="container">
-        <div class="petugas-main-card fade">
-            <div style="text-align:center; margin-bottom:40px;">
-                <h3 id="display-label" style="font-family:'Montserrat'; text-transform:uppercase; color:#0b1d3a;">Memuatkan Jadual...</h3>
-                <p id="display-date" style="font-weight:bold; color:#d63b3b;"></p>
-            </div>
-
-            <div class="service-title"><i class="fas fa-sun" style="color:#f39c12;"></i> Sekolah Sabat</div>
-            <div class="petugas-grid-mini" id="ss-grid"></div>
-
-            <div class="service-title"><i class="fas fa-church" style="color:#d63b3b;"></i> Kebaktian Khotbah</div>
-            <div class="petugas-grid-mini" id="khotbah-grid"></div>
-
-            <div style="text-align:center; margin-top:20px;">
-                <a href="petugas.html" class="btn-primary">Lihat Jadual Penuh Suku Ke-2</a>
-            </div>
-        </div>
+        <h2 style="font-family: 'Montserrat'; font-size: 42px; font-weight: 800; text-transform: uppercase;">Selamat Datang</h2>
+        <p style="font-size: 18px; margin-top: 20px; color: #666;">Kami menjemput anda untuk beribadah bersama kami setiap hari Sabat.</p>
     </div>
 </section>
 
@@ -210,94 +123,6 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
 <audio id="bg-music" autoplay loop><source src="music.mp3" type="audio/mpeg"></audio>
 
 <script>
-/* ================= AUTOMATED PETUGAS DATA (Triwulan 2 2026) ================= */
-const fullData = [
-    { date: "4 APR", fullDate: "2026-04-04", label: "Sabat 1", 
-      ss: { mc: "Pn. Jupina", misi: "Eld. Justin", piano: "Axl Neve Alwayne", media: "Jonathan" },
-      khotbah: { preacher: "En. Jonathan", mc: "En. Erlandson", piano: "En. Emerson", media: "En. Raizal" }
-    },
-    { date: "11 APR", fullDate: "2026-04-11", label: "Sabat 2", 
-      ss: { mc: "En. Brandon", misi: "Eld. Sonny", piano: "Jayden Jack", media: "Emerson" },
-      khotbah: { preacher: "Pn. Jupina", mc: "Pn. Emily", piano: "En. Joy Brandon", media: "En. Emerson" }
-    },
-    { date: "18 APR", fullDate: "2026-04-18", label: "Sabat 3", 
-      ss: { mc: "Pn. Debbie", misi: "Pn. Jupina", piano: "Natalie Jack", media: "Joy Brandon" },
-      khotbah: { preacher: "En. Emerson", mc: "Eld. Ernest", piano: "Pn. Naria", media: "En. Erlandson" }
-    },
-    { date: "25 APR", fullDate: "2026-04-25", label: "Sabat 4", 
-      ss: { mc: "En. Shane Archer", misi: "En. Subin", piano: "Anabelle Raizal", media: "Raizal" },
-      khotbah: { preacher: "En. Erlandson", mc: "Eld. Justin", piano: "En. Emerson", media: "En. Jonathan" }
-    },
-    { date: "2 MEI", fullDate: "2026-05-02", label: "Sabat 5", 
-      ss: { mc: "Eld. Justin", misi: "En. Jack", piano: "Abner Raizal", media: "Joy Brandon" },
-      khotbah: { preacher: "Cik Jossy", mc: "Pn. Agnes", piano: "En. Joy Brandon", media: "Anabelle" }
-    },
-    { date: "9 MEI", fullDate: "2026-05-09", label: "Sabat 6", 
-      ss: { mc: "Pn. Jupina", misi: "Pn. Erniecia", piano: "Aurellendra Sonny", media: "Jonathan" },
-      khotbah: { preacher: "En. Joy Brandon", mc: "Eld. Joseph", piano: "Pn. Naria", media: "Axl Neve Alwayne" }
-    },
-    { date: "16 MEI", fullDate: "2026-05-16", label: "Sabat 7", 
-      ss: { mc: "Pn. Debbie", misi: "Pn. Erniecia", piano: "Axl Neve Alwayne", media: "Emerson" },
-      khotbah: { preacher: "Pn. Cenysia", mc: "Pn. Jupinah", piano: "En. Emerson", media: "En. Joy Brandon" }
-    },
-    { date: "23 MEI", fullDate: "2026-05-23", label: "Sabat 8", 
-      ss: { mc: "Cik Jossy", misi: "Cik Efy", piano: "Jayden Jack", media: "Raizal" },
-      khotbah: { preacher: "Pr. Max", mc: "Eld. Justin", piano: "En. Joy Brandon", media: "En. Brandon" }
-    },
-    { date: "30 MEI", fullDate: "2026-05-30", label: "Sabat 9", 
-      ss: { mc: "En. Shane Archer", misi: "Pn. Debbie", piano: "Natalie Jack", media: "Joy Brandon" },
-      khotbah: { preacher: "Eld. Sonny", mc: "Eld. Ernest", piano: "Pn. Naria", media: "En. Joy Brandon" }
-    },
-    { date: "6 JUN", fullDate: "2026-06-06", label: "Sabat 10", 
-      ss: { mc: "En. Brandon", misi: "En. Erlandson", piano: "Anabelle Raizal", media: "Jonathan" },
-      khotbah: { preacher: "Eld. Justin", mc: "Eld. Joimur", piano: "En. Emerson", media: "Jayden Jack" }
-    },
-    { date: "13 JUN", fullDate: "2026-06-13", label: "Sabat 11", 
-      ss: { mc: "Pn. Jupina", misi: "En. Joy", piano: "Abner Raizal", media: "Raizal" },
-      khotbah: { preacher: "Eld. Ernest", mc: "Eld. Joseph", piano: "En. Joy Brandon", media: "Aurellendra" }
-    },
-    { date: "20 JUN", fullDate: "2026-06-20", label: "Sabat 12", 
-      ss: { mc: "Cik Efy", misi: "En. Jonathan", piano: "Aurellendra Sonny", media: "Emerson" },
-      khotbah: { preacher: "En. Melvin", mc: "Eld. Sonny", piano: "Pn. Naria", media: "En. Jonathan" }
-    },
-    { date: "27 JUN", fullDate: "2026-06-27", label: "Sabat 13", 
-      ss: { mc: "Pn. Debbie", misi: "Pn. Emily", piano: "Axl Neve Alwayne", media: "Joy Brandon" },
-      khotbah: { preacher: "Pn. Emily", mc: "Pn. Debbie", piano: "En. Emerson", media: "En. Raizal" }
-    }
-];
-
-function initDashboard() {
-    const today = new Date();
-    today.setHours(0,0,0,0);
-    let current = fullData[0];
-
-    // Find the next upcoming Sabbath
-    for(let i=0; i<fullData.length; i++){
-        if(new Date(fullData[i].fullDate) >= today){
-            current = fullData[i];
-            break;
-        }
-    }
-
-    document.getElementById('display-label').innerText = "Jadual Petugas " + current.label;
-    document.getElementById('display-date').innerText = current.date + " 2026";
-    
-    document.getElementById('ss-grid').innerHTML = `
-        <div class="p-item"><span>Pemimpin Acara</span><strong>${current.ss.mc}</strong></div>
-        <div class="p-item"><span>Cerita Misi</span><strong>${current.ss.misi}</strong></div>
-        <div class="p-item"><span>Pianist</span><strong>${current.ss.piano}</strong></div>
-        <div class="p-item"><span>Media</span><strong>${current.ss.media}</strong></div>`;
-
-    document.getElementById('khotbah-grid').innerHTML = `
-        <div class="p-item" style="grid-column: 1 / -1;"><span>Pengkhotbah</span><strong>${current.khotbah.preacher}</strong></div>
-        <div class="p-item"><span>Pemimpin Acara</span><strong>${current.khotbah.mc}</strong></div>
-        <div class="p-item"><span>Pianist</span><strong>${current.khotbah.piano}</strong></div>
-        <div class="p-item"><span>Media</span><strong>${current.khotbah.media}</strong></div>`;
-}
-
-window.addEventListener('load', initDashboard);
-
-/* UI Scripts */
 document.getElementById("menu-toggle").addEventListener("click", () => document.getElementById("nav-links").classList.toggle("active"));
 window.addEventListener("scroll", () => document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50));
 const fadeElements = document.querySelectorAll('.fade');
@@ -305,12 +130,6 @@ function checkFade() {
     fadeElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show'); }); 
 }
 window.addEventListener('scroll', checkFade); window.addEventListener('load', checkFade);
-
-const bgMusic = document.getElementById('bg-music');
-const savedTime = sessionStorage.getItem('musicTime');
-if (savedTime) bgMusic.currentTime = parseFloat(savedTime);
-window.addEventListener('beforeunload', () => sessionStorage.setItem('musicTime', bgMusic.currentTime));
-document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
 </script>
 
 </body>
