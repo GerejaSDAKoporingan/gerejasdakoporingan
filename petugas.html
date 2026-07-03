@@ -155,9 +155,8 @@ async function loadLiveSchedule() {
         const ssText = await ssResponse.text();
         const khotbahText = await khotbahResponse.text();
         
-        // Use Column 2 (Tarikh) to filter out Headers or empty spaces
-        const ssRows = parseCSV(ssText).filter(r => r[2] && !r[2].toUpperCase().includes("TARIKH") && !r[0].toUpperCase().includes("JADUAL"));
-        const kRows = parseCSV(khotbahText).filter(r => r[2] && !r[2].toUpperCase().includes("TARIKH") && !r[0].toUpperCase().includes("JADUAL"));
+        const ssRows = parseCSV(ssText).filter(r => r[2] && !r[2].toUpperCase().includes("TARIKH"));
+        const kRows = parseCSV(khotbahText).filter(r => r[2] && !r[2].toUpperCase().includes("TARIKH"));
 
         globalScheduleData = [];
 
@@ -169,13 +168,11 @@ async function loadLiveSchedule() {
             let monthSS = rS[1] || "JULAI";
             let realJsDate = parseSmartDate(daySS, monthSS);
 
-            // Merge Laporan & Jurutulis (Cols 10 and 11)
             let laporan = rS[10] ? rS[10].trim() : "";
             let jurutulis = rS[11] ? rS[11].trim() : "";
             let gabunganTulis = laporan;
             if (jurutulis && jurutulis !== "-") gabunganTulis += (laporan ? " & " : "") + jurutulis;
 
-            // Merge Diakon (Cols 7 and 8)
             let diakon1 = rK[7] ? rK[7].trim() : "";
             let diakon2 = rK[8] ? rK[8].trim() : "";
             let gabunganDiakon = diakon1;
