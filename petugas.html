@@ -105,21 +105,18 @@ body { background: #fbfbfd; color: #1d1d1f; overflow-x: hidden; -webkit-font-smo
 
 <script>
 /* ================= API LINKS FOR GOOGLE SHEETS ================= */
-// Base Published URL parsed to output direct CSVs for both specific GIDs
 const SS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVPEOB6hYheFOpY542K8yXu_5AVdZMV5nO-v5Gph-I4wJZJHDgmEi7uNJhN2DI0g/pub?gid=546730745&single=true&output=csv";
 const KHOTBAH_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVPEOB6hYheFOpY542K8yXu_5AVdZMV5nO-v5Gph-I4wJZJHDgmEi7uNJhN2DI0g/pub?gid=382933480&single=true&output=csv";
 
 let globalScheduleData = [];
 
 /* ================= ENGINE ================= */
-
-// Handles multi-line cells and CSV commas smoothly
 function parseCSV(text) {
     let rows = [], row = [], cell = '', inQ = false;
     for (let i = 0; i < text.length; i++) {
         let c = text[i], n = text[i+1];
         if (c === '"') {
-            if (inQ && n === '"') { cell += '"'; i++; } // Escaped quote
+            if (inQ && n === '"') { cell += '"'; i++; }
             else { inQ = !inQ; }
         } else if (c === ',' && !inQ) {
             row.push(cell.trim()); cell = '';
@@ -133,10 +130,9 @@ function parseCSV(text) {
     return rows;
 }
 
-// Converts generic string inputs to true Javascript dates
 function parseSmartDate(dayStr, monthStr) {
     const cleanDay = parseInt((dayStr||"").replace(/[^\d]/g, '')) || 1;
-    let month = 6; // Default to July for Q3
+    let month = 6; 
     let mText = (monthStr || "").toUpperCase();
     
     if(mText.includes('JAN')) month = 0; else if(mText.includes('FEB')) month = 1;
@@ -149,7 +145,6 @@ function parseSmartDate(dayStr, monthStr) {
     return new Date(2026, month, cleanDay);
 }
 
-// Dual-Fetch Logic to merge both tabs
 async function loadLiveSchedule() {
     try {
         const [ssResponse, khotbahResponse] = await Promise.all([
@@ -160,49 +155,54 @@ async function loadLiveSchedule() {
         const ssText = await ssResponse.text();
         const khotbahText = await khotbahResponse.text();
         
-        // Remove empty lines and the header row (filtering out "TARIKH")
-        const ssRows = parseCSV(ssText).filter(r => r[1] && !r[1].toUpperCase().includes("TARIKH"));
-        const kRows = parseCSV(khotbahText).filter(r => r[1] && !r[1].toUpperCase().includes("TARIKH"));
+        // Use Column 2 (Tarikh) to filter out Headers or empty spaces
+        const ssRows = parseCSV(ssText).filter(r => r[2] && !r[2].toUpperCase().includes("TARIKH") && !r[0].toUpperCase().includes("JADUAL"));
+        const kRows = parseCSV(khotbahText).filter(r => r[2] && !r[2].toUpperCase().includes("TARIKH") && !r[0].toUpperCase().includes("JADUAL"));
 
         globalScheduleData = [];
 
         for (let i = 0; i < ssRows.length; i++) {
             let rS = ssRows[i];
-            // Match Khotbah row by Sabat number (col 2), fallback to index if missing
-            let rK = kRows.find(r => r[2] === rS[2]) || kRows[i] || [];
+            let rK = kRows.find(r => r[3] === rS[3]) || kRows[i] || [];
 
-            let daySS = rS[1] || "";
-            let monthSS = rS[0] || "JULAI";
+            let daySS = rS[2] || "";
+            let monthSS = rS[1] || "JULAI";
             let realJsDate = parseSmartDate(daySS, monthSS);
 
-            // Merging Laporan & Jurutulis into one cleanly formatted string
-            let laporan = rS[9] ? rS[9].trim() : "";
-            let jurutulis = rS[10] ? rS[10].trim() : "";
+            // Merge Laporan & Jurutulis (Cols 10 and 11)
+            let laporan = rS[10] ? rS[10].trim() : "";
+            let jurutulis = rS[11] ? rS[11].trim() : "";
             let gabunganTulis = laporan;
             if (jurutulis && jurutulis !== "-") gabunganTulis += (laporan ? " & " : "") + jurutulis;
+
+            // Merge Diakon (Cols 7 and 8)
+            let diakon1 = rK[7] ? rK[7].trim() : "";
+            let diakon2 = rK[8] ? rK[8].trim() : "";
+            let gabunganDiakon = diakon1;
+            if (diakon2 && diakon2 !== "-") gabunganDiakon += (diakon1 ? " & " : "") + diakon2;
             
             globalScheduleData.push({
                 date: daySS + " " + monthSS.substring(0,3).toUpperCase(),
                 fullDate: realJsDate,
-                label: "Sabat " + (rS[2] || (i+1)),
+                label: "Sabat " + (rS[3] || (i+1)),
                 ss: {
-                    nyanyi: (rS[3]||"-").replace(/\n/g, ' / '),
-                    acara: (rS[4]||"-").replace(/\n/g, ' / '),
-                    misi: (rS[5]||"-").replace(/\n/g, ' / '),
-                    kesihatan: (rS[6]||"-").replace(/\n/g, ' / '),
-                    piano: (rS[7]||"-").replace(/\n/g, ' / '),
-                    media: (rS[8]||"-").replace(/\n/g, ' / '),
+                    nyanyi: (rS[4]||"-").replace(/\n/g, ' / '),
+                    acara: (rS[5]||"-").replace(/\n/g, ' / '),
+                    misi: (rS[6]||"-").replace(/\n/g, ' / '),
+                    kesihatan: (rS[7]||"-").replace(/\n/g, ' / '),
+                    piano: (rS[8]||"-").replace(/\n/g, ' / '),
+                    media: (rS[9]||"-").replace(/\n/g, ' / '),
                     tulis: gabunganTulis.replace(/\n/g, ' / ') || "-"
                 },
                 khotbah: {
-                    mc: (rK[3]||"-").replace(/\n/g, ' / '),
-                    doa_persembahan: (rK[4]||"-").replace(/\n/g, ' / '),
-                    doa: (rK[5]||"-").replace(/\n/g, ' / '),
-                    diakon: (rK[6]||"-").replace(/\n/g, ' / '),
-                    preacher: (rK[7]||"-").replace(/\n/g, ' / '),
-                    special: (rK[8]||"-").replace(/\n/g, ' / '),
-                    piano: (rK[9]||"-").replace(/\n/g, ' / '),
-                    media: (rK[10]||"-").replace(/\n/g, ' / ')
+                    mc: (rK[4]||"-").replace(/\n/g, ' / '),
+                    doa_persembahan: (rK[5]||"-").replace(/\n/g, ' / '),
+                    doa: (rK[6]||"-").replace(/\n/g, ' / '),
+                    diakon: gabunganDiakon.replace(/\n/g, ' / ') || "-",
+                    preacher: (rK[9]||"-").replace(/\n/g, ' / '),
+                    special: (rK[10]||"-").replace(/\n/g, ' / '),
+                    piano: (rK[11]||"-").replace(/\n/g, ' / '),
+                    media: (rK[12]||"-").replace(/\n/g, ' / ')
                 }
             });
         }
@@ -218,7 +218,6 @@ function buildDatePicker() {
     const picker = document.getElementById('date-picker');
     picker.innerHTML = '';
     
-    // Auto-Select Logic to find current or nearest future Sabbath
     const today = new Date();
     today.setHours(0,0,0,0);
     let autoSelect = 0;
@@ -289,7 +288,6 @@ function r(t, n, i) { return `<div class="role-item"><div class="role-icon"><i c
 
 window.addEventListener('load', loadLiveSchedule);
 
-/* Existing UI Behaviors */
 document.getElementById("menu-toggle").addEventListener("click", () => document.getElementById("nav-links").classList.toggle("active"));
 const bgMusic = document.getElementById('bg-music');
 document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
