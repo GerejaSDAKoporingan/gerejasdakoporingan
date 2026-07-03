@@ -53,6 +53,27 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
 .btn-primary { display: inline-block; padding: 15px 40px; background: #0b1d3a; color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-family: 'Montserrat', sans-serif; transition: 0.3s; }
 .btn-primary:hover { transform: translateY(-3px); background: #d63b3b; }
 
+/* ================= PETUGAS SECTION ================= */
+.petugas-section { padding: 80px 0; background: #f8f9fb; }
+.petugas-section .container { max-width: 800px; }
+.petugas-card { background: #fff; border-radius: 24px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid #f0f0f2; }
+.petugas-card .date-badge { display: inline-block; background: #0b1d3a; color: #fff; padding: 6px 20px; border-radius: 50px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 25px; }
+.petugas-card .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
+.petugas-card .mini-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: #f8f9fb; border-radius: 12px; }
+.petugas-card .mini-item i { width: 28px; height: 28px; background: #0b1d3a; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; flex-shrink: 0; }
+.petugas-card .mini-item .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: #86868b; font-weight: 700; }
+.petugas-card .mini-item .name { font-size: 14px; font-weight: 700; color: #1d1d1f; line-height: 1.3; }
+.petugas-card .btn-primary { display: inline-flex; align-items: center; gap: 10px; }
+.petugas-card .loading-pulse { text-align: center; padding: 20px; color: #86868b; font-weight: 600; }
+.petugas-card .loading-pulse i { margin-right: 8px; }
+.petugas-card .error-msg { text-align: center; padding: 15px; color: #d63b3b; font-weight: 600; font-size: 14px; }
+
+@media (max-width: 600px) {
+    .petugas-card .mini-grid { grid-template-columns: 1fr; }
+    .hero-content h1 { font-size: 38px; }
+    .petugas-card { padding: 25px; }
+}
+
 @media (max-width: 900px) {
     .menu-toggle { display: block; }
     .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.9); width: 220px; flex-direction: column; padding: 20px; border-radius: 12px; display: none; }
@@ -94,7 +115,7 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
     <div class="overlay"></div>
     <div class="hero-content">
         <h1>Gereja SDA Koporingan</h1>
-        <p>“Aku bersukacita, ketika dikatakan orang kepadaku: ‘Mari kita pergi ke rumah TUHAN.” — Mazmur 122:1</p>
+        <p>"Aku bersukacita, ketika dikatakan orang kepadaku: 'Mari kita pergi ke rumah TUHAN." — Mazmur 122:1</p>
     </div>
 </section>
 
@@ -102,6 +123,17 @@ body { overflow-x: hidden; background: #ffffff; color: #222; }
     <div class="container">
         <h2 style="font-family: 'Montserrat'; font-size: 42px; font-weight: 800; text-transform: uppercase;">Selamat Datang</h2>
         <p style="font-size: 18px; margin-top: 20px; color: #666;">Kami menjemput anda untuk beribadah bersama kami setiap hari Sabat.</p>
+    </div>
+</section>
+
+<!-- ================= PETUGAS MINGGU INI ================= -->
+<section class="fade petugas-section" id="petugas-section">
+    <div class="container" style="text-align: center;">
+        <h4 style="font-family: 'Montserrat'; text-transform: uppercase; letter-spacing: 3px; color: #d63b3b; font-size: 14px; font-weight: 700; margin-bottom: 8px;">Jadual Petugas</h4>
+        <h2 style="font-family: 'Montserrat'; font-size: clamp(26px, 4vw, 36px); font-weight: 800; color: #0b1d3a; margin-bottom: 30px;">Minggu Ini</h2>
+        <div class="petugas-card" id="petugas-card">
+            <div class="loading-pulse"><i class="fas fa-spinner fa-spin"></i> Memuatkan jadual terkini...</div>
+        </div>
     </div>
 </section>
 
@@ -130,6 +162,128 @@ function checkFade() {
     fadeElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show'); }); 
 }
 window.addEventListener('scroll', checkFade); window.addEventListener('load', checkFade);
+
+/* ================= GOOGLE SHEETS — PETUGAS MINGGU INI ================= */
+const SS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVPEOB6hYheFOpY542K8yXu_5AVdZMV5nO-v5Gph-I4wJZJHDgmEi7uNJhN2DI0g/pub?gid=546730745&single=true&output=csv";
+const KHOTBAH_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVPEOB6hYheFOpY542K8yXu_5AVdZMV5nO-v5Gph-I4wJZJHDgmEi7uNJhN2DI0g/pub?gid=382933480&single=true&output=csv";
+
+function parseCSV(text) {
+    let rows = [], row = [], cell = '', inQ = false;
+    for (let i = 0; i < text.length; i++) {
+        let c = text[i], n = text[i+1];
+        if (c === '"') {
+            if (inQ && n === '"') { cell += '"'; i++; }
+            else { inQ = !inQ; }
+        } else if (c === ',' && !inQ) {
+            row.push(cell.trim()); cell = '';
+        } else if ((c === '\n' || c === '\r') && !inQ) {
+            if (c === '\r' && n === '\n') i++;
+            row.push(cell.trim()); rows.push(row);
+            row = []; cell = '';
+        } else { cell += c; }
+    }
+    if (cell || row.length) { row.push(cell.trim()); rows.push(row); }
+    return rows;
+}
+
+function parseSmartDate(dayStr, monthStr) {
+    const cleanDay = parseInt((dayStr||"").replace(/[^\d]/g, '')) || 1;
+    let month = 6;
+    let mText = (monthStr || "").toUpperCase();
+    if(mText.includes('JAN')) month = 0; else if(mText.includes('FEB')) month = 1;
+    else if(mText.includes('MAC')||mText.includes('MAR')) month = 2; else if(mText.includes('APR')) month = 3;
+    else if(mText.includes('MEI')||mText.includes('MAY')) month = 4; else if(mText.includes('JUN')) month = 5;
+    else if(mText.includes('JUL')) month = 6; else if(mText.includes('OGO')||mText.includes('AUG')) month = 7;
+    else if(mText.includes('SEP')) month = 8; else if(mText.includes('OKT')||mText.includes('OCT')) month = 9;
+    else if(mText.includes('NOV')) month = 10; else if(mText.includes('DIS')||mText.includes('DEC')) month = 11;
+    return new Date(2026, month, cleanDay);
+}
+
+function buildScheduleData(ssRows, kRows) {
+    const data = [];
+    for (let i = 0; i < ssRows.length; i++) {
+        let rS = ssRows[i];
+        let rK = kRows.find(r => r[3] === rS[3]) || kRows[i] || [];
+        let daySS = rS[2] || "";
+        let monthSS = rS[1] || "JULAI";
+        let diakon1 = rK[7] ? rK[7].trim() : "";
+        let diakon2 = rK[8] ? rK[8].trim() : "";
+        let gabunganDiakon = diakon1;
+        if (diakon2 && diakon2 !== "-") gabunganDiakon += (diakon1 ? " & " : "") + diakon2;
+        data.push({
+            date: daySS + " " + monthSS.substring(0,3).toUpperCase(),
+            fullDate: parseSmartDate(daySS, monthSS),
+            ss: { misi: (rS[6]||"-").replace(/\n/g, ' / ') },
+            khotbah: {
+                mc: (rK[4]||"-").replace(/\n/g, ' / '),
+                preacher: (rK[9]||"-").replace(/\n/g, ' / '),
+                diakon: gabunganDiakon.replace(/\n/g, ' / ') || "-",
+                piano: (rK[11]||"-").replace(/\n/g, ' / '),
+                special: (rK[10]||"-").replace(/\n/g, ' / ')
+            }
+        });
+    }
+    return data;
+}
+
+function renderPetugasMingguIni(data) {
+    const card = document.getElementById('petugas-card');
+    if (!data || data.length === 0) {
+        card.innerHTML = '<div class="error-msg">Tiada jadual ditemui buat masa ini.</div>';
+        return;
+    }
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    let idx = 0;
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].fullDate >= today) { idx = i; break; }
+    }
+    const item = data[idx];
+    card.innerHTML = `
+        <div class="date-badge">${item.date}</div>
+        <div class="mini-grid">
+            <div class="mini-item">
+                <i class="fas fa-star"></i>
+                <div><div class="label">Pengkhotbah</div><div class="name">${item.khotbah.preacher}</div></div>
+            </div>
+            <div class="mini-item">
+                <i class="fas fa-user-tie"></i>
+                <div><div class="label">Pemimpin Acara</div><div class="name">${item.khotbah.mc}</div></div>
+            </div>
+            <div class="mini-item">
+                <i class="fas fa-user-shield"></i>
+                <div><div class="label">Diakon</div><div class="name">${item.khotbah.diakon}</div></div>
+            </div>
+            <div class="mini-item">
+                <i class="fas fa-music"></i>
+                <div><div class="label">Pianist</div><div class="name">${item.khotbah.piano}</div></div>
+            </div>
+            <div class="mini-item">
+                <i class="fas fa-gift"></i>
+                <div><div class="label">Istimewa</div><div class="name">${item.khotbah.special}</div></div>
+            </div>
+            <div class="mini-item">
+                <i class="fas fa-earth-asia"></i>
+                <div><div class="label">Cerita Misi</div><div class="name">${item.ss.misi}</div></div>
+            </div>
+        </div>
+        <a href="petugas.html" class="btn-primary"><i class="fas fa-calendar-alt"></i> Lihat Jadual Penuh</a>
+    `;
+}
+
+async function loadPetugasMingguIni() {
+    try {
+        const [ssRes, khRes] = await Promise.all([fetch(SS_CSV_URL), fetch(KHOTBAH_CSV_URL)]);
+        const ssRows = parseCSV(await ssRes.text()).filter(r => r[2] && !r[2].toUpperCase().includes("TARIKH"));
+        const kRows = parseCSV(await khRes.text()).filter(r => r[2] && !r[2].toUpperCase().includes("TARIKH"));
+        const data = buildScheduleData(ssRows, kRows);
+        renderPetugasMingguIni(data);
+    } catch (e) {
+        console.error(e);
+        document.getElementById('petugas-card').innerHTML = '<div class="error-msg">Gagal memuatkan jadual. Sila semak sambungan internet.</div>';
+    }
+}
+window.addEventListener('load', loadPetugasMingguIni);
 </script>
 
 </body>
