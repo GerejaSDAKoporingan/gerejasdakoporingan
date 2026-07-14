@@ -9,114 +9,95 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-/* RESET & BASIC */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
+
+:root {
+  --primary: #0b1d3a;
+  --accent: #d63b3b;
+  --gold: #c9a96e;
+  --bg: #ffffff;
+  --bg-light: #f8f9fb;
+  --text: #1d1d1f;
+  --text-muted: #86868b;
+  --radius: 16px;
+  --shadow: 0 10px 40px rgba(0,0,0,0.06);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-body { background: #ffffff; color: #111; line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-.container { width: 90%; max-width: 1200px; margin: auto; }
+.container { width: 92%; max-width: 1200px; margin: auto; }
 
-/* NAVBAR (Matches Index/Petugas for seamless flow) */
-.navbar { position: fixed; width: 100%; top: 0; left: 0; padding: 20px 0; background: rgba(11, 29, 58, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 1000; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05); }
-.nav-inner { width: 90%; max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
-.navbar img { height: 45px; }
-.navbar ul { list-style: none; display: flex; gap: 30px; align-items: center; }
-.navbar ul li a { text-decoration: none; color: white; font-weight: 500; font-size: 14px; transition: color 0.3s; }
-.navbar ul li a:hover { color: #d63b3b; }
-
-/* SOCIAL ICONS */
+/* NAVBAR */
+.navbar { position: fixed; width: 100%; top: 0; left: 0; padding: 20px 0; background: rgba(11, 29, 58, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 1000; box-shadow: 0 4px 30px rgba(0,0,0,0.1); }
+.nav-inner { width: 92%; max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+.navbar img { height: 48px; filter: brightness(1.1); }
+.navbar ul { list-style: none; display: flex; gap: 28px; align-items: center; }
+.navbar ul li a { text-decoration: none; color: rgba(255,255,255,0.9); font-weight: 500; font-size: 14px; transition: 0.3s; }
+.navbar ul li a:hover { color: #fff; }
+.menu-toggle { display: none; font-size: 26px; color: white; cursor: pointer; }
 .social-top { display: flex; gap: 18px; align-items: center; }
-.social-top a { color: white; font-size: 18px; transition: 0.3s ease; text-decoration: none; }
-.social-top a:hover { transform: scale(1.1); color: #d63b3b; }
-.menu-toggle { display: none; font-size: 24px; color: white; cursor: pointer; }
+.social-top a { color: rgba(255,255,255,0.85); font-size: 20px; transition: 0.3s; text-decoration: none; }
+.social-top a:hover { transform: scale(1.15); }
+.social-top .fa-facebook:hover { color: #1877F2; }
+.social-top .fa-youtube:hover { color: #FF0000; }
 
-/* BANNER (Minimalist Apple Aesthetic) */
-.banner { padding-top: 180px; padding-bottom: 50px; background: #ffffff; text-align: center; }
-.banner h1 { font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: 800; text-transform: uppercase; letter-spacing: -1px; color: #1d1d1f; }
-.banner p { margin-top: 5px; font-family: 'Montserrat', sans-serif; font-size: 16px; color: #86868b; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+/* BANNER */
+.banner { padding-top: 150px; padding-bottom: 50px; background: var(--bg-light); text-align: center; position: relative; }
+.banner::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--gold); border-radius: 2px; }
+.banner h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 52px); font-weight: 700; color: var(--primary); }
+.banner p { margin-top: 8px; font-size: 14px; color: var(--text-muted); font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
 
-/* ELDERS GALLERY SECTION (The Apple Upgrade) */
-.section { padding: 60px 0 100px 0; background: #ffffff; }
+/* ELDERS SECTION */
+.section { padding: 60px 0 100px; background: var(--bg); }
+.section-header h2 { font-family: 'Playfair Display', serif; color: var(--primary); font-size: clamp(26px, 4vw, 34px); font-weight: 700; }
+.section-header p { color: var(--text-muted); font-size: 16px; margin-top: 6px; font-weight: 500; }
+.elders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
 
-.section-header h2 { font-family: 'Montserrat', sans-serif; color: #1d1d1f; font-size: 32px; font-weight: 700; text-transform: uppercase; }
-.section-header p { color: #86868b; font-size: 18px; margin-top: 5px; font-weight: 500; }
+.elder-card { background: var(--bg); border-radius: var(--radius); overflow: hidden; text-align: center; transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: var(--shadow); border: 1px solid #f0f0f2; }
+.elder-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.08); }
+.elder-img { width: 100%; height: 340px; object-fit: cover; }
+.elder-info { padding: 28px 20px; }
+.elder-info h4 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--primary); font-weight: 700; margin-bottom: 4px; }
+.elder-info span { display: inline-block; font-size: 11px; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 18px; letter-spacing: 1px; background: rgba(214,59,59,0.06); padding: 4px 14px; border-radius: 50px; }
+.wa-btn { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: white; padding: 12px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.3s; }
+.wa-btn:hover { background: #128C7E; transform: scale(1.03); }
 
-.elders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 60px; }
+/* CONTACT GRID */
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; align-items: start; }
+.contact-box { background: var(--bg); padding: 45px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid #f0f0f2; }
+.contact-box h3 { font-family: 'Playfair Display', serif; margin-bottom: 20px; color: var(--primary); font-size: 20px; }
+.contact-box p { margin-bottom: 16px; color: #515154; font-size: 15px; }
+.map-container { width: 100%; min-height: 450px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
 
-/* Minimalist Card Design (Apple-esque) */
-.elder-card {
-    background: #ffffff; border-radius: 24px; overflow: hidden;
-    text-align: center; transition: box-shadow 0.4s ease, transform 0.4s ease;
-    border: none;
-}
-/* Borderless and clean look, subtle haptic shadow on hover */
-.elder-card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0,0,0,0.08); }
-
-/* Cinematic, Larger Portraits */
-.elder-img { width: 100%; height: 360px; object-fit: cover; }
-
-.elder-info { padding: 30px 20px; }
-.elder-info h4 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #1d1d1f; font-weight: 700; margin-bottom: 4px; }
-
-/* Subtle Role Badge */
-.elder-info span {
-    display: inline-block; font-size: 11px; color: rgba(11, 29, 58, 0.8);
-    font-weight: 700; text-transform: uppercase; margin-bottom: 20px;
-    letter-spacing: 1.2px; background: rgba(11, 29, 58, 0.05);
-    padding: 4px 12px; border-radius: 50px;
-}
-
-/* Redefined Minimalist WhatsApp Button */
-.wa-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: #1d1d1f; color: white; padding: 12px 28px;
-    border-radius: 50px; text-decoration: none; font-weight: 600;
-    font-size: 14px; transition: background 0.3s, transform 0.3s;
-    font-family: 'Montserrat', sans-serif;
-}
-.wa-btn:hover { background: #d63b3b; transform: scale(1.03); }
-
-/* MAP & INFO SECTION (Cleaner Layout) */
-.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
-
-.contact-box { background: #ffffff; padding: 50px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f2f2f2; }
-.contact-box h3 { font-family: 'Montserrat', sans-serif; margin-bottom: 25px; color: #1d1d1f; text-transform: uppercase; font-size: 18px; letter-spacing: 1px; font-weight: 700; }
-.contact-box p { margin-bottom: 18px; color: #515154; font-size: 15px; }
-
-.map-container { width: 100%; min-height: 450px; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.06); }
-
-/* F FLOATING MULTI-CONTACT (Sleek Apple Interaction) */
-.contact-fab-container { position: fixed; bottom: 30px; right: 30px; z-index: 999; display: flex; flex-direction: column; align-items: flex-end; gap: 18px; }
-.fab-menu { display: none; flex-direction: column; gap: 12px; margin-bottom: 12px; }
+/* FAB */
+.contact-fab-container { position: fixed; bottom: 30px; right: 30px; z-index: 999; display: flex; flex-direction: column; align-items: flex-end; }
+.fab-menu { display: none; flex-direction: column; gap: 12px; margin-bottom: 14px; }
 .fab-menu.active { display: flex; }
-.fab-item { background: #1d1d1f; color: white; padding: 14px 22px; border-radius: 50px; text-decoration: none; font-size: 13px; font-weight: 600; box-shadow: 0 8px 20px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 10px; transition: 0.3s ease; }
-.fab-item:hover { background: #d63b3b; transform: translateX(-5px); }
-.main-fab { background: #25D366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; cursor: pointer; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); border: none; transition: 0.3s ease; }
-.main-fab:hover { transform: scale(1.05); box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5); }
+.fab-item { background: var(--primary); color: white; padding: 14px 22px; border-radius: 50px; text-decoration: none; font-size: 13px; font-weight: 600; box-shadow: 0 8px 25px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+.fab-item:hover { background: var(--accent); transform: translateX(-5px); }
+.main-fab { background: #25D366; color: white; width: 64px; height: 64px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; cursor: pointer; box-shadow: 0 10px 30px rgba(37,211,102,0.4); border: none; transition: 0.3s; }
+.main-fab:hover { transform: scale(1.05); }
 
-/* FADE & FOOTER (Matches Index/Petugas) */
-.fade { opacity: 0; transform: translateY(40px); transition: 0.8s ease; }
+/* FADE & FOOTER */
+.fade { opacity: 0; transform: translateY(40px); transition: 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
 .fade.show { opacity: 1; transform: translateY(0); }
-.footer { text-align: center; padding: 50px 0; background: #ffffff; color: #86868b; font-size: 13px; border-top: 1px solid #f2f2f2; }
+.footer { text-align: center; padding: 40px 0; background: var(--bg-light); color: var(--text-muted); font-size: 13px; border-top: 1px solid #f0f0f2; }
 
-/* MOBILE RESPONSIVE (Strict stacking and clean borders) */
+/* MOBILE */
 @media (max-width: 900px) {
-    .menu-toggle { display: block; }
-    .social-top { order: -1; margin-bottom: 20px; gap: 20px; }
-    .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.98); backdrop-filter: blur(20px); width: 220px; flex-direction: column; align-items: flex-end; padding: 25px; border-radius: 16px; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-    .navbar ul.active { display: flex; }
-    .navbar ul li { width: 100%; margin-bottom: 18px; }
-    .navbar ul li a { font-size: 15px; }
-
-    .banner h1 { font-size: 38px; }
-    .banner p { font-size: 13px; letter-spacing: 2px; }
-
-    .elders-grid { grid-template-columns: 1fr; gap: 30px; }
-    .elder-img { height: 300px; }
-
-    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-    .contact-box { padding: 35px 25px; }
-    .map-container { min-height: 320px; }
-    .contact-fab-container { bottom: 20px; right: 20px; }
+  .menu-toggle { display: block; }
+  .social-top { order: -1; margin-bottom: 20px; }
+  .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.96); backdrop-filter: blur(20px); width: 240px; flex-direction: column; align-items: flex-end; padding: 24px; border-radius: 16px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+  .navbar ul.active { display: flex; }
+  .navbar ul li { width: 100%; margin-bottom: 18px; }
+  .banner h1 { font-size: 32px; }
+  .elders-grid { grid-template-columns: 1fr; gap: 24px; }
+  .elder-img { height: 280px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 30px; }
+  .contact-box { padding: 28px 22px; }
+  .map-container { min-height: 300px; }
+  .contact-fab-container { bottom: 20px; right: 20px; }
 }
 </style>
 </head>
@@ -241,9 +222,7 @@ body { background: #ffffff; color: #111; line-height: 1.6; overflow-x: hidden; -
 
 <footer class="footer">
     <div class="container">
-        <p>© 2026–2027 Gereja SDA Koporingan.<br>
-           Developed by Jabatan Multimedia & Penerbitan.<br>
-           Designed with a premium jemaat experience in mind.</p>
+        <p>© 2026–2027 <strong>Gereja SDA Koporingan</strong><br>Dibangunkan oleh Jabatan Multimedia & Penerbitan</p>
     </div>
 </footer>
 
