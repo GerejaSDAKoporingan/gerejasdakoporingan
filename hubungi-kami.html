@@ -126,7 +126,8 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
     </div>
 </div>
 
-<main id="app">
+<div id="app">
+<!--app-->
 <section class="banner">
     <div class="container">
         <h1>Hubungi Kami</h1>
@@ -220,7 +221,8 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
     </div>
     <button class="main-fab" onclick="toggleFab()"><i class="fab fa-whatsapp"></i></button>
 </div>
-</main>
+<!--/app-->
+</div>
 
 <footer class="footer">
     <div class="container">
@@ -242,14 +244,14 @@ document.addEventListener('click', async e => {
     try {
         const resp = await fetch(url);
         const html = await resp.text();
-        const m = html.match(/<main id="app">([\s\S]*?)<\/main>/);
+        const m = html.match(/<!--app-->([\s\S]*?)<!--\/app-->/);
         if (m) { document.getElementById('app').innerHTML = m[1]; history.pushState(null,'',href); window.scrollTo(0,0); document.dispatchEvent(new Event('pagechange')); }
     } catch(err) { window.location.href = href; }
 });
 window.addEventListener('popstate', async () => {
     const resp = await fetch(window.location.pathname);
     const html = await resp.text();
-    const m = html.match(/<main id="app">([\s\S]*?)<\/main>/);
+    const m = html.match(/<!--app-->([\s\S]*?)<!--\/app-->/);
     if (m) document.getElementById('app').innerHTML = m[1];
     document.dispatchEvent(new Event('pagechange'));
 });
@@ -265,7 +267,7 @@ function initPage() {
     document.querySelectorAll("#nav-links a").forEach(link => { link.onclick = () => document.getElementById("nav-links").classList.remove("active"); });
     const fadeEls = document.querySelectorAll('.fade');
     function cf() { fadeEls.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show'); }); }
-    window.onscroll = cf; cf();
+    window.onscroll = cf; window.addEventListener('load', cf); cf();
 }
 initPage();
 document.addEventListener('pagechange', initPage);
