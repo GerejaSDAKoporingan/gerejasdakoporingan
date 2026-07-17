@@ -3,29 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GEREJA SDA KOPORINGAN</title>
-    
-<meta property="og:title" content="Gereja SDA Koporingan">
-<meta property="og:description" content="Selamat Datang ke Gereja SDA Koporingan. Mari kita pergi ke rumah TUHAN.">
-<meta property="og:image" content="https://gerejasdakoporingan.github.io/gerejasdakoporingan/gereja-thumb.jpg">
-<meta property="og:url" content="https://gerejasdakoporingan.github.io/gerejasdakoporingan/">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-    
-<link rel="preload" as="image" href="gereja-1.jpg">
+<title>Gereja SDA Koporingan</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
-
 :root {
   --primary: #0b1d3a;
-  --primary-light: #162d5e;
   --accent: #d63b3b;
   --gold: #c9a96e;
-  --gold-light: #e8d5a3;
   --bg: #ffffff;
   --bg-light: #f8f9fb;
   --text: #1d1d1f;
@@ -35,108 +22,82 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; overflow-x: hidden; background: var(--bg); color: var(--text); }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 .container { width: 92%; max-width: 1200px; margin: auto; }
 
-/* FADE */
-.fade { opacity: 0; transform: translateY(40px); transition: 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
-.fade.show { opacity: 1; transform: translateY(0); }
-
-/* ================= SOCIAL ICONS ================= */
+.navbar { position: fixed; width: 100%; top: 0; left: 0; padding: 20px 0; background: transparent; z-index: 1000; transition: 0.4s; }
+.navbar.scrolled { background: rgba(11, 29, 58, 0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 4px 30px rgba(0,0,0,0.1); }
+.nav-inner { width: 92%; max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+.navbar img { height: 48px; filter: brightness(1.1); }
+.navbar ul { list-style: none; display: flex; gap: 28px; align-items: center; }
+.navbar ul li a { text-decoration: none; color: rgba(255,255,255,0.9); font-weight: 500; font-size: 14px; transition: 0.3s; }
+.navbar ul li a:hover { color: #fff; }
+.menu-toggle { display: none; font-size: 26px; color: white; cursor: pointer; }
 .social-top { display: flex; gap: 18px; align-items: center; }
-.social-top a { color: rgba(255,255,255,0.85); font-size: 20px; transition: 0.3s ease; text-decoration: none; }
-.social-top a:hover { transform: scale(1.15); color: var(--gold-light); }
+.social-top a { color: rgba(255,255,255,0.85); font-size: 20px; transition: 0.3s; text-decoration: none; }
+.social-top a:hover { transform: scale(1.15); }
 .social-top .fa-facebook:hover { color: #1877F2; }
 .social-top .fa-youtube:hover { color: #FF0000; }
 
-/* ================= NAVBAR ================= */
-.navbar { position: fixed; width: 100%; top: 0; padding: 22px 0; display: flex; transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1); z-index: 1000; }
-.nav-inner { width: 92%; max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
-.navbar.scrolled { background: rgba(11, 29, 58, 0.92); backdrop-filter: blur(16px); box-shadow: 0 4px 30px rgba(0,0,0,0.1); padding: 14px 0; }
-.navbar img { height: 48px; filter: brightness(1.1); }
-.navbar ul { list-style: none; display: flex; gap: 28px; align-items: center; }
-.navbar ul li a { text-decoration: none; color: rgba(255,255,255,0.9); font-weight: 500; font-size: 14px; transition: 0.3s; position: relative; }
-.navbar ul li a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--gold); transition: 0.3s; }
-.navbar ul li a:hover::after { width: 100%; }
-.navbar ul li a:hover { color: #fff; }
-.menu-toggle { display: none; font-size: 26px; color: white; cursor: pointer; }
-
-/* ================= HERO ================= */
-.hero { height: 100vh; min-height: 600px; position: relative; overflow: hidden; }
-.hero img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.hero { position: relative; height: 100vh; min-height: 600px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.hero img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease; }
 .hero img.active { opacity: 1; }
-.hero-overlay { position: absolute; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(11,29,58,0.82) 0%, rgba(11,29,58,0.45) 50%, rgba(11,29,58,0.7) 100%); }
-.hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 800px; }
-.hero-badge { display: inline-block; padding: 8px 24px; border: 1px solid var(--gold); color: var(--gold); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; border-radius: 50px; margin-bottom: 24px; background: rgba(201,169,110,0.1); }
-.hero-content h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 6vw, 64px); font-weight: 700; line-height: 1.15; margin-bottom: 20px; text-shadow: 0 2px 30px rgba(0,0,0,0.2); }
-.hero-content p { font-size: clamp(16px, 2vw, 20px); opacity: 0.9; line-height: 1.6; max-width: 600px; margin: 0 auto 32px; font-weight: 400; }
-.hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); color: white; font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.hero-scroll .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, white, transparent); animation: scrollPulse 2s infinite; }
-@keyframes scrollPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero-overlay { position: absolute; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(11,29,58,0.75) 0%, rgba(11,29,58,0.3) 100%); }
+.hero-content { position: relative; z-index: 2; text-align: center; color: white; padding: 0 20px; }
+.hero-badge { display: inline-block; padding: 8px 24px; border-radius: 50px; background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.15); }
+.hero-content h1 { font-family: 'Playfair Display', serif; font-size: clamp(38px, 7vw, 72px); font-weight: 700; margin-bottom: 16px; text-shadow: 0 4px 40px rgba(0,0,0,0.3); }
+.hero-content p { font-size: clamp(15px, 2vw, 18px); max-width: 600px; margin: 0 auto 40px; opacity: 0.9; line-height: 1.7; }
+.btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: white; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.3s; }
+.btn-primary:hover { background: #b82e2e; transform: translateY(-2px); }
+.btn-outline { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: white; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; border: 2px solid rgba(255,255,255,0.3); transition: 0.3s; }
+.btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
+.hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); text-align: center; color: rgba(255,255,255,0.6); font-size: 11px; text-transform: uppercase; letter-spacing: 2px; }
+.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent); margin: 8px auto 0; }
 
-.btn-primary { display: inline-flex; align-items: center; gap: 10px; padding: 16px 40px; background: var(--accent); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 15px; font-family: 'Inter', sans-serif; transition: 0.3s; box-shadow: 0 8px 25px rgba(214,59,59,0.25); }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(214,59,59,0.35); }
-.btn-outline { display: inline-flex; align-items: center; gap: 10px; padding: 16px 40px; background: transparent; color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 15px; border: 2px solid rgba(255,255,255,0.3); transition: 0.3s; }
-.btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+.welcome { padding: 80px 0; text-align: center; background: var(--bg); }
+.welcome h2 { font-family: 'Playfair Display', serif; font-size: clamp(30px, 4vw, 40px); font-weight: 700; color: var(--primary); }
+.divider { width: 40px; height: 3px; background: var(--gold); border-radius: 2px; margin: 16px auto 20px; }
+.welcome p { max-width: 700px; margin: 0 auto; font-size: 16px; line-height: 1.8; color: #515154; }
 
-/* ================= WELCOME SECTION ================= */
-.welcome { padding: 100px 0; text-align: center; position: relative; }
-.welcome::before { content: '✝'; position: absolute; top: 30px; left: 50%; transform: translateX(-50%); font-size: 24px; color: var(--gold); opacity: 0.3; }
-.welcome h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 48px); color: var(--primary); margin-bottom: 16px; }
-.welcome .divider { width: 60px; height: 3px; background: var(--gold); margin: 0 auto 24px; border-radius: 2px; }
-.welcome p { font-size: 18px; color: var(--text-muted); max-width: 650px; margin: 0 auto; line-height: 1.7; }
+.announcement-section { padding: 60px 0; text-align: center; background: var(--bg-light); }
+.announcement-section h4 { font-family: 'Playfair Display', serif; font-size: clamp(24px, 3vw, 32px); color: var(--primary); margin-bottom: 10px; }
+.announcement-section p { color: var(--text-muted); margin-bottom: 30px; font-size: 15px; }
 
-/* ================= PENGUMUMAN ================= */
-.announcement-section { padding: 80px 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); position: relative; overflow: hidden; }
-.announcement-section::before { content: ''; position: absolute; top: -50%; right: -20%; width: 400px; height: 400px; border-radius: 50%; background: rgba(214,59,59,0.08); }
-.announcement-section::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 300px; height: 300px; border-radius: 50%; background: rgba(201,169,110,0.06); }
-.announcement-section .container { position: relative; z-index: 1; }
-.announcement-section h4 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 38px); color: white; margin-bottom: 12px; }
-.announcement-section p { color: rgba(255,255,255,0.7); font-size: 16px; max-width: 600px; margin: 0 auto 30px; line-height: 1.6; }
+.petugas-section { padding: 80px 0; background: var(--bg); }
 
-/* ================= PETUGAS SECTION ================= */
-.petugas-section { padding: 100px 0; background: var(--bg-light); }
-.petugas-section .container { max-width: 800px; }
-.petugas-card { background: #fff; border-radius: var(--radius); padding: 45px; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04); }
-.petugas-card .date-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 28px; }
-.petugas-card .date-badge i { font-size: 14px; }
-.petugas-card .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
-.petugas-card .mini-item { display: flex; align-items: center; gap: 14px; padding: 14px; background: var(--bg-light); border-radius: 12px; transition: 0.3s; }
-.petugas-card .mini-item:hover { background: #f0f1f5; }
-.petugas-card .mini-item i { width: 34px; height: 34px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; flex-shrink: 0; }
-.petugas-card .mini-item .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600; }
-.petugas-card .mini-item .name { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.3; }
-.petugas-card .btn-primary { display: inline-flex; align-items: center; gap: 10px; }
-.petugas-card .loading-pulse { text-align: center; padding: 30px; color: var(--text-muted); font-weight: 600; }
-.petugas-card .loading-pulse i { margin-right: 10px; }
-.petugas-card .error-msg { text-align: center; padding: 20px; color: var(--accent); font-weight: 600; font-size: 14px; }
+.petugas-card { background: var(--bg-light); border-radius: var(--radius); padding: 40px; max-width: 600px; margin: 0 auto; box-shadow: var(--shadow); border: 1px solid #f0f0f2; }
+.date-badge { display: inline-block; background: var(--gold); color: var(--primary); padding: 8px 20px; border-radius: 50px; font-weight: 700; font-size: 13px; margin-bottom: 24px; }
+.mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: left; }
+.mini-item { display: flex; align-items: center; gap: 12px; background: var(--bg); padding: 14px; border-radius: 12px; }
+.mini-item i { width: 36px; height: 36px; border-radius: 10px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 14px; }
+.mini-item .label { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.mini-item .name { font-size: 14px; font-weight: 700; color: var(--text); }
+.error-msg { text-align: center; color: var(--text-muted); padding: 20px; font-size: 14px; }
+.loading-pulse { text-align: center; color: var(--text-muted); padding: 20px; }
 
-/* ================= YOUTH SECTION ================= */
-.youth-section { padding: 100px 0; text-align: center; background: var(--bg); }
-.youth-section .youth-card { background: linear-gradient(135deg, var(--primary) 0%, #1a1a3e 100%); border-radius: 24px; padding: 70px 40px; position: relative; overflow: hidden; }
-.youth-section .youth-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.3; }
-.youth-section .youth-card > * { position: relative; z-index: 1; }
-.youth-section .youth-card i { font-size: 36px; color: var(--gold); margin-bottom: 16px; }
-.youth-section .youth-card h4 { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
-.youth-section .youth-card h2 { font-family: 'Playfair Display', serif; color: white; font-size: clamp(28px, 4vw, 40px); margin-bottom: 24px; }
+.youth-section { padding: 80px 0; }
+.youth-card { background: linear-gradient(135deg, #0b1d3a, #162d5a); border-radius: var(--radius); padding: 60px; text-align: center; color: white; }
+.youth-card i { font-size: 40px; color: var(--gold); margin-bottom: 12px; }
+.youth-card h4 { font-family: 'Playfair Display', serif; font-size: 24px; opacity: 0.8; font-weight: 400; }
+.youth-card h2 { font-size: 32px; font-weight: 800; margin: 8px 0 24px; }
 
-/* ================= FOOTER ================= */
-.footer { text-align: center; padding: 40px 0; background: var(--bg-light); font-size: 14px; color: var(--text-muted); border-top: 1px solid #f0f0f2; }
-.footer strong { color: var(--primary); }
+.fade { opacity: 0; transform: translateY(40px); transition: 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.fade.show { opacity: 1; transform: translateY(0); }
 
-/* ================= RESPONSIVE ================= */
+.footer { text-align: center; padding: 60px; background: var(--bg-light); color: var(--text-muted); font-size: 13px; border-top: 1px solid #f0f0f2; line-height: 1.8; }
+
 @media (max-width: 900px) {
   .menu-toggle { display: block; }
-  .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.96); backdrop-filter: blur(20px); width: 240px; flex-direction: column; padding: 24px; border-radius: 16px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+  .social-top { order: -1; margin-bottom: 20px; }
+  .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.96); backdrop-filter: blur(20px); width: 240px; flex-direction: column; align-items: flex-end; padding: 24px; border-radius: 16px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
   .navbar ul.active { display: flex; }
-  .hero-content h1 { font-size: 36px; }
-  .hero-content .btn-group { display: flex; flex-direction: column; gap: 12px; align-items: center; }
-  .petugas-card .mini-grid { grid-template-columns: 1fr; }
-  .petugas-card { padding: 28px; }
+  .navbar ul li { width: 100%; margin-bottom: 18px; }
+  .mini-grid { grid-template-columns: 1fr; }
+  .hero-content h1 { font-size: 32px; }
 }
 </style>
 </head>
-
 <body>
 
 <div class="navbar" id="navbar">
@@ -144,7 +105,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <img src="public/logo-sda.png" alt="SDA Logo">
         <ul id="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="petugas.html">Jadual Petugas</a></li>
+            <li><a href="index.html#pengumuman">Pengumuman</a></li>
+            <li><a href="petugas.html">Petugas</a></li>
             <li><a href="ahli-lembaga.html">Ahli Lembaga</a></li>
             <li><a href="media.html">Media</a></li>
             <li><a href="sejarah.html">Sejarah</a></li>
@@ -160,8 +122,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 </div>
 
-<div id="app">
-<!--app-->
 <section class="hero">
     <img src="public/gereja-1.jpg" class="active" loading="eager">
     <img src="public/gereja-2.jpg" loading="lazy">
@@ -190,7 +150,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 </section>
 
-<!-- ================= PENGUMUMAN ================= -->
 <section class="fade announcement-section" id="pengumuman">
     <div class="container">
         <h4>Pengumuman Gereja</h4>
@@ -201,7 +160,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 </section>
 
-<!-- ================= PETUGAS MINGGU INI ================= -->
 <section class="fade petugas-section" id="petugas">
     <div class="container" style="text-align: center;">
         <h4 style="font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); font-size: 13px; font-weight: 700; margin-bottom: 8px;">Jadual Petugas</h4>
@@ -224,8 +182,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
     </div>
 </section>
-<!--/app-->
-</div>
 
 <footer class="footer">
     <div class="container">
@@ -236,37 +192,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 <audio id="bg-music" autoplay loop><source src="public/music.mp3" type="audio/mpeg"></audio>
 
 <script>
-// ================= GLOBAL SITE CODE =================
-(function() {
-// ---- SPA Navigation (keeps audio playing across pages) ----
-document.addEventListener('click', async e => {
-    const link = e.target.closest('a[href]');
-    if (!link) return;
-    const href = link.getAttribute('href');
-    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('//') || href.startsWith('mailto') || link.hasAttribute('target')) return;
-    e.preventDefault();
-    const url = href.includes('.html') ? href : href + '.html';
-    try {
-        const resp = await fetch(url);
-        const html = await resp.text();
-        const m = html.match(/<!--app-->([\s\S]*?)<!--\/app-->/);
-        if (m) {
-            document.getElementById('app').innerHTML = m[1];
-            history.pushState(null, '', href);
-            window.scrollTo(0, 0);
-            document.dispatchEvent(new Event('pagechange'));
-        }
-    } catch (err) { window.location.href = href; }
-});
-window.addEventListener('popstate', async () => {
-    const resp = await fetch(window.location.pathname);
-    const html = await resp.text();
-    const m = html.match(/<!--app-->([\s\S]*?)<!--\/app-->/);
-    if (m) document.getElementById('app').innerHTML = m[1];
-    document.dispatchEvent(new Event('pagechange'));
-});
-
-// ---- Persistent Audio (saves position continuously) ----
 const bgMusic = document.getElementById('bg-music');
 const savedTime = sessionStorage.getItem('musicTime');
 if (savedTime !== null) bgMusic.currentTime = parseFloat(savedTime);
@@ -275,39 +200,16 @@ const pp = bgMusic.play();
 if (pp !== undefined) pp.catch(() => {});
 document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
 
-// ---- Shared UI handlers (re-run on page change) ----
-function initPage() {
-    // Mobile Menu
-    const toggle = document.getElementById("menu-toggle");
-    if (toggle) toggle.onclick = () => document.getElementById("nav-links").classList.toggle("active");
-    document.querySelectorAll("#nav-links a").forEach(link => {
-        link.onclick = () => document.getElementById("nav-links").classList.remove("active");
-    });
-    // Fade animation
-    const fadeEls = document.querySelectorAll('.fade');
-    function cf() { fadeEls.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show'); }); }
-    window.onscroll = cf; window.addEventListener('load', cf); cf();
-}
-initPage();
-document.addEventListener('pagechange', initPage);
-})();
-
-// ================= INDEX.HTML PAGE-SPECIFIC CODE =================
-// Navbar scroll
 window.addEventListener("scroll", () => document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50));
 
-// Hero Image Slideshow
-(function() {
-    const imgs = document.querySelectorAll('.hero img');
-    let idx = 0;
-    setInterval(() => {
-        imgs.forEach(i => i.classList.remove('active'));
-        idx = (idx + 1) % imgs.length;
-        imgs[idx].classList.add('active');
-    }, 5000);
-})();
+const imgs = document.querySelectorAll('.hero img');
+let idx = 0;
+setInterval(() => {
+    imgs.forEach(i => i.classList.remove('active'));
+    idx = (idx + 1) % imgs.length;
+    imgs[idx].classList.add('active');
+}, 5000);
 
-// Google Sheets — Petugas Minggu Ini
 const SS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVPEOB6hYheFOpY542K8yXu_5AVdZMV5nO-v5Gph-I4wJZJHDgmEi7uNJhN2DI0g/pub?gid=546730745&single=true&output=csv";
 const KHOTBAH_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVPEOB6hYheFOpY542K8yXu_5AVdZMV5nO-v5Gph-I4wJZJHDgmEi7uNJhN2DI0g/pub?gid=382933480&single=true&output=csv";
 
@@ -428,6 +330,24 @@ async function loadPetugasMingguIni() {
     }
 }
 window.addEventListener('load', loadPetugasMingguIni);
+
+document.getElementById("menu-toggle").addEventListener("click", () => {
+    document.getElementById("nav-links").classList.toggle("active");
+});
+document.querySelectorAll("#nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        document.getElementById("nav-links").classList.remove("active");
+    });
+});
+
+const fadeElements = document.querySelectorAll('.fade');
+function checkFade() {
+    fadeElements.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show');
+    });
+}
+window.addEventListener('scroll', checkFade);
+window.addEventListener('load', checkFade);
 </script>
 
 </body>

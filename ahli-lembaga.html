@@ -27,7 +27,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 .container { width: 92%; max-width: 1200px; margin: auto; }
 
-/* NAVBAR */
 .navbar { position: fixed; width: 100%; top: 0; left: 0; padding: 20px 0; background: rgba(11, 29, 58, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 1000; box-shadow: 0 4px 30px rgba(0,0,0,0.1); }
 .nav-inner { width: 92%; max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
 .navbar img { height: 48px; filter: brightness(1.1); }
@@ -41,28 +40,22 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 .social-top .fa-facebook:hover { color: #1877F2; }
 .social-top .fa-youtube:hover { color: #FF0000; }
 
-/* BANNER */
 .banner { padding-top: 150px; padding-bottom: 60px; background: var(--bg-light); text-align: center; position: relative; }
 .banner::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--gold); border-radius: 2px; }
 .banner h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 48px); font-weight: 700; color: var(--primary); }
 .banner p { margin-top: 8px; font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-weight: 500; }
 
-/* SECTION */
 .section { padding: 40px 0 80px; }
 
-/* IMAGE DISPLAY */
 .image-grid { display: flex; flex-direction: column; gap: 30px; }
 .image-grid img { width: 100%; max-width: 100%; display: block; border-radius: var(--radius); box-shadow: var(--shadow); }
 .image-grid .img-caption { text-align: center; font-size: 13px; color: var(--text-muted); font-weight: 500; margin-top: 12px; letter-spacing: 0.5px; }
 
-/* FADE */
 .fade { opacity: 0; transform: translateY(40px); transition: 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
 .fade.show { opacity: 1; transform: translateY(0); }
 
-/* FOOTER */
 .footer { text-align: center; padding: 40px 0; background: var(--bg-light); color: var(--text-muted); font-size: 14px; border-top: 1px solid #f0f0f2; }
 
-/* MOBILE */
 @media (max-width: 900px) {
   .menu-toggle { display: block; }
   .navbar ul { position: absolute; top: 75px; right: 5%; background: rgba(11, 29, 58, 0.96); backdrop-filter: blur(20px); width: 240px; flex-direction: column; align-items: flex-end; padding: 24px; border-radius: 16px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
@@ -97,8 +90,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
     </div>
 </div>
 
-<div id="app">
-<!--app-->
 <section class="banner">
     <div class="container">
         <h1>Ahli Lembaga Gereja</h1>
@@ -120,8 +111,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
         </div>
     </div>
 </section>
-<!--/app-->
-</div>
 
 <footer class="footer">
     <div class="container">
@@ -134,45 +123,33 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 </audio>
 
 <script>
-(function(){
-document.addEventListener('click', async e => {
-    const link = e.target.closest('a[href]');
-    if (!link) return;
-    const href = link.getAttribute('href');
-    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('//') || href.startsWith('mailto') || link.hasAttribute('target')) return;
-    e.preventDefault();
-    const url = href.includes('.html') ? href : href + '.html';
-    try {
-        const resp = await fetch(url);
-        const html = await resp.text();
-        const m = html.match(/<!--app-->([\s\S]*?)<!--\/app-->/);
-        if (m) { document.getElementById('app').innerHTML = m[1]; history.pushState(null,'',href); window.scrollTo(0,0); document.dispatchEvent(new Event('pagechange')); }
-    } catch(err) { window.location.href = href; }
-});
-window.addEventListener('popstate', async () => {
-    const resp = await fetch(window.location.pathname);
-    const html = await resp.text();
-    const m = html.match(/<!--app-->([\s\S]*?)<!--\/app-->/);
-    if (m) document.getElementById('app').innerHTML = m[1];
-    document.dispatchEvent(new Event('pagechange'));
-});
 const bgMusic = document.getElementById('bg-music');
 const savedTime = sessionStorage.getItem('musicTime');
 if (savedTime !== null) bgMusic.currentTime = parseFloat(savedTime);
 bgMusic.addEventListener('timeupdate', () => sessionStorage.setItem('musicTime', bgMusic.currentTime));
-const pp = bgMusic.play(); if (pp !== undefined) pp.catch(()=>{});
+const pp = bgMusic.play();
+if (pp !== undefined) pp.catch(() => {});
 document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
-function initPage() {
-    const toggle = document.getElementById("menu-toggle");
-    if (toggle) toggle.onclick = () => document.getElementById("nav-links").classList.toggle("active");
-    document.querySelectorAll("#nav-links a").forEach(link => { link.onclick = () => document.getElementById("nav-links").classList.remove("active"); });
-    const fadeEls = document.querySelectorAll('.fade');
-    function cf() { fadeEls.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show'); }); }
-    window.onscroll = cf; window.addEventListener('load', cf); cf();
+
+document.getElementById("menu-toggle").addEventListener("click", () => {
+    document.getElementById("nav-links").classList.toggle("active");
+});
+document.querySelectorAll("#nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        document.getElementById("nav-links").classList.remove("active");
+    });
+});
+
+const fadeElements = document.querySelectorAll('.fade');
+function checkFade() {
+    const triggerBottom = window.innerHeight * 0.85;
+    fadeElements.forEach(el => {
+        const boxTop = el.getBoundingClientRect().top;
+        if (boxTop < triggerBottom) el.classList.add('show');
+    });
 }
-initPage();
-document.addEventListener('pagechange', initPage);
-})();
+window.addEventListener('scroll', checkFade);
+window.addEventListener('load', checkFade);
 </script>
 
 </body>
