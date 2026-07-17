@@ -97,6 +97,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
     </div>
 </div>
 
+<main id="app">
 <section class="banner">
     <div class="container">
         <h1>Ahli Lembaga Gereja</h1>
@@ -118,6 +119,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
         </div>
     </div>
 </section>
+</main>
 
 <footer class="footer">
     <div class="container">
@@ -130,63 +132,45 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 </audio>
 
 <script>
-
-// --- MUSIC SMART MEMORY ---
+(function(){
+document.addEventListener('click', async e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('//') || href.startsWith('mailto') || link.hasAttribute('target')) return;
+    e.preventDefault();
+    const url = href.includes('.html') ? href : href + '.html';
+    try {
+        const resp = await fetch(url);
+        const html = await resp.text();
+        const m = html.match(/<main id="app">([\s\S]*?)<\/main>/);
+        if (m) { document.getElementById('app').innerHTML = m[1]; history.pushState(null,'',href); window.scrollTo(0,0); document.dispatchEvent(new Event('pagechange')); }
+    } catch(err) { window.location.href = href; }
+});
+window.addEventListener('popstate', async () => {
+    const resp = await fetch(window.location.pathname);
+    const html = await resp.text();
+    const m = html.match(/<main id="app">([\s\S]*?)<\/main>/);
+    if (m) document.getElementById('app').innerHTML = m[1];
+    document.dispatchEvent(new Event('pagechange'));
+});
 const bgMusic = document.getElementById('bg-music');
 const savedTime = sessionStorage.getItem('musicTime');
-if (savedTime !== null) {
-    bgMusic.currentTime = parseFloat(savedTime);
+if (savedTime !== null) bgMusic.currentTime = parseFloat(savedTime);
+bgMusic.addEventListener('timeupdate', () => sessionStorage.setItem('musicTime', bgMusic.currentTime));
+const pp = bgMusic.play(); if (pp !== undefined) pp.catch(()=>{});
+document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
+function initPage() {
+    const toggle = document.getElementById("menu-toggle");
+    if (toggle) toggle.onclick = () => document.getElementById("nav-links").classList.toggle("active");
+    document.querySelectorAll("#nav-links a").forEach(link => { link.onclick = () => document.getElementById("nav-links").classList.remove("active"); });
+    const fadeEls = document.querySelectorAll('.fade');
+    function cf() { fadeEls.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show'); }); }
+    window.onscroll = cf; cf();
 }
-
-let playPromise = bgMusic.play();
-if (playPromise !== undefined) {
-    playPromise.catch(error => {
-        console.log("Autoplay blocked. Waiting for click.");
-    });
-}
-
-document.addEventListener('click', function() {
-    if (bgMusic.paused) {
-        bgMusic.play();
-    }
-});
-
-window.addEventListener('beforeunload', function() {
-    sessionStorage.setItem('musicTime', bgMusic.currentTime);
-});
-
-
-// Mobile Menu Toggle
-document.getElementById("menu-toggle").addEventListener("click", function() {
-    document.getElementById("nav-links").classList.toggle("active");
-});
-
-// Close menu when clicking a link (mobile fix)
-const menuLinks = document.querySelectorAll("#nav-links a");
-
-menuLinks.forEach(link => {
-    link.addEventListener("click", function() {
-        document.getElementById("nav-links").classList.remove("active");
-    });
-});
-
-// Fade Animation
-const fadeElements = document.querySelectorAll('.fade');
-
-function checkFade() {
-    const triggerBottom = window.innerHeight * 0.85;
-
-    fadeElements.forEach(el => {
-        const boxTop = el.getBoundingClientRect().top;
-        if (boxTop < triggerBottom) {
-            el.classList.add('show');
-        }
-    });
-}
-    
-window.addEventListener('scroll', checkFade);
-window.addEventListener('load', checkFade);
-
+initPage();
+document.addEventListener('pagechange', initPage);
+})();
 </script>
 
 </body>

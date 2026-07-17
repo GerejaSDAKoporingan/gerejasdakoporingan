@@ -103,6 +103,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans
     </div>
 </div>
 
+<main id="app">
 <div class="banner">
     <p>Suku Ke-3 (Julai – September 2026)</p>
     <h1>Jadual Petugas</h1>
@@ -119,6 +120,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans
         <div class="status-msg">Sila tunggu sebentar...</div>
     </div>
 </div>
+</main>
 
 <footer class="footer">
     <div class="container">
@@ -129,193 +131,140 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans
 <audio id="bg-music" autoplay loop><source src="public/music.mp3" type="audio/mpeg"></audio>
 
 <script>
-/* ================= API LINKS FOR GOOGLE SHEETS ================= */
+// ================= GLOBAL SITE CODE (same on all pages) =================
+(function() {
+document.addEventListener('click', async e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('//') || href.startsWith('mailto') || link.hasAttribute('target')) return;
+    e.preventDefault();
+    const url = href.includes('.html') ? href : href + '.html';
+    try {
+        const resp = await fetch(url);
+        const html = await resp.text();
+        const m = html.match(/<main id="app">([\s\S]*?)<\/main>/);
+        if (m) {
+            document.getElementById('app').innerHTML = m[1];
+            history.pushState(null, '', href);
+            window.scrollTo(0, 0);
+            document.dispatchEvent(new Event('pagechange'));
+        }
+    } catch (err) { window.location.href = href; }
+});
+window.addEventListener('popstate', async () => {
+    const resp = await fetch(window.location.pathname);
+    const html = await resp.text();
+    const m = html.match(/<main id="app">([\s\S]*?)<\/main>/);
+    if (m) document.getElementById('app').innerHTML = m[1];
+    document.dispatchEvent(new Event('pagechange'));
+});
+const bgMusic = document.getElementById('bg-music');
+const savedTime = sessionStorage.getItem('musicTime');
+if (savedTime !== null) bgMusic.currentTime = parseFloat(savedTime);
+bgMusic.addEventListener('timeupdate', () => sessionStorage.setItem('musicTime', bgMusic.currentTime));
+const pp = bgMusic.play();
+if (pp !== undefined) pp.catch(() => {});
+document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
+function initPage() {
+    const toggle = document.getElementById("menu-toggle");
+    if (toggle) toggle.onclick = () => document.getElementById("nav-links").classList.toggle("active");
+    document.querySelectorAll("#nav-links a").forEach(link => {
+        link.onclick = () => document.getElementById("nav-links").classList.remove("active");
+    });
+    const fadeEls = document.querySelectorAll('.fade');
+    function cf() { fadeEls.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show'); }); }
+    window.onscroll = cf; cf();
+}
+initPage();
+document.addEventListener('pagechange', initPage);
+})();
+
+// ================= PETUGAS.HTML PAGE-SPECIFIC CODE =================
 const SS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVPEOB6hYheFOpY542K8yXu_5AVdZMV5nO-v5Gph-I4wJZJHDgmEi7uNJhN2DI0g/pub?gid=546730745&single=true&output=csv";
 const KHOTBAH_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVPEOB6hYheFOpY542K8yXu_5AVdZMV5nO-v5Gph-I4wJZJHDgmEi7uNJhN2DI0g/pub?gid=382933480&single=true&output=csv";
-
 let globalScheduleData = [];
 
-/* ================= ENGINE ================= */
 function parseCSV(text) {
     let rows = [], row = [], cell = '', inQ = false;
     for (let i = 0; i < text.length; i++) {
         let c = text[i], n = text[i+1];
-        if (c === '"') {
-            if (inQ && n === '"') { cell += '"'; i++; }
-            else { inQ = !inQ; }
-        } else if (c === ',' && !inQ) {
-            row.push(cell.trim()); cell = '';
+        if (c === '"') { if (inQ && n === '"') { cell += '"'; i++; } else { inQ = !inQ; }
+        } else if (c === ',' && !inQ) { row.push(cell.trim()); cell = '';
         } else if ((c === '\n' || c === '\r') && !inQ) {
             if (c === '\r' && n === '\n') i++;
-            row.push(cell.trim()); rows.push(row);
-            row = []; cell = '';
+            row.push(cell.trim()); rows.push(row); row = []; cell = '';
         } else { cell += c; }
     }
     if (cell || row.length) { row.push(cell.trim()); rows.push(row); }
     return rows;
 }
-
 function parseSmartDate(dayStr, monthStr) {
     const cleanDay = parseInt((dayStr||"").replace(/[^\d]/g, '')) || 1;
-    let month = 6; 
-    let mText = (monthStr || "").toUpperCase();
-    
-    if(mText.includes('JAN')) month = 0; else if(mText.includes('FEB')) month = 1;
-    else if(mText.includes('MAC')||mText.includes('MAR')) month = 2; else if(mText.includes('APR')) month = 3;
-    else if(mText.includes('MEI')||mText.includes('MAY')) month = 4; else if(mText.includes('JUN')) month = 5;
-    else if(mText.includes('JUL')) month = 6; else if(mText.includes('OGO')||mText.includes('AUG')) month = 7;
-    else if(mText.includes('SEP')) month = 8; else if(mText.includes('OKT')||mText.includes('OCT')) month = 9;
-    else if(mText.includes('NOV')) month = 10; else if(mText.includes('DIS')||mText.includes('DEC')) month = 11;
-    
+    let month = 6; let mText = (monthStr || "").toUpperCase();
+    if(mText.includes('JAN')) month=0; else if(mText.includes('FEB')) month=1;
+    else if(mText.includes('MAC')||mText.includes('MAR')) month=2; else if(mText.includes('APR')) month=3;
+    else if(mText.includes('MEI')||mText.includes('MAY')) month=4; else if(mText.includes('JUN')) month=5;
+    else if(mText.includes('JUL')) month=6; else if(mText.includes('OGO')||mText.includes('AUG')) month=7;
+    else if(mText.includes('SEP')) month=8; else if(mText.includes('OKT')||mText.includes('OCT')) month=9;
+    else if(mText.includes('NOV')) month=10; else if(mText.includes('DIS')||mText.includes('DEC')) month=11;
     return new Date(2026, month, cleanDay);
 }
-
 async function loadLiveSchedule() {
     try {
-        const [ssResponse, khotbahResponse] = await Promise.all([
-            fetch(SS_CSV_URL),
-            fetch(KHOTBAH_CSV_URL)
-        ]);
-        
-        const ssText = await ssResponse.text();
-        const khotbahText = await khotbahResponse.text();
-        
+        const [ssRes, khRes] = await Promise.all([fetch(SS_CSV_URL), fetch(KHOTBAH_CSV_URL)]);
+        const ssText = await ssRes.text(); const khotbahText = await khRes.text();
         const ssRows = parseCSV(ssText).filter(r => r[2] && !r[2].toUpperCase().includes("TARIKH"));
         const kRows = parseCSV(khotbahText).filter(r => r[2] && !r[2].toUpperCase().includes("TARIKH"));
-
         globalScheduleData = [];
-
         for (let i = 0; i < ssRows.length; i++) {
-            let rS = ssRows[i];
-            let rK = kRows.find(r => r[3] === rS[3]) || kRows[i] || [];
-
-            let daySS = rS[2] || "";
-            let monthSS = rS[1] || "JULAI";
-            let realJsDate = parseSmartDate(daySS, monthSS);
-
-            let laporan = rS[10] ? rS[10].trim() : "";
-            let jurutulis = rS[11] ? rS[11].trim() : "";
-            let gabunganTulis = laporan;
-            if (jurutulis && jurutulis !== "-") gabunganTulis += (laporan ? " & " : "") + jurutulis;
-
-            let diakon1 = rK[7] ? rK[7].trim() : "";
-            let diakon2 = rK[8] ? rK[8].trim() : "";
-            let gabunganDiakon = diakon1;
-            if (diakon2 && diakon2 !== "-") gabunganDiakon += (diakon1 ? " & " : "") + diakon2;
-            
+            let rS = ssRows[i]; let rK = kRows.find(r => r[3]===rS[3]) || kRows[i] || [];
+            let daySS = rS[2]||""; let monthSS = rS[1]||"JULAI"; let realJsDate = parseSmartDate(daySS, monthSS);
+            let laporan = rS[10]?rS[10].trim():""; let jurutulis = rS[11]?rS[11].trim():"";
+            let gabunganTulis = laporan; if (jurutulis && jurutulis!=="-") gabunganTulis += (laporan?" & ":"")+jurutulis;
+            let diakon1 = rK[7]?rK[7].trim():""; let diakon2 = rK[8]?rK[8].trim():"";
+            let gabunganDiakon = diakon1; if (diakon2 && diakon2!=="-") gabunganDiakon += (diakon1?" & ":"")+diakon2;
             globalScheduleData.push({
-                date: daySS + " " + monthSS.substring(0,3).toUpperCase(),
-                fullDate: realJsDate,
-                label: "Sabat " + (rS[3] || (i+1)),
-                ss: {
-                    nyanyi: (rS[4]||"-").replace(/\n/g, ' / '),
-                    acara: (rS[5]||"-").replace(/\n/g, ' / '),
-                    misi: (rS[6]||"-").replace(/\n/g, ' / '),
-                    kesihatan: (rS[7]||"-").replace(/\n/g, ' / '),
-                    piano: (rS[8]||"-").replace(/\n/g, ' / '),
-                    media: (rS[9]||"-").replace(/\n/g, ' / '),
-                    tulis: gabunganTulis.replace(/\n/g, ' / ') || "-"
-                },
-                khotbah: {
-                    mc: (rK[4]||"-").replace(/\n/g, ' / '),
-                    doa_persembahan: (rK[5]||"-").replace(/\n/g, ' / '),
-                    doa: (rK[6]||"-").replace(/\n/g, ' / '),
-                    diakon: gabunganDiakon.replace(/\n/g, ' / ') || "-",
-                    preacher: (rK[9]||"-").replace(/\n/g, ' / '),
-                    special: (rK[10]||"-").replace(/\n/g, ' / '),
-                    piano: (rK[11]||"-").replace(/\n/g, ' / '),
-                    media: (rK[12]||"-").replace(/\n/g, ' / ')
-                }
+                date: daySS+" "+monthSS.substring(0,3).toUpperCase(), fullDate: realJsDate,
+                label: "Sabat "+(rS[3]||(i+1)),
+                ss: { nyanyi:(rS[4]||"-").replace(/\n/g,' / '), acara:(rS[5]||"-").replace(/\n/g,' / '), misi:(rS[6]||"-").replace(/\n/g,' / '), kesihatan:(rS[7]||"-").replace(/\n/g,' / '), piano:(rS[8]||"-").replace(/\n/g,' / '), media:(rS[9]||"-").replace(/\n/g,' / '), tulis:gabunganTulis.replace(/\n/g,' / ')||"-" },
+                khotbah: { mc:(rK[4]||"-").replace(/\n/g,' / '), doa_persembahan:(rK[5]||"-").replace(/\n/g,' / '), doa:(rK[6]||"-").replace(/\n/g,' / '), diakon:gabunganDiakon.replace(/\n/g,' / ')||"-", preacher:(rK[9]||"-").replace(/\n/g,' / '), special:(rK[10]||"-").replace(/\n/g,' / '), piano:(rK[11]||"-").replace(/\n/g,' / '), media:(rK[12]||"-").replace(/\n/g,' / ') }
             });
         }
-
         buildDatePicker();
     } catch (error) {
         console.error(error);
-        document.getElementById('date-picker').innerHTML = `<div class="status-msg" style="color:#d63b3b;">Sistem gagal menyambung ke Google Sheets.</div>`;
+        document.getElementById('date-picker').innerHTML = '<div class="status-msg" style="color:#d63b3b;">Sistem gagal menyambung ke Google Sheets.</div>';
     }
 }
-
 function buildDatePicker() {
-    const picker = document.getElementById('date-picker');
-    picker.innerHTML = '';
-    
-    const today = new Date();
-    today.setHours(0,0,0,0);
-    let autoSelect = 0;
-
-    for (let i = 0; i < globalScheduleData.length; i++) {
-        if (globalScheduleData[i].fullDate >= today) {
-            autoSelect = i;
-            break;
-        }
-    }
-
+    const picker = document.getElementById('date-picker'); picker.innerHTML = '';
+    const today = new Date(); today.setHours(0,0,0,0); let autoSelect = 0;
+    for (let i = 0; i < globalScheduleData.length; i++) { if (globalScheduleData[i].fullDate >= today) { autoSelect = i; break; } }
     globalScheduleData.forEach((item, index) => {
-        const btn = document.createElement('button');
-        btn.className = 'pill';
-        btn.innerHTML = item.date;
+        const btn = document.createElement('button'); btn.className = 'pill'; btn.innerHTML = item.date;
         if (index === autoSelect) btn.classList.add('active');
-        
-        btn.onclick = () => {
-            document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-            btn.classList.add('active');
-            renderSchedule(index);
-        };
+        btn.onclick = () => { document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active')); btn.classList.add('active'); renderSchedule(index); };
         picker.appendChild(btn);
     });
-
-    if (picker.children.length > 0) {
-        const activePill = picker.children[autoSelect];
-        activePill.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-        renderSchedule(autoSelect);
-    }
+    if (picker.children.length > 0) { const activePill = picker.children[autoSelect]; activePill.scrollIntoView({behavior:'smooth',inline:'center'}); renderSchedule(autoSelect); }
 }
-
 function renderSchedule(index) {
     const data = globalScheduleData[index];
     document.getElementById('schedule-content').innerHTML = `
         <div class="service-header" style="color:var(--gold);"><i class="fas fa-sun"></i> Sekolah Sabat (09:45 AM)</div>
         <div class="petugas-grid">
-            <div class="card">
-                ${r("Pemimpin Nyanyi & Doa Penutup S.Sabat", data.ss.nyanyi, "fa-microphone-lines")}
-                ${r("Pemimpin Acara & Doa Pembuka", data.ss.acara, "fa-microphone")}
-                ${r("Cerita Misi", data.ss.misi, "fa-earth-asia")}
-            </div>
-            <div class="card">
-                ${r("Bacaan Keluarga & Kesihatan", data.ss.kesihatan, "fa-heart-pulse")}
-                ${r("Pianist", data.ss.piano, "fa-piano")}
-                ${r("Media", data.ss.media, "fa-laptop-code")}
-                ${r("Laporan & Jurutulis", data.ss.tulis, "fa-pen-nib")}
-            </div>
+            <div class="card">${r("Pemimpin Nyanyi & Doa Penutup S.Sabat",data.ss.nyanyi,"fa-microphone-lines")}${r("Pemimpin Acara & Doa Pembuka",data.ss.acara,"fa-microphone")}${r("Cerita Misi",data.ss.misi,"fa-earth-asia")}</div>
+            <div class="card">${r("Bacaan Keluarga & Kesihatan",data.ss.kesihatan,"fa-heart-pulse")}${r("Pianist",data.ss.piano,"fa-piano")}${r("Media",data.ss.media,"fa-laptop-code")}${r("Laporan & Jurutulis",data.ss.tulis,"fa-pen-nib")}</div>
         </div>
         <div class="service-header" style="color:var(--accent);"><i class="fas fa-church"></i> Kebaktian Khotbah (11:00 AM)</div>
         <div class="petugas-grid">
-            <div class="card" style="border-left: 5px solid #d63b3b;">
-                ${r("Pengkhotbah", data.khotbah.preacher, "fa-star")}
-                ${r("Pemimpin Acara", data.khotbah.mc, "fa-user-tie")}
-                ${r("Doa Pembuka", data.khotbah.doa, "fa-hands-praying")}
-                ${r("Doa Persembahan", data.khotbah.doa_persembahan, "fa-hand-holding-heart")}
-            </div>
-            <div class="card">
-                ${r("Diakon/Diakones", data.khotbah.diakon, "fa-user-shield")}
-                ${r("Pianist", data.khotbah.piano, "fa-music")}
-                ${r("Media", data.khotbah.media, "fa-desktop")}
-                ${r("Istimewa", data.khotbah.special, "fa-gift")}
-            </div>
+            <div class="card" style="border-left:5px solid #d63b3b;">${r("Pengkhotbah",data.khotbah.preacher,"fa-star")}${r("Pemimpin Acara",data.khotbah.mc,"fa-user-tie")}${r("Doa Pembuka",data.khotbah.doa,"fa-hands-praying")}${r("Doa Persembahan",data.khotbah.doa_persembahan,"fa-hand-holding-heart")}</div>
+            <div class="card">${r("Diakon/Diakones",data.khotbah.diakon,"fa-user-shield")}${r("Pianist",data.khotbah.piano,"fa-music")}${r("Media",data.khotbah.media,"fa-desktop")}${r("Istimewa",data.khotbah.special,"fa-gift")}</div>
         </div>`;
 }
-
-function r(t, n, i) { return `<div class="role-item"><div class="role-icon"><i class="fas ${i}"></i></div><div class="role-text"><span>${t}</span><strong>${n}</strong></div></div>`; }
-
+function r(t,n,i){return `<div class="role-item"><div class="role-icon"><i class="fas ${i}"></i></div><div class="role-text"><span>${t}</span><strong>${n}</strong></div></div>`;}
 window.addEventListener('load', loadLiveSchedule);
-
-document.getElementById("menu-toggle").addEventListener("click", () => document.getElementById("nav-links").classList.toggle("active"));
-document.querySelectorAll("#nav-links a").forEach(link => {
-    link.addEventListener("click", () => document.getElementById("nav-links").classList.remove("active"));
-});
-const bgMusic = document.getElementById('bg-music');
-document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
 </script>
 </body>
 </html>

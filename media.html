@@ -134,6 +134,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
     </div>
 </div>
 
+<main id="app">
 <section class="banner">
     <div class="container">
         <h1>Media Gereja</h1>
@@ -196,6 +197,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
         </div>
     </div>
 </section>
+</main>
 
 <footer class="footer">
     <div class="container">
@@ -206,54 +208,92 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 <audio id="bg-music" autoplay loop><source src="public/music.mp3" type="audio/mpeg"></audio>
 
 <script>
-/* =====================================================================
-   FACEBOOK ALBUM GALLERY — Auto-fetches photos from Facebook albums
-   using a CORS proxy, displays them in a custom lightbox.
-   Photos load directly from Facebook CDN — zero storage on GitHub.
-   ===================================================================== */
+// ================= GLOBAL SITE CODE (same on all pages) =================
+(function() {
+// ---- SPA Navigation ----
+document.addEventListener('click', async e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('//') || href.startsWith('mailto') || link.hasAttribute('target')) return;
+    e.preventDefault();
+    const url = href.includes('.html') ? href : href + '.html';
+    try {
+        const resp = await fetch(url);
+        const html = await resp.text();
+        const m = html.match(/<main id="app">([\s\S]*?)<\/main>/);
+        if (m) {
+            document.getElementById('app').innerHTML = m[1];
+            history.pushState(null, '', href);
+            window.scrollTo(0, 0);
+            document.dispatchEvent(new Event('pagechange'));
+        }
+    } catch (err) { window.location.href = href; }
+});
+window.addEventListener('popstate', async () => {
+    const resp = await fetch(window.location.pathname);
+    const html = await resp.text();
+    const m = html.match(/<main id="app">([\s\S]*?)<\/main>/);
+    if (m) document.getElementById('app').innerHTML = m[1];
+    document.dispatchEvent(new Event('pagechange'));
+});
 
-// === ADD YOUR FACEBOOK ALBUM URLs HERE ===
+// ---- Persistent Audio ----
+const bgMusic = document.getElementById('bg-music');
+const savedTime = sessionStorage.getItem('musicTime');
+if (savedTime !== null) bgMusic.currentTime = parseFloat(savedTime);
+bgMusic.addEventListener('timeupdate', () => sessionStorage.setItem('musicTime', bgMusic.currentTime));
+const pp = bgMusic.play();
+if (pp !== undefined) pp.catch(() => {});
+document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
+
+// ---- Shared UI (runs on every page load/change) ----
+function initPage() {
+    const toggle = document.getElementById("menu-toggle");
+    if (toggle) toggle.onclick = () => document.getElementById("nav-links").classList.toggle("active");
+    document.querySelectorAll("#nav-links a").forEach(link => {
+        link.onclick = () => document.getElementById("nav-links").classList.remove("active");
+    });
+    const fadeEls = document.querySelectorAll('.fade');
+    function cf() { fadeEls.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show'); }); }
+    window.onscroll = cf; cf();
+}
+initPage();
+document.addEventListener('pagechange', initPage);
+})();
+
+// ================= MEDIA.HTML PAGE-SPECIFIC CODE =================
+(function() {
 const ALBUM_URLS = [
     "https://www.facebook.com/media/set/?set=a.103869245992982&type=3",
     "https://www.facebook.com/media/set/?set=a.104512149262025&type=3"
 ];
-
-// CORS proxy (free) — bypasses browser CORS to fetch Facebook page HTML
 const PROXY = "https://api.allorigins.win/raw?url=";
 
-// ========== 1. EXTRACT PHOTOS FROM FACEBOOK ==========
 async function fetchAlbumPhotos(albumUrl) {
     const proxyUrl = PROXY + encodeURIComponent(albumUrl);
     const resp = await fetch(proxyUrl);
     const html = await resp.text();
-
     const urls = [];
-    // Facebook embeds photo URLs in the page source as JSON or attributes
-    // Pattern 1: "previewImage":{"uri":"https:\/\/..."}
     const re1 = /"previewImage"\s*:\s*\{[^}]*"uri"\s*:\s*"([^"]+)"/g;
     let m;
     while ((m = re1.exec(html)) !== null) {
         const u = m[1].replace(/\\\//g, '/');
         if (!urls.includes(u)) urls.push(u);
     }
-    // Pattern 2: fbcdn.net URLs in the raw HTML
     const re2 = /https:[^"']*?fbcdn[^"']*?\.(jpg|jpeg|png|gif|webp)/g;
     while ((m = re2.exec(html)) !== null) {
-        // Decode HTML entities
         const u = m[0].replace(/&amp;/g, '&');
         if (!urls.includes(u)) urls.push(u);
     }
-    // Remove duplicates and filter
     return [...new Set(urls)].filter(u => u.startsWith('http'));
 }
 
-// ========== 2. GET ALBUM NAME ==========
 function getAlbumName(url) {
     const match = url.match(/set=a\.(\d+)/);
     return match ? "Album " + match[1].slice(-4) : "Album Facebook";
 }
 
-// ========== 3. BUILD THE GALLERY ==========
 const container = document.getElementById('album-container');
 const loading = document.getElementById('album-loading');
 let albums = [];
@@ -262,128 +302,58 @@ let currentPhoto = 0;
 
 async function loadAlbums() {
     const albumData = [];
-
     for (const url of ALBUM_URLS) {
         try {
             const photos = await fetchAlbumPhotos(url);
-            if (photos.length > 0) {
-                albumData.push({ url, title: getAlbumName(url), photos });
-            }
-        } catch (e) {
-            console.warn('Failed to fetch album:', url, e);
-        }
+            if (photos.length > 0) albumData.push({ url, title: getAlbumName(url), photos });
+        } catch (e) { console.warn('Failed:', url, e); }
     }
-
     loading.style.display = 'none';
-
     if (albumData.length === 0) {
         container.innerHTML = '<div class="loading-album">Album tidak dapat dimuatkan. Cuba lagi nanti.</div>';
         return;
     }
-
     albums = albumData;
-
     albums.forEach((album, idx) => {
         const card = document.createElement('div');
         card.className = 'album-card fade';
-        card.innerHTML = `
-            <img class="album-cover" src="${album.photos[0]}" alt="${album.title}" loading="lazy">
-            <div class="album-info">
-                <h3>${album.title}</h3>
-                <p>${album.photos.length} foto</p>
-            </div>
-        `;
+        card.innerHTML = `<img class="album-cover" src="${album.photos[0]}" alt="${album.title}" loading="lazy"><div class="album-info"><h3>${album.title}</h3><p>${album.photos.length} foto</p></div>`;
         card.addEventListener('click', () => openLightbox(idx, 0));
         container.appendChild(card);
     });
-
-    // Trigger fade on new elements
-    checkFade();
 }
 
-// ========== 4. LIGHTBOX ==========
 const lb = document.getElementById('lightbox');
 const lbImg = document.getElementById('lb-img');
 const lbCounter = document.getElementById('lb-counter');
 
 function openLightbox(albumIdx, photoIdx) {
-    currentAlbum = albumIdx;
-    currentPhoto = photoIdx;
-    showLightboxPhoto();
-    lb.classList.add('active');
+    currentAlbum = albumIdx; currentPhoto = photoIdx;
+    showPhoto(); lb.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
-
-function showLightboxPhoto() {
-    const album = albums[currentAlbum];
-    lbImg.src = album.photos[currentPhoto];
-    lbCounter.textContent = (currentPhoto + 1) + ' / ' + album.photos.length + ' — ' + album.title;
+function showPhoto() {
+    const a = albums[currentAlbum];
+    lbImg.src = a.photos[currentPhoto];
+    lbCounter.textContent = (currentPhoto + 1) + ' / ' + a.photos.length + ' — ' + a.title;
 }
+function closeLightbox() { lb.classList.remove('active'); document.body.style.overflow = ''; lbImg.src = ''; }
+function prevPhoto() { const a = albums[currentAlbum]; currentPhoto = (currentPhoto - 1 + a.photos.length) % a.photos.length; showPhoto(); }
+function nextPhoto() { const a = albums[currentAlbum]; currentPhoto = (currentPhoto + 1) % a.photos.length; showPhoto(); }
 
-function closeLightbox() {
-    lb.classList.remove('active');
-    document.body.style.overflow = '';
-    lbImg.src = ''; // Stop loading
-}
-
-function prevPhoto() {
-    const album = albums[currentAlbum];
-    currentPhoto = (currentPhoto - 1 + album.photos.length) % album.photos.length;
-    showLightboxPhoto();
-}
-
-function nextPhoto() {
-    const album = albums[currentAlbum];
-    currentPhoto = (currentPhoto + 1) % album.photos.length;
-    showLightboxPhoto();
-}
-
-document.getElementById('lb-close').addEventListener('click', closeLightbox);
-document.getElementById('lb-prev').addEventListener('click', prevPhoto);
-document.getElementById('lb-next').addEventListener('click', nextPhoto);
-
-// Keyboard navigation
+document.getElementById('lb-close').onclick = closeLightbox;
+document.getElementById('lb-prev').onclick = prevPhoto;
+document.getElementById('lb-next').onclick = nextPhoto;
 document.addEventListener('keydown', e => {
     if (!lb.classList.contains('active')) return;
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') prevPhoto();
     if (e.key === 'ArrowRight') nextPhoto();
 });
+lb.onclick = e => { if (e.target === lb) closeLightbox(); };
 
-// Close on background click
-lb.addEventListener('click', e => {
-    if (e.target === lb) closeLightbox();
-});
-
-// Start loading albums
-window.addEventListener('load', loadAlbums);
-
-// ========== 5. MUSIC SMART MEMORY ==========
-const bgMusic = document.getElementById('bg-music');
-const savedTime = sessionStorage.getItem('musicTime');
-if (savedTime) { bgMusic.currentTime = parseFloat(savedTime); }
-window.addEventListener('beforeunload', () => { sessionStorage.setItem('musicTime', bgMusic.currentTime); });
-document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
-
-// ========== 6. MOBILE MENU ==========
-document.getElementById("menu-toggle").addEventListener("click", () => {
-    document.getElementById("nav-links").classList.toggle("active");
-});
-document.querySelectorAll("#nav-links a").forEach(link => {
-    link.addEventListener("click", () => {
-        document.getElementById("nav-links").classList.remove("active");
-    });
-});
-
-// ========== 7. FADE ANIMATION ==========
-const fadeElements = document.querySelectorAll('.fade');
-function checkFade() {
-    fadeElements.forEach(el => {
-        if (el.getBoundingClientRect().top < window.innerHeight * 0.85) { el.classList.add('show'); }
-    });
-}
-window.addEventListener('scroll', checkFade);
-window.addEventListener('load', checkFade);
+loadAlbums();
+})();
 </script>
 
 </body>

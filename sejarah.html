@@ -123,6 +123,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
     </div>
 </div>
 
+<main id="app">
 <section class="banner">
     <div class="container">
         <h1>Sejarah Gereja</h1>
@@ -257,6 +258,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
         </div>
     </div>
 </section>
+</main>
 
 <footer class="footer">
     <div class="container">
@@ -267,36 +269,45 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 <audio id="bg-music" autoplay loop><source src="public/music.mp3" type="audio/mpeg"></audio>
 
 <script>
-// Mobile Menu
-document.getElementById("menu-toggle").addEventListener("click", () => {
-    document.getElementById("nav-links").classList.toggle("active");
+(function(){
+document.addEventListener('click', async e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('//') || href.startsWith('mailto') || link.hasAttribute('target')) return;
+    e.preventDefault();
+    const url = href.includes('.html') ? href : href + '.html';
+    try {
+        const resp = await fetch(url);
+        const html = await resp.text();
+        const m = html.match(/<main id="app">([\s\S]*?)<\/main>/);
+        if (m) { document.getElementById('app').innerHTML = m[1]; history.pushState(null,'',href); window.scrollTo(0,0); document.dispatchEvent(new Event('pagechange')); }
+    } catch(err) { window.location.href = href; }
 });
-
-document.querySelectorAll("#nav-links a").forEach(link => {
-    link.addEventListener("click", () => {
-        document.getElementById("nav-links").classList.remove("active");
-    });
+window.addEventListener('popstate', async () => {
+    const resp = await fetch(window.location.pathname);
+    const html = await resp.text();
+    const m = html.match(/<main id="app">([\s\S]*?)<\/main>/);
+    if (m) document.getElementById('app').innerHTML = m[1];
+    document.dispatchEvent(new Event('pagechange'));
 });
-
-// Fade Animation
-const fadeElements = document.querySelectorAll('.fade');
-function checkFade() {
-    const triggerBottom = window.innerHeight * 0.85;
-    fadeElements.forEach(el => {
-        if (el.getBoundingClientRect().top < triggerBottom) {
-            el.classList.add('show');
-        }
-    });
-}
-window.addEventListener('scroll', checkFade);
-window.addEventListener('load', checkFade);
-
-// Music Smart Memory
 const bgMusic = document.getElementById('bg-music');
 const savedTime = sessionStorage.getItem('musicTime');
-if (savedTime) bgMusic.currentTime = parseFloat(savedTime);
-window.addEventListener('beforeunload', () => sessionStorage.setItem('musicTime', bgMusic.currentTime));
+if (savedTime !== null) bgMusic.currentTime = parseFloat(savedTime);
+bgMusic.addEventListener('timeupdate', () => sessionStorage.setItem('musicTime', bgMusic.currentTime));
+const pp = bgMusic.play(); if (pp !== undefined) pp.catch(()=>{});
 document.addEventListener('click', () => { if (bgMusic.paused) bgMusic.play(); });
+function initPage() {
+    const toggle = document.getElementById("menu-toggle");
+    if (toggle) toggle.onclick = () => document.getElementById("nav-links").classList.toggle("active");
+    document.querySelectorAll("#nav-links a").forEach(link => { link.onclick = () => document.getElementById("nav-links").classList.remove("active"); });
+    const fadeEls = document.querySelectorAll('.fade');
+    function cf() { fadeEls.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('show'); }); }
+    window.onscroll = cf; cf();
+}
+initPage();
+document.addEventListener('pagechange', initPage);
+})();
 </script>
 
 </body>
