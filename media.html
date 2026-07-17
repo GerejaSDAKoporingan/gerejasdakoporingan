@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Media | Gereja SDA Koporingan</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
@@ -57,6 +56,11 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 .gallery img { width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius); transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: var(--shadow); }
 .gallery img:hover { transform: scale(1.03); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
 
+/* ALBUM GRID (Facebook embeds) */
+.album-grid { display: grid; grid-template-columns: 1fr; gap: 40px; max-width: 600px; margin: 0 auto; }
+.album-card { background: var(--bg); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); border: 1px solid #f0f0f2; }
+.album-card .fb-post { width: 100%; }
+
 /* CARDS */
 .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
 .card { background: var(--bg); padding: 45px 30px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; border: 1px solid #f0f0f2; transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -84,6 +88,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
   .banner h1 { font-size: 28px; }
 }
 </style>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ms_MY/sdk.js#xfbml=1&version=v22.0"></script>
 </head>
 
 <body>
@@ -131,6 +136,21 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
     </div>
 </section>
 
+<section class="section" id="album-facebook" style="background:var(--bg);">
+    <div class="container">
+        <h2 class="fade" style="font-family:'Playfair Display', serif; color:var(--primary); text-align:center; font-size:28px; margin-bottom:10px;">Album Facebook</h2>
+        <p class="fade" style="text-align:center; color:var(--text-muted); margin-bottom:50px; font-size:15px;">Klik pada album untuk melihat foto — ia akan dibuka di laman yang sama.</p>
+        <div class="album-grid fade" id="fb-album-container">
+            <div class="album-card">
+                <div class="fb-post" data-href="https://www.facebook.com/media/set/?set=a.103869245992982&type=3" data-width="auto" data-show-text="false"></div>
+            </div>
+            <div class="album-card">
+                <div class="fb-post" data-href="https://www.facebook.com/media/set/?set=a.104512149262025&type=3" data-width="auto" data-show-text="false"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="section" style="background:#f8f9fb;">
     <div class="container">
         <div class="card-grid">
@@ -143,7 +163,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 
             <div class="card fade">
                 <i class="fab fa-facebook"></i>
-                <h3>Album Facebook</h3>
+                <h3>Halaman Facebook</h3>
                 <p>Lihat koleksi gambar aktiviti dan momen-momen indah jemaat di Facebook.</p>
                 <a href="https://www.facebook.com/share/187svoWKJs/?mibextid=wwXIfr" target="_blank">Lawati Facebook</a>
             </div>
